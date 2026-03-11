@@ -9,13 +9,13 @@ import (
 	"testing"
 )
 
-func TestStatusCommand(t *testing.T) {
+func TestStatusAppdataCommand(t *testing.T) {
 	// 1. Create a fake HTTP server that mimics the OpenAPI backend
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/status" {
+		if r.URL.Path == "/status/appdata" {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
-			w.Write([]byte(`{"version": "1.0.0", "status": "ok"}`))
+			w.Write([]byte(`{"appData": true, "appDataPath": "/app/config", "appDataPermissions": true}`))
 			return
 		}
 		
@@ -28,20 +28,20 @@ func TestStatusCommand(t *testing.T) {
 	os.Setenv("SEER_SERVER", server.URL)
 	defer os.Unsetenv("SEER_SERVER")
 	
-	t.Run("Status Command Execution", func(t *testing.T) {
+	t.Run("Appdata Command Execution", func(t *testing.T) {
 		b := new(bytes.Buffer)
 		rootCmd.SetOut(b)
 		rootCmd.SetErr(b)
-		rootCmd.SetArgs([]string{"status"})
-
+		rootCmd.SetArgs([]string{"status", "appdata"})
+		
 		err := rootCmd.Execute()
 		if err != nil {
 			t.Fatalf("Expected command to execute cleanly, got error: %v", err)
 		}
 
 		out := b.String()
-		if !strings.Contains(out, "\"version\": \"1.0.0\"") {
+		if !strings.Contains(out, "\"appData\": true") {
 			t.Errorf("Expected output to contain JSON response, got: %s", out)
 		}
 	})
-	}
+}
