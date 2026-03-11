@@ -46,7 +46,7 @@
 ## Development Workflow
 
 1.  **Research:** Map the OpenAPI spec to the required command.
-2.  **Test:** Add a failing test in `cmd/*_test.go`.
+2.  **Test:** Add a failing test in `tests/*_test.go`.
 3.  **Implement:** Add the command logic, respecting configuration and verbose flags.
 4.  **Validate:** Run `go test -v ./...` and `go build`.
 5.  **Clean:** Ensure `.gitignore` is respected and the index is clean.

@@ -1,4 +1,4 @@
-package cmd
+package tests
 
 import (
 	"bytes"
@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/spf13/viper"
+	"seer-cli/cmd"
 )
 
 func TestConfigCommands(t *testing.T) {
@@ -23,11 +24,11 @@ func TestConfigCommands(t *testing.T) {
 	t.Run("config help", func(t *testing.T) {
 		viper.Reset()
 		b := new(bytes.Buffer)
-		rootCmd.SetOut(b)
-		rootCmd.SetErr(b)
-		rootCmd.SetArgs([]string{"config", "--help"})
+		cmd.RootCmd.SetOut(b)
+		cmd.RootCmd.SetErr(b)
+		cmd.RootCmd.SetArgs([]string{"config", "--help"})
 
-		err := rootCmd.Execute()
+		err := cmd.RootCmd.Execute()
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
@@ -41,15 +42,15 @@ func TestConfigCommands(t *testing.T) {
 	t.Run("config set", func(t *testing.T) {
 		viper.Reset()
 		b := new(bytes.Buffer)
-		rootCmd.SetOut(b)
-		rootCmd.SetErr(b)
+		cmd.RootCmd.SetOut(b)
+		cmd.RootCmd.SetErr(b)
 		
 		testServer := "http://test-server:5055"
 		testKey := "test-api-key-12345"
 		
-		rootCmd.SetArgs([]string{"config", "set", "--server", testServer, "--api-key", testKey, "--config", configPath})
+		cmd.RootCmd.SetArgs([]string{"config", "set", "--server", testServer, "--api-key", testKey, "--config", configPath})
 
-		err := rootCmd.Execute()
+		err := cmd.RootCmd.Execute()
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
@@ -75,12 +76,12 @@ func TestConfigCommands(t *testing.T) {
 		// Use the file created in the previous step
 		viper.Reset()
 		b := new(bytes.Buffer)
-		rootCmd.SetOut(b)
-		rootCmd.SetErr(b)
+		cmd.RootCmd.SetOut(b)
+		cmd.RootCmd.SetErr(b)
 		
-		rootCmd.SetArgs([]string{"config", "show", "--config", configPath})
+		cmd.RootCmd.SetArgs([]string{"config", "show", "--config", configPath})
 
-		err := rootCmd.Execute()
+		err := cmd.RootCmd.Execute()
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
@@ -100,12 +101,12 @@ func TestConfigCommands(t *testing.T) {
 		emptyConfig := filepath.Join(tempDir, "empty.yaml")
 		
 		b := new(bytes.Buffer)
-		rootCmd.SetOut(b)
-		rootCmd.SetErr(b)
+		cmd.RootCmd.SetOut(b)
+		cmd.RootCmd.SetErr(b)
 		
-		rootCmd.SetArgs([]string{"config", "show", "--config", emptyConfig})
+		cmd.RootCmd.SetArgs([]string{"config", "show", "--config", emptyConfig})
 
-		err := rootCmd.Execute()
+		err := cmd.RootCmd.Execute()
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}

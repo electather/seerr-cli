@@ -16,7 +16,7 @@ var (
 	verbose bool
 )
 
-var rootCmd = &cobra.Command{
+var RootCmd = &cobra.Command{
 	Use:   "seer-cli",
 	Short: "A CLI to interact with the Seer API",
 	Long:  `A command line interface to call endpoints defined in the Seer OpenAPI specification.`,
@@ -38,7 +38,7 @@ var rootCmd = &cobra.Command{
 }
 
 func Execute() {
-	err := rootCmd.Execute()
+	err := RootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}
@@ -47,14 +47,14 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.seer-cli.yaml)")
-	rootCmd.PersistentFlags().StringVarP(&server, "server", "s", "", "Seer server URL (e.g., https://request.omidastaraki.com). The /api/v1 prefix is added automatically if not provided.")
-	rootCmd.PersistentFlags().StringVarP(&apiKey, "api-key", "k", "", "Seer API Key")
-	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.seer-cli.yaml)")
+	RootCmd.PersistentFlags().StringVarP(&server, "server", "s", "", "Seer server URL (e.g., https://request.omidastaraki.com). The /api/v1 prefix is added automatically if not provided.")
+	RootCmd.PersistentFlags().StringVarP(&apiKey, "api-key", "k", "", "Seer API Key")
+	RootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output")
 
-	viper.BindPFlag("server", rootCmd.PersistentFlags().Lookup("server"))
-	viper.BindPFlag("api_key", rootCmd.PersistentFlags().Lookup("api-key"))
-	viper.BindPFlag("verbose", rootCmd.PersistentFlags().Lookup("verbose"))
+	viper.BindPFlag("server", RootCmd.PersistentFlags().Lookup("server"))
+	viper.BindPFlag("api_key", RootCmd.PersistentFlags().Lookup("api-key"))
+	viper.BindPFlag("verbose", RootCmd.PersistentFlags().Lookup("verbose"))
 }
 
 func initConfig() {

@@ -1,4 +1,4 @@
-package cmd
+package tests
 
 import (
 	"bytes"
@@ -7,6 +7,8 @@ import (
 	"os"
 	"strings"
 	"testing"
+
+	"seer-cli/cmd"
 )
 
 func TestStatusAppdataCommand(t *testing.T) {
@@ -24,17 +26,17 @@ func TestStatusAppdataCommand(t *testing.T) {
 	defer server.Close()
 
 	// 2. Set the overridden URL flag or env so the client hits the test server
-	overrideServerURL = server.URL
+	cmd.OverrideServerURL = server.URL
 	os.Setenv("SEER_SERVER", server.URL)
 	defer os.Unsetenv("SEER_SERVER")
 	
 	t.Run("Appdata Command Execution", func(t *testing.T) {
 		b := new(bytes.Buffer)
-		rootCmd.SetOut(b)
-		rootCmd.SetErr(b)
-		rootCmd.SetArgs([]string{"status", "appdata"})
+		cmd.RootCmd.SetOut(b)
+		cmd.RootCmd.SetErr(b)
+		cmd.RootCmd.SetArgs([]string{"status", "appdata"})
 		
-		err := rootCmd.Execute()
+		err := cmd.RootCmd.Execute()
 		if err != nil {
 			t.Fatalf("Expected command to execute cleanly, got error: %v", err)
 		}
