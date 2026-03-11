@@ -13,6 +13,7 @@ var (
 	cfgFile string
 	server  string
 	apiKey  string
+	verbose bool
 )
 
 var rootCmd = &cobra.Command{
@@ -47,11 +48,13 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.seer-cli.yaml)")
-	rootCmd.PersistentFlags().StringVarP(&server, "server", "s", "", "Seer server URL (e.g., http://localhost:5055)")
+	rootCmd.PersistentFlags().StringVarP(&server, "server", "s", "", "Seer server URL (e.g., https://request.omidastaraki.com). The /api/v1 prefix is added automatically if not provided.")
 	rootCmd.PersistentFlags().StringVarP(&apiKey, "api-key", "k", "", "Seer API Key")
+	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output")
 
 	viper.BindPFlag("server", rootCmd.PersistentFlags().Lookup("server"))
 	viper.BindPFlag("api_key", rootCmd.PersistentFlags().Lookup("api-key"))
+	viper.BindPFlag("verbose", rootCmd.PersistentFlags().Lookup("verbose"))
 }
 
 func initConfig() {
@@ -75,6 +78,8 @@ func initConfig() {
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+		if viper.GetBool("verbose") {
+			fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+		}
 	}
 }

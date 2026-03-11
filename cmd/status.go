@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -20,10 +22,17 @@ var statusCmd = &cobra.Command{
 		// Initialize the API configuration
 		configuration := api.NewConfiguration()
 		
+		serverURL := viper.GetString("server")
+		// Ensure server URL has /api/v1 suffix if not present
+		// This makes it easier for users to just provide the base host URL
+		if !strings.HasSuffix(serverURL, "/api/v1") && !strings.HasSuffix(serverURL, "/api/v1/") {
+			serverURL = strings.TrimSuffix(serverURL, "/") + "/api/v1"
+		}
+
 		// Set server URL from viper
 		configuration.Servers = api.ServerConfigurations{
 			{
-				URL: viper.GetString("server"),
+				URL: serverURL,
 				Description: "Configured Server",
 			},
 		}
@@ -48,16 +57,32 @@ var statusCmd = &cobra.Command{
 		// Example context
 		ctx := context.Background()
 		
-		cmd.Println("Calling /status endpoint...")
-		
-		// Call a status or public endpoint if one exists
-		// Note: Replace StatusGet with an actual endpoint from your schema
-		res, r, err := apiClient.PublicAPI.StatusGet(ctx).Execute()
-		if err != nil {
-			return fmt.Errorf("error when calling StatusGet: %w\nFull HTTP response: %v", err, r)
+		isVerbose := viper.GetBool("verbose")
+		if isVerbose {
+			cmd.Printf("Calling /status endpoint on %s...\n", serverURL)
 		}
 		
-		cmd.Printf("Response from StatusGet: %v\n", res)
+		// Call a status or public endpoint if one exists
+		res, r, err := apiClient.PublicAPI.StatusGet(ctx).Execute()
+		if err != nil {
+			if isVerbose && r != nil {
+				return fmt.Errorf("error when calling StatusGet: %w\nFull HTTP response: %v", err, r)
+			}
+			return fmt.Errorf("error when calling StatusGet: %w", err)
+		}
+		
+		// Pretty print the response as JSON
+		jsonRes, err := json.MarshalIndent(res, "", "  ")
+		if err != nil {
+			return fmt.Errorf("failed to marshal response: %w", err)
+		}
+
+		if isVerbose {
+			cmd.Printf("HTTP Status: %s\n", r.Status)
+			cmd.Printf("Response from StatusGet:\n%s\n", string(jsonRes))
+		} else {
+			cmd.Println(string(jsonRes))
+		}
 		return nil
 	},
 }

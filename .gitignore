@@ -1,0 +1,38 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go build command
+seer-cli
+seer-cli-*
+
+# Project-specific local config
+.seer-cli.yaml
+test-config.yaml
+.env
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependency directories (remove the # if you use vendor)
+# vendor/
+
+# Go workspace file (remove if you want to commit it, but often ignored for local dev)
+# go.work
+
+# Go coverage and profiling
+*.out
+*.prof

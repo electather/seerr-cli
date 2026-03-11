@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
+
+	"github.com/spf13/viper"
 )
 
 func TestStatusCommand(t *testing.T) {
@@ -23,28 +26,53 @@ func TestStatusCommand(t *testing.T) {
 	defer server.Close()
 
 	// 2. Set the overridden URL flag or env so the client hits the test server
-	// We'll update statusCmd temporarily to have an initial state if we had a flag
-	// For this test, we can capture the standard output using bytes buffer
-	
-	// Create a buffer to capture CLI output
-	b := new(bytes.Buffer)
-	rootCmd.SetOut(b)
-	rootCmd.SetErr(b)
-	// We must reset the args so it doesn't use the test flags from 'go test'
-	rootCmd.SetArgs([]string{"status", "--server", server.URL})
-	
-	// Set the package-level override URL to our test server
 	overrideServerURL = server.URL
+	os.Setenv("SEER_SERVER", server.URL)
+	defer os.Unsetenv("SEER_SERVER")
 	
-	err := rootCmd.Execute()
-	
-	// We expect success now since it connects to the test server
-	if err != nil {
-		t.Fatalf("Expected command to execute cleanly, got error: %v", err)
-	}
+	t.Run("Normal Mode", func(t *testing.T) {
+		b := new(bytes.Buffer)
+		rootCmd.SetOut(b)
+		rootCmd.SetErr(b)
+		rootCmd.SetArgs([]string{"status"})
+		
+		err := rootCmd.Execute()
+		if err != nil {
+			t.Fatalf("Expected command to execute cleanly, got error: %v", err)
+		}
 
-	out := b.String()
-	if !strings.Contains(out, "Calling /status endpoint...") {
-		t.Errorf("Expected output to contain 'Calling /status endpoint...', got: %s", out)
-	}
+		out := b.String()
+		if strings.Contains(out, "Calling /status endpoint...") {
+			t.Errorf("Output should not contain debug messages in normal mode")
+		}
+		if !strings.Contains(out, "\"version\": \"1.0.0\"") {
+			t.Errorf("Expected output to contain JSON response, got: %s", out)
+		}
+	})
+
+	t.Run("Verbose Mode", func(t *testing.T) {
+		viper.Set("verbose", true)
+		defer viper.Set("verbose", false)
+		
+		b := new(bytes.Buffer)
+		rootCmd.SetOut(b)
+		rootCmd.SetErr(b)
+		rootCmd.SetArgs([]string{"status", "--verbose"})
+		
+		err := rootCmd.Execute()
+		if err != nil {
+			t.Fatalf("Expected command to execute cleanly, got error: %v", err)
+		}
+
+		out := b.String()
+		if !strings.Contains(out, "Calling /status endpoint") {
+			t.Errorf("Expected output to contain 'Calling /status endpoint', got: %s", out)
+		}
+		if !strings.Contains(out, "HTTP Status: 200 OK") {
+			t.Errorf("Expected output to contain HTTP status, got: %s", out)
+		}
+		if !strings.Contains(out, "\"version\": \"1.0.0\"") {
+			t.Errorf("Expected output to contain JSON response, got: %s", out)
+		}
+	})
 }
