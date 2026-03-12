@@ -1,0 +1,112 @@
+name: Version & Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      prerelease:
+        description: "Pre-release label (empty = stable release)"
+        required: false
+        type: choice
+        options:
+          - ""
+          - alpha
+          - beta
+          - rc
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Version & Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Compute next version
+        id: version
+        run: |
+          # Last stable tag (no pre-release suffix)
+          LAST_STABLE=$(git tag -l "v[0-9]*" | grep -v -- '-' | sort -V | tail -1)
+          echo "Last stable: ${LAST_STABLE:-<none>}"
+
+          # Commits to analyze (since last stable, or all)
+          if [ -z "$LAST_STABLE" ]; then
+            COMMITS=$(git log --pretty=format:"%s")
+          else
+            COMMITS=$(git log "${LAST_STABLE}..HEAD" --pretty=format:"%s")
+          fi
+
+          # Determine bump level from conventional commits
+          BUMP="patch"
+          while IFS= read -r msg; do
+            if echo "$msg" | grep -qE '^[a-z]+(\(.+\))?!:' || echo "$msg" | grep -q 'BREAKING CHANGE'; then
+              BUMP="major"
+            elif echo "$msg" | grep -qE '^feat(\(.+\))?:' && [ "$BUMP" != "major" ]; then
+              BUMP="minor"
+            fi
+          done <<< "$COMMITS"
+          echo "Bump: $BUMP"
+
+          # Parse stable version numbers
+          if [ -z "$LAST_STABLE" ]; then
+            MAJOR=0; MINOR=0; PATCH=0
+          else
+            V=${LAST_STABLE#v}
+            MAJOR=$(echo "$V" | cut -d. -f1)
+            MINOR=$(echo "$V" | cut -d. -f2)
+            PATCH=$(echo "$V" | cut -d. -f3)
+          fi
+
+          # Compute next stable version
+          case "$BUMP" in
+            major) NX=$((MAJOR+1)); NY=0;          NZ=0 ;;
+            minor) NX=$MAJOR;       NY=$((MINOR+1)); NZ=0 ;;
+            patch) NX=$MAJOR;       NY=$MINOR;    NZ=$((PATCH+1)) ;;
+          esac
+          NEXT_STABLE="v${NX}.${NY}.${NZ}"
+          echo "Next stable: $NEXT_STABLE"
+
+          PRERELEASE="${{ inputs.prerelease }}"
+
+          if [ -z "$PRERELEASE" ]; then
+            NEW_TAG="$NEXT_STABLE"
+          else
+            # Find highest existing pre-release for this version+label
+            PREFIX="${NEXT_STABLE}-${PRERELEASE}."
+            LAST_PRE=$(git tag -l "${PREFIX}*" | sort -V | tail -1)
+            if [ -z "$LAST_PRE" ]; then
+              NEW_TAG="${PREFIX}0"
+            else
+              LAST_NUM=${LAST_PRE#"$PREFIX"}
+              NEW_TAG="${PREFIX}$((LAST_NUM + 1))"
+            fi
+          fi
+
+          echo "New tag: $NEW_TAG"
+          echo "tag=$NEW_TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Create and push tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "${{ steps.version.outputs.tag }}"
+          git push origin "${{ steps.version.outputs.tag }}"
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
