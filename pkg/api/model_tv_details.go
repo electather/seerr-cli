@@ -55,7 +55,7 @@ type TvDetails struct {
 	ExternalIds *ExternalIds `json:"externalIds,omitempty"`
 	Keywords []Keyword `json:"keywords,omitempty"`
 	MediaInfo *MediaInfo `json:"mediaInfo,omitempty"`
-	WatchProviders [][]WatchProvidersInner `json:"watchProviders,omitempty"`
+	WatchProviders []WatchProviders `json:"watchProviders,omitempty"`
 }
 
 // NewTvDetails instantiates a new TvDetails object
@@ -1228,9 +1228,9 @@ func (o *TvDetails) SetMediaInfo(v MediaInfo) {
 }
 
 // GetWatchProviders returns the WatchProviders field value if set, zero value otherwise.
-func (o *TvDetails) GetWatchProviders() [][]WatchProvidersInner {
+func (o *TvDetails) GetWatchProviders() []WatchProviders {
 	if o == nil || IsNil(o.WatchProviders) {
-		var ret [][]WatchProvidersInner
+		var ret []WatchProviders
 		return ret
 	}
 	return o.WatchProviders
@@ -1238,7 +1238,7 @@ func (o *TvDetails) GetWatchProviders() [][]WatchProvidersInner {
 
 // GetWatchProvidersOk returns a tuple with the WatchProviders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TvDetails) GetWatchProvidersOk() ([][]WatchProvidersInner, bool) {
+func (o *TvDetails) GetWatchProvidersOk() ([]WatchProviders, bool) {
 	if o == nil || IsNil(o.WatchProviders) {
 		return nil, false
 	}
@@ -1254,8 +1254,8 @@ func (o *TvDetails) HasWatchProviders() bool {
 	return false
 }
 
-// SetWatchProviders gets a reference to the given [][]WatchProvidersInner and assigns it to the WatchProviders field.
-func (o *TvDetails) SetWatchProviders(v [][]WatchProvidersInner) {
+// SetWatchProviders gets a reference to the given []WatchProviders and assigns it to the WatchProviders field.
+func (o *TvDetails) SetWatchProviders(v []WatchProviders) {
 	o.WatchProviders = v
 }
 

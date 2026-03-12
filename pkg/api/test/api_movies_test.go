@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_MoviesAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_MoviesAPIService(t *testing.T) {
 
 	t.Run("Test MoviesAPIService MovieMovieIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var movieId float32
 
@@ -38,7 +38,7 @@ func Test_api_MoviesAPIService(t *testing.T) {
 
 	t.Run("Test MoviesAPIService MovieMovieIdRatingsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var movieId float32
 
@@ -52,7 +52,7 @@ func Test_api_MoviesAPIService(t *testing.T) {
 
 	t.Run("Test MoviesAPIService MovieMovieIdRatingscombinedGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var movieId float32
 
@@ -66,7 +66,7 @@ func Test_api_MoviesAPIService(t *testing.T) {
 
 	t.Run("Test MoviesAPIService MovieMovieIdRecommendationsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var movieId float32
 
@@ -80,7 +80,7 @@ func Test_api_MoviesAPIService(t *testing.T) {
 
 	t.Run("Test MoviesAPIService MovieMovieIdSimilarGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var movieId float32
 

@@ -1320,6 +1320,32 @@ components:
           type: number
         rootFolder:
           type: string
+        type:
+          type: string
+          example: "movie"
+          description: "Type of the request (movie or tv)"
+          readOnly: true
+        languageProfileId:
+          type: number
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: number
+        isAutoRequest:
+          type: boolean
+        seasons:
+          type: array
+          items:
+            type: object
+        seasonCount:
+          type: number
+        profileName:
+          type: string
+          nullable: true
+        canRemove:
+          type: boolean
+      additionalProperties: true
       required:
         - id
         - status
@@ -1336,10 +1362,19 @@ components:
           type: number
           readOnly: true
           nullable: true
+        imdbId:
+          type: string
+          nullable: true
+          readOnly: true
+        mediaType:
+          type: string
+          readOnly: true
         status:
           type: number
           example: 0
           description: Availability of the media. 1 = `UNKNOWN`, 2 = `PENDING`, 3 = `PROCESSING`, 4 = `PARTIALLY_AVAILABLE`, 5 = `AVAILABLE`, 6 = `DELETED`
+        status4k:
+          type: number
         requests:
           type: array
           readOnly: true
@@ -1353,6 +1388,57 @@ components:
           type: string
           example: "2020-09-12T10:00:27.000Z"
           readOnly: true
+        lastSeasonChange:
+          type: string
+          nullable: true
+        mediaAddedAt:
+          type: string
+          nullable: true
+        serviceId:
+          type: number
+          nullable: true
+        serviceId4k:
+          type: number
+          nullable: true
+        externalServiceId:
+          type: number
+          nullable: true
+        externalServiceId4k:
+          type: number
+          nullable: true
+        externalServiceSlug:
+          type: string
+          nullable: true
+        externalServiceSlug4k:
+          type: string
+          nullable: true
+        ratingKey:
+          type: string
+          nullable: true
+        ratingKey4k:
+          type: string
+          nullable: true
+        jellyfinMediaId:
+          type: string
+          nullable: true
+        jellyfinMediaId4k:
+          type: string
+          nullable: true
+        serviceUrl:
+          type: string
+          nullable: true
+        downloadStatus:
+          type: array
+          items:
+            type: object
+        downloadStatus4k:
+          type: array
+          items:
+            type: object
+        mediaUrl:
+          type: string
+          nullable: true
+      additionalProperties: true
     Cast:
       type: object
       properties:
@@ -2050,21 +2136,20 @@ components:
         webpush:
           type: number
     WatchProviders:
-      type: array
-      items:
-        type: object
-        properties:
-          iso_3166_1:
-            type: string
-          link:
-            type: string
-          buy:
-            type: array
-            items:
-              $ref: "#/components/schemas/WatchProviderDetails"
-          flatrate:
-            items:
-              $ref: "#/components/schemas/WatchProviderDetails"
+      type: object
+      properties:
+        iso_3166_1:
+          type: string
+        link:
+          type: string
+        buy:
+          type: array
+          items:
+            $ref: "#/components/schemas/WatchProviderDetails"
+        flatrate:
+          type: array
+          items:
+            $ref: "#/components/schemas/WatchProviderDetails"
     WatchProviderDetails:
       type: object
       properties:

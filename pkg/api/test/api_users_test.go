@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_UsersAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService AuthMeGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UsersAPI.AuthMeGet(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService AuthResetPasswordGuidPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var guid string
 
@@ -50,7 +50,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService AuthResetPasswordPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UsersAPI.AuthResetPasswordPost(context.Background()).Execute()
 
@@ -62,7 +62,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService SettingsJellyfinUsersGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UsersAPI.SettingsJellyfinUsersGet(context.Background()).Execute()
 
@@ -74,7 +74,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService SettingsPlexUsersGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UsersAPI.SettingsPlexUsersGet(context.Background()).Execute()
 
@@ -86,7 +86,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UsersAPI.UserGet(context.Background()).Execute()
 
@@ -98,7 +98,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserImportFromJellyfinPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UsersAPI.UserImportFromJellyfinPost(context.Background()).Execute()
 
@@ -110,7 +110,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserImportFromPlexPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UsersAPI.UserImportFromPlexPost(context.Background()).Execute()
 
@@ -122,7 +122,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UsersAPI.UserPost(context.Background()).Execute()
 
@@ -134,7 +134,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserPut", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.UsersAPI.UserPut(context.Background()).Execute()
 
@@ -146,7 +146,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserRegisterPushSubscriptionPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.UsersAPI.UserRegisterPushSubscriptionPost(context.Background()).Execute()
 
@@ -157,7 +157,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -171,7 +171,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -185,7 +185,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdPushSubscriptionEndpointDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 		var endpoint string
@@ -199,7 +199,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdPushSubscriptionEndpointGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 		var endpoint string
@@ -214,7 +214,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdPushSubscriptionsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -228,7 +228,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdPut", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -242,7 +242,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdQuotaGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -256,7 +256,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdRequestsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -270,7 +270,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsLinkedAccountsJellyfinDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -283,7 +283,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsLinkedAccountsJellyfinPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -296,7 +296,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsLinkedAccountsPlexDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -309,7 +309,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsLinkedAccountsPlexPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -322,7 +322,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsMainGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -336,7 +336,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsMainPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -350,7 +350,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsNotificationsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -364,7 +364,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsNotificationsPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -378,7 +378,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsPasswordGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -392,7 +392,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsPasswordPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -405,7 +405,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsPermissionsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -419,7 +419,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdSettingsPermissionsPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -433,7 +433,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdWatchDataGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 
@@ -447,7 +447,7 @@ func Test_api_UsersAPIService(t *testing.T) {
 
 	t.Run("Test UsersAPIService UserUserIdWatchlistGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var userId float32
 

@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 **Collection** | Pointer to [**MovieDetailsCollection**](MovieDetailsCollection.md) |  | [optional] 
 **ExternalIds** | Pointer to [**ExternalIds**](ExternalIds.md) |  | [optional] 
 **MediaInfo** | Pointer to [**MediaInfo**](MediaInfo.md) |  | [optional] 
-**WatchProviders** | Pointer to [**[][]WatchProvidersInner**]([]WatchProvidersInner.md) |  | [optional] 
+**WatchProviders** | Pointer to [**[]WatchProviders**](WatchProviders.md) |  | [optional] 
 
 ## Methods
 
@@ -817,20 +817,20 @@ HasMediaInfo returns a boolean if a field has been set.
 
 ### GetWatchProviders
 
-`func (o *MovieDetails) GetWatchProviders() [][]WatchProvidersInner`
+`func (o *MovieDetails) GetWatchProviders() []WatchProviders`
 
 GetWatchProviders returns the WatchProviders field if non-nil, zero value otherwise.
 
 ### GetWatchProvidersOk
 
-`func (o *MovieDetails) GetWatchProvidersOk() (*[][]WatchProvidersInner, bool)`
+`func (o *MovieDetails) GetWatchProvidersOk() (*[]WatchProviders, bool)`
 
 GetWatchProvidersOk returns a tuple with the WatchProviders field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWatchProviders
 
-`func (o *MovieDetails) SetWatchProviders(v [][]WatchProvidersInner)`
+`func (o *MovieDetails) SetWatchProviders(v []WatchProviders)`
 
 SetWatchProviders sets WatchProviders field to given value.
 

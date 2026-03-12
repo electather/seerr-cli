@@ -12,7 +12,6 @@ package api
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -33,6 +32,16 @@ type MediaRequest struct {
 	ServerId *float32 `json:"serverId,omitempty"`
 	ProfileId *float32 `json:"profileId,omitempty"`
 	RootFolder *string `json:"rootFolder,omitempty"`
+	// Type of the request (movie or tv)
+	Type *string `json:"type,omitempty"`
+	LanguageProfileId NullableFloat32 `json:"languageProfileId,omitempty"`
+	Tags []float32 `json:"tags,omitempty"`
+	IsAutoRequest *bool `json:"isAutoRequest,omitempty"`
+	Seasons []map[string]interface{} `json:"seasons,omitempty"`
+	SeasonCount *float32 `json:"seasonCount,omitempty"`
+	ProfileName NullableString `json:"profileName,omitempty"`
+	CanRemove *bool `json:"canRemove,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MediaRequest MediaRequest
@@ -392,6 +401,282 @@ func (o *MediaRequest) SetRootFolder(v string) {
 	o.RootFolder = &v
 }
 
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *MediaRequest) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaRequest) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *MediaRequest) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *MediaRequest) SetType(v string) {
+	o.Type = &v
+}
+
+// GetLanguageProfileId returns the LanguageProfileId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaRequest) GetLanguageProfileId() float32 {
+	if o == nil || IsNil(o.LanguageProfileId.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.LanguageProfileId.Get()
+}
+
+// GetLanguageProfileIdOk returns a tuple with the LanguageProfileId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaRequest) GetLanguageProfileIdOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LanguageProfileId.Get(), o.LanguageProfileId.IsSet()
+}
+
+// HasLanguageProfileId returns a boolean if a field has been set.
+func (o *MediaRequest) HasLanguageProfileId() bool {
+	if o != nil && o.LanguageProfileId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLanguageProfileId gets a reference to the given NullableFloat32 and assigns it to the LanguageProfileId field.
+func (o *MediaRequest) SetLanguageProfileId(v float32) {
+	o.LanguageProfileId.Set(&v)
+}
+// SetLanguageProfileIdNil sets the value for LanguageProfileId to be an explicit nil
+func (o *MediaRequest) SetLanguageProfileIdNil() {
+	o.LanguageProfileId.Set(nil)
+}
+
+// UnsetLanguageProfileId ensures that no value is present for LanguageProfileId, not even an explicit nil
+func (o *MediaRequest) UnsetLanguageProfileId() {
+	o.LanguageProfileId.Unset()
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *MediaRequest) GetTags() []float32 {
+	if o == nil || IsNil(o.Tags) {
+		var ret []float32
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaRequest) GetTagsOk() ([]float32, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *MediaRequest) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []float32 and assigns it to the Tags field.
+func (o *MediaRequest) SetTags(v []float32) {
+	o.Tags = v
+}
+
+// GetIsAutoRequest returns the IsAutoRequest field value if set, zero value otherwise.
+func (o *MediaRequest) GetIsAutoRequest() bool {
+	if o == nil || IsNil(o.IsAutoRequest) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAutoRequest
+}
+
+// GetIsAutoRequestOk returns a tuple with the IsAutoRequest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaRequest) GetIsAutoRequestOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAutoRequest) {
+		return nil, false
+	}
+	return o.IsAutoRequest, true
+}
+
+// HasIsAutoRequest returns a boolean if a field has been set.
+func (o *MediaRequest) HasIsAutoRequest() bool {
+	if o != nil && !IsNil(o.IsAutoRequest) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAutoRequest gets a reference to the given bool and assigns it to the IsAutoRequest field.
+func (o *MediaRequest) SetIsAutoRequest(v bool) {
+	o.IsAutoRequest = &v
+}
+
+// GetSeasons returns the Seasons field value if set, zero value otherwise.
+func (o *MediaRequest) GetSeasons() []map[string]interface{} {
+	if o == nil || IsNil(o.Seasons) {
+		var ret []map[string]interface{}
+		return ret
+	}
+	return o.Seasons
+}
+
+// GetSeasonsOk returns a tuple with the Seasons field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaRequest) GetSeasonsOk() ([]map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Seasons) {
+		return nil, false
+	}
+	return o.Seasons, true
+}
+
+// HasSeasons returns a boolean if a field has been set.
+func (o *MediaRequest) HasSeasons() bool {
+	if o != nil && !IsNil(o.Seasons) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeasons gets a reference to the given []map[string]interface{} and assigns it to the Seasons field.
+func (o *MediaRequest) SetSeasons(v []map[string]interface{}) {
+	o.Seasons = v
+}
+
+// GetSeasonCount returns the SeasonCount field value if set, zero value otherwise.
+func (o *MediaRequest) GetSeasonCount() float32 {
+	if o == nil || IsNil(o.SeasonCount) {
+		var ret float32
+		return ret
+	}
+	return *o.SeasonCount
+}
+
+// GetSeasonCountOk returns a tuple with the SeasonCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaRequest) GetSeasonCountOk() (*float32, bool) {
+	if o == nil || IsNil(o.SeasonCount) {
+		return nil, false
+	}
+	return o.SeasonCount, true
+}
+
+// HasSeasonCount returns a boolean if a field has been set.
+func (o *MediaRequest) HasSeasonCount() bool {
+	if o != nil && !IsNil(o.SeasonCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeasonCount gets a reference to the given float32 and assigns it to the SeasonCount field.
+func (o *MediaRequest) SetSeasonCount(v float32) {
+	o.SeasonCount = &v
+}
+
+// GetProfileName returns the ProfileName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaRequest) GetProfileName() string {
+	if o == nil || IsNil(o.ProfileName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ProfileName.Get()
+}
+
+// GetProfileNameOk returns a tuple with the ProfileName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaRequest) GetProfileNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ProfileName.Get(), o.ProfileName.IsSet()
+}
+
+// HasProfileName returns a boolean if a field has been set.
+func (o *MediaRequest) HasProfileName() bool {
+	if o != nil && o.ProfileName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetProfileName gets a reference to the given NullableString and assigns it to the ProfileName field.
+func (o *MediaRequest) SetProfileName(v string) {
+	o.ProfileName.Set(&v)
+}
+// SetProfileNameNil sets the value for ProfileName to be an explicit nil
+func (o *MediaRequest) SetProfileNameNil() {
+	o.ProfileName.Set(nil)
+}
+
+// UnsetProfileName ensures that no value is present for ProfileName, not even an explicit nil
+func (o *MediaRequest) UnsetProfileName() {
+	o.ProfileName.Unset()
+}
+
+// GetCanRemove returns the CanRemove field value if set, zero value otherwise.
+func (o *MediaRequest) GetCanRemove() bool {
+	if o == nil || IsNil(o.CanRemove) {
+		var ret bool
+		return ret
+	}
+	return *o.CanRemove
+}
+
+// GetCanRemoveOk returns a tuple with the CanRemove field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaRequest) GetCanRemoveOk() (*bool, bool) {
+	if o == nil || IsNil(o.CanRemove) {
+		return nil, false
+	}
+	return o.CanRemove, true
+}
+
+// HasCanRemove returns a boolean if a field has been set.
+func (o *MediaRequest) HasCanRemove() bool {
+	if o != nil && !IsNil(o.CanRemove) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanRemove gets a reference to the given bool and assigns it to the CanRemove field.
+func (o *MediaRequest) SetCanRemove(v bool) {
+	o.CanRemove = &v
+}
+
 func (o MediaRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -431,6 +716,35 @@ func (o MediaRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RootFolder) {
 		toSerialize["rootFolder"] = o.RootFolder
 	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if o.LanguageProfileId.IsSet() {
+		toSerialize["languageProfileId"] = o.LanguageProfileId.Get()
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.IsAutoRequest) {
+		toSerialize["isAutoRequest"] = o.IsAutoRequest
+	}
+	if !IsNil(o.Seasons) {
+		toSerialize["seasons"] = o.Seasons
+	}
+	if !IsNil(o.SeasonCount) {
+		toSerialize["seasonCount"] = o.SeasonCount
+	}
+	if o.ProfileName.IsSet() {
+		toSerialize["profileName"] = o.ProfileName.Get()
+	}
+	if !IsNil(o.CanRemove) {
+		toSerialize["canRemove"] = o.CanRemove
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -459,15 +773,38 @@ func (o *MediaRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varMediaRequest := _MediaRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMediaRequest)
+	err = json.Unmarshal(data, &varMediaRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MediaRequest(varMediaRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "media")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "requestedBy")
+		delete(additionalProperties, "modifiedBy")
+		delete(additionalProperties, "is4k")
+		delete(additionalProperties, "serverId")
+		delete(additionalProperties, "profileId")
+		delete(additionalProperties, "rootFolder")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "languageProfileId")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "isAutoRequest")
+		delete(additionalProperties, "seasons")
+		delete(additionalProperties, "seasonCount")
+		delete(additionalProperties, "profileName")
+		delete(additionalProperties, "canRemove")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

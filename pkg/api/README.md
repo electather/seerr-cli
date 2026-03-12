@@ -475,7 +475,7 @@ Class | Method | HTTP request | Description
  - [UserUserIdWatchlistGet200ResponseResultsInner](docs/UserUserIdWatchlistGet200ResponseResultsInner.md)
  - [WatchProviderDetails](docs/WatchProviderDetails.md)
  - [WatchProviderRegion](docs/WatchProviderRegion.md)
- - [WatchProvidersInner](docs/WatchProvidersInner.md)
+ - [WatchProviders](docs/WatchProviders.md)
  - [Watchlist](docs/Watchlist.md)
  - [WebPushSettings](docs/WebPushSettings.md)
  - [WebhookSettings](docs/WebhookSettings.md)

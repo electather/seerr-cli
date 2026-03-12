@@ -22,12 +22,34 @@ type MediaInfo struct {
 	Id *float32 `json:"id,omitempty"`
 	TmdbId *float32 `json:"tmdbId,omitempty"`
 	TvdbId NullableFloat32 `json:"tvdbId,omitempty"`
+	ImdbId NullableString `json:"imdbId,omitempty"`
+	MediaType *string `json:"mediaType,omitempty"`
 	// Availability of the media. 1 = `UNKNOWN`, 2 = `PENDING`, 3 = `PROCESSING`, 4 = `PARTIALLY_AVAILABLE`, 5 = `AVAILABLE`, 6 = `DELETED`
 	Status *float32 `json:"status,omitempty"`
+	Status4k *float32 `json:"status4k,omitempty"`
 	Requests []MediaRequest `json:"requests,omitempty"`
 	CreatedAt *string `json:"createdAt,omitempty"`
 	UpdatedAt *string `json:"updatedAt,omitempty"`
+	LastSeasonChange NullableString `json:"lastSeasonChange,omitempty"`
+	MediaAddedAt NullableString `json:"mediaAddedAt,omitempty"`
+	ServiceId NullableFloat32 `json:"serviceId,omitempty"`
+	ServiceId4k NullableFloat32 `json:"serviceId4k,omitempty"`
+	ExternalServiceId NullableFloat32 `json:"externalServiceId,omitempty"`
+	ExternalServiceId4k NullableFloat32 `json:"externalServiceId4k,omitempty"`
+	ExternalServiceSlug NullableString `json:"externalServiceSlug,omitempty"`
+	ExternalServiceSlug4k NullableString `json:"externalServiceSlug4k,omitempty"`
+	RatingKey NullableString `json:"ratingKey,omitempty"`
+	RatingKey4k NullableString `json:"ratingKey4k,omitempty"`
+	JellyfinMediaId NullableString `json:"jellyfinMediaId,omitempty"`
+	JellyfinMediaId4k NullableString `json:"jellyfinMediaId4k,omitempty"`
+	ServiceUrl NullableString `json:"serviceUrl,omitempty"`
+	DownloadStatus []map[string]interface{} `json:"downloadStatus,omitempty"`
+	DownloadStatus4k []map[string]interface{} `json:"downloadStatus4k,omitempty"`
+	MediaUrl NullableString `json:"mediaUrl,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MediaInfo MediaInfo
 
 // NewMediaInfo instantiates a new MediaInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -152,6 +174,80 @@ func (o *MediaInfo) UnsetTvdbId() {
 	o.TvdbId.Unset()
 }
 
+// GetImdbId returns the ImdbId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetImdbId() string {
+	if o == nil || IsNil(o.ImdbId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ImdbId.Get()
+}
+
+// GetImdbIdOk returns a tuple with the ImdbId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetImdbIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ImdbId.Get(), o.ImdbId.IsSet()
+}
+
+// HasImdbId returns a boolean if a field has been set.
+func (o *MediaInfo) HasImdbId() bool {
+	if o != nil && o.ImdbId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetImdbId gets a reference to the given NullableString and assigns it to the ImdbId field.
+func (o *MediaInfo) SetImdbId(v string) {
+	o.ImdbId.Set(&v)
+}
+// SetImdbIdNil sets the value for ImdbId to be an explicit nil
+func (o *MediaInfo) SetImdbIdNil() {
+	o.ImdbId.Set(nil)
+}
+
+// UnsetImdbId ensures that no value is present for ImdbId, not even an explicit nil
+func (o *MediaInfo) UnsetImdbId() {
+	o.ImdbId.Unset()
+}
+
+// GetMediaType returns the MediaType field value if set, zero value otherwise.
+func (o *MediaInfo) GetMediaType() string {
+	if o == nil || IsNil(o.MediaType) {
+		var ret string
+		return ret
+	}
+	return *o.MediaType
+}
+
+// GetMediaTypeOk returns a tuple with the MediaType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaInfo) GetMediaTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.MediaType) {
+		return nil, false
+	}
+	return o.MediaType, true
+}
+
+// HasMediaType returns a boolean if a field has been set.
+func (o *MediaInfo) HasMediaType() bool {
+	if o != nil && !IsNil(o.MediaType) {
+		return true
+	}
+
+	return false
+}
+
+// SetMediaType gets a reference to the given string and assigns it to the MediaType field.
+func (o *MediaInfo) SetMediaType(v string) {
+	o.MediaType = &v
+}
+
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *MediaInfo) GetStatus() float32 {
 	if o == nil || IsNil(o.Status) {
@@ -182,6 +278,38 @@ func (o *MediaInfo) HasStatus() bool {
 // SetStatus gets a reference to the given float32 and assigns it to the Status field.
 func (o *MediaInfo) SetStatus(v float32) {
 	o.Status = &v
+}
+
+// GetStatus4k returns the Status4k field value if set, zero value otherwise.
+func (o *MediaInfo) GetStatus4k() float32 {
+	if o == nil || IsNil(o.Status4k) {
+		var ret float32
+		return ret
+	}
+	return *o.Status4k
+}
+
+// GetStatus4kOk returns a tuple with the Status4k field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaInfo) GetStatus4kOk() (*float32, bool) {
+	if o == nil || IsNil(o.Status4k) {
+		return nil, false
+	}
+	return o.Status4k, true
+}
+
+// HasStatus4k returns a boolean if a field has been set.
+func (o *MediaInfo) HasStatus4k() bool {
+	if o != nil && !IsNil(o.Status4k) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus4k gets a reference to the given float32 and assigns it to the Status4k field.
+func (o *MediaInfo) SetStatus4k(v float32) {
+	o.Status4k = &v
 }
 
 // GetRequests returns the Requests field value if set, zero value otherwise.
@@ -280,6 +408,658 @@ func (o *MediaInfo) SetUpdatedAt(v string) {
 	o.UpdatedAt = &v
 }
 
+// GetLastSeasonChange returns the LastSeasonChange field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetLastSeasonChange() string {
+	if o == nil || IsNil(o.LastSeasonChange.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.LastSeasonChange.Get()
+}
+
+// GetLastSeasonChangeOk returns a tuple with the LastSeasonChange field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetLastSeasonChangeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LastSeasonChange.Get(), o.LastSeasonChange.IsSet()
+}
+
+// HasLastSeasonChange returns a boolean if a field has been set.
+func (o *MediaInfo) HasLastSeasonChange() bool {
+	if o != nil && o.LastSeasonChange.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSeasonChange gets a reference to the given NullableString and assigns it to the LastSeasonChange field.
+func (o *MediaInfo) SetLastSeasonChange(v string) {
+	o.LastSeasonChange.Set(&v)
+}
+// SetLastSeasonChangeNil sets the value for LastSeasonChange to be an explicit nil
+func (o *MediaInfo) SetLastSeasonChangeNil() {
+	o.LastSeasonChange.Set(nil)
+}
+
+// UnsetLastSeasonChange ensures that no value is present for LastSeasonChange, not even an explicit nil
+func (o *MediaInfo) UnsetLastSeasonChange() {
+	o.LastSeasonChange.Unset()
+}
+
+// GetMediaAddedAt returns the MediaAddedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetMediaAddedAt() string {
+	if o == nil || IsNil(o.MediaAddedAt.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.MediaAddedAt.Get()
+}
+
+// GetMediaAddedAtOk returns a tuple with the MediaAddedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetMediaAddedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MediaAddedAt.Get(), o.MediaAddedAt.IsSet()
+}
+
+// HasMediaAddedAt returns a boolean if a field has been set.
+func (o *MediaInfo) HasMediaAddedAt() bool {
+	if o != nil && o.MediaAddedAt.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMediaAddedAt gets a reference to the given NullableString and assigns it to the MediaAddedAt field.
+func (o *MediaInfo) SetMediaAddedAt(v string) {
+	o.MediaAddedAt.Set(&v)
+}
+// SetMediaAddedAtNil sets the value for MediaAddedAt to be an explicit nil
+func (o *MediaInfo) SetMediaAddedAtNil() {
+	o.MediaAddedAt.Set(nil)
+}
+
+// UnsetMediaAddedAt ensures that no value is present for MediaAddedAt, not even an explicit nil
+func (o *MediaInfo) UnsetMediaAddedAt() {
+	o.MediaAddedAt.Unset()
+}
+
+// GetServiceId returns the ServiceId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetServiceId() float32 {
+	if o == nil || IsNil(o.ServiceId.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.ServiceId.Get()
+}
+
+// GetServiceIdOk returns a tuple with the ServiceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetServiceIdOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ServiceId.Get(), o.ServiceId.IsSet()
+}
+
+// HasServiceId returns a boolean if a field has been set.
+func (o *MediaInfo) HasServiceId() bool {
+	if o != nil && o.ServiceId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceId gets a reference to the given NullableFloat32 and assigns it to the ServiceId field.
+func (o *MediaInfo) SetServiceId(v float32) {
+	o.ServiceId.Set(&v)
+}
+// SetServiceIdNil sets the value for ServiceId to be an explicit nil
+func (o *MediaInfo) SetServiceIdNil() {
+	o.ServiceId.Set(nil)
+}
+
+// UnsetServiceId ensures that no value is present for ServiceId, not even an explicit nil
+func (o *MediaInfo) UnsetServiceId() {
+	o.ServiceId.Unset()
+}
+
+// GetServiceId4k returns the ServiceId4k field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetServiceId4k() float32 {
+	if o == nil || IsNil(o.ServiceId4k.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.ServiceId4k.Get()
+}
+
+// GetServiceId4kOk returns a tuple with the ServiceId4k field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetServiceId4kOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ServiceId4k.Get(), o.ServiceId4k.IsSet()
+}
+
+// HasServiceId4k returns a boolean if a field has been set.
+func (o *MediaInfo) HasServiceId4k() bool {
+	if o != nil && o.ServiceId4k.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceId4k gets a reference to the given NullableFloat32 and assigns it to the ServiceId4k field.
+func (o *MediaInfo) SetServiceId4k(v float32) {
+	o.ServiceId4k.Set(&v)
+}
+// SetServiceId4kNil sets the value for ServiceId4k to be an explicit nil
+func (o *MediaInfo) SetServiceId4kNil() {
+	o.ServiceId4k.Set(nil)
+}
+
+// UnsetServiceId4k ensures that no value is present for ServiceId4k, not even an explicit nil
+func (o *MediaInfo) UnsetServiceId4k() {
+	o.ServiceId4k.Unset()
+}
+
+// GetExternalServiceId returns the ExternalServiceId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetExternalServiceId() float32 {
+	if o == nil || IsNil(o.ExternalServiceId.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.ExternalServiceId.Get()
+}
+
+// GetExternalServiceIdOk returns a tuple with the ExternalServiceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetExternalServiceIdOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExternalServiceId.Get(), o.ExternalServiceId.IsSet()
+}
+
+// HasExternalServiceId returns a boolean if a field has been set.
+func (o *MediaInfo) HasExternalServiceId() bool {
+	if o != nil && o.ExternalServiceId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalServiceId gets a reference to the given NullableFloat32 and assigns it to the ExternalServiceId field.
+func (o *MediaInfo) SetExternalServiceId(v float32) {
+	o.ExternalServiceId.Set(&v)
+}
+// SetExternalServiceIdNil sets the value for ExternalServiceId to be an explicit nil
+func (o *MediaInfo) SetExternalServiceIdNil() {
+	o.ExternalServiceId.Set(nil)
+}
+
+// UnsetExternalServiceId ensures that no value is present for ExternalServiceId, not even an explicit nil
+func (o *MediaInfo) UnsetExternalServiceId() {
+	o.ExternalServiceId.Unset()
+}
+
+// GetExternalServiceId4k returns the ExternalServiceId4k field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetExternalServiceId4k() float32 {
+	if o == nil || IsNil(o.ExternalServiceId4k.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.ExternalServiceId4k.Get()
+}
+
+// GetExternalServiceId4kOk returns a tuple with the ExternalServiceId4k field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetExternalServiceId4kOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExternalServiceId4k.Get(), o.ExternalServiceId4k.IsSet()
+}
+
+// HasExternalServiceId4k returns a boolean if a field has been set.
+func (o *MediaInfo) HasExternalServiceId4k() bool {
+	if o != nil && o.ExternalServiceId4k.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalServiceId4k gets a reference to the given NullableFloat32 and assigns it to the ExternalServiceId4k field.
+func (o *MediaInfo) SetExternalServiceId4k(v float32) {
+	o.ExternalServiceId4k.Set(&v)
+}
+// SetExternalServiceId4kNil sets the value for ExternalServiceId4k to be an explicit nil
+func (o *MediaInfo) SetExternalServiceId4kNil() {
+	o.ExternalServiceId4k.Set(nil)
+}
+
+// UnsetExternalServiceId4k ensures that no value is present for ExternalServiceId4k, not even an explicit nil
+func (o *MediaInfo) UnsetExternalServiceId4k() {
+	o.ExternalServiceId4k.Unset()
+}
+
+// GetExternalServiceSlug returns the ExternalServiceSlug field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetExternalServiceSlug() string {
+	if o == nil || IsNil(o.ExternalServiceSlug.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalServiceSlug.Get()
+}
+
+// GetExternalServiceSlugOk returns a tuple with the ExternalServiceSlug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetExternalServiceSlugOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExternalServiceSlug.Get(), o.ExternalServiceSlug.IsSet()
+}
+
+// HasExternalServiceSlug returns a boolean if a field has been set.
+func (o *MediaInfo) HasExternalServiceSlug() bool {
+	if o != nil && o.ExternalServiceSlug.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalServiceSlug gets a reference to the given NullableString and assigns it to the ExternalServiceSlug field.
+func (o *MediaInfo) SetExternalServiceSlug(v string) {
+	o.ExternalServiceSlug.Set(&v)
+}
+// SetExternalServiceSlugNil sets the value for ExternalServiceSlug to be an explicit nil
+func (o *MediaInfo) SetExternalServiceSlugNil() {
+	o.ExternalServiceSlug.Set(nil)
+}
+
+// UnsetExternalServiceSlug ensures that no value is present for ExternalServiceSlug, not even an explicit nil
+func (o *MediaInfo) UnsetExternalServiceSlug() {
+	o.ExternalServiceSlug.Unset()
+}
+
+// GetExternalServiceSlug4k returns the ExternalServiceSlug4k field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetExternalServiceSlug4k() string {
+	if o == nil || IsNil(o.ExternalServiceSlug4k.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalServiceSlug4k.Get()
+}
+
+// GetExternalServiceSlug4kOk returns a tuple with the ExternalServiceSlug4k field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetExternalServiceSlug4kOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExternalServiceSlug4k.Get(), o.ExternalServiceSlug4k.IsSet()
+}
+
+// HasExternalServiceSlug4k returns a boolean if a field has been set.
+func (o *MediaInfo) HasExternalServiceSlug4k() bool {
+	if o != nil && o.ExternalServiceSlug4k.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalServiceSlug4k gets a reference to the given NullableString and assigns it to the ExternalServiceSlug4k field.
+func (o *MediaInfo) SetExternalServiceSlug4k(v string) {
+	o.ExternalServiceSlug4k.Set(&v)
+}
+// SetExternalServiceSlug4kNil sets the value for ExternalServiceSlug4k to be an explicit nil
+func (o *MediaInfo) SetExternalServiceSlug4kNil() {
+	o.ExternalServiceSlug4k.Set(nil)
+}
+
+// UnsetExternalServiceSlug4k ensures that no value is present for ExternalServiceSlug4k, not even an explicit nil
+func (o *MediaInfo) UnsetExternalServiceSlug4k() {
+	o.ExternalServiceSlug4k.Unset()
+}
+
+// GetRatingKey returns the RatingKey field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetRatingKey() string {
+	if o == nil || IsNil(o.RatingKey.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.RatingKey.Get()
+}
+
+// GetRatingKeyOk returns a tuple with the RatingKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetRatingKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RatingKey.Get(), o.RatingKey.IsSet()
+}
+
+// HasRatingKey returns a boolean if a field has been set.
+func (o *MediaInfo) HasRatingKey() bool {
+	if o != nil && o.RatingKey.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRatingKey gets a reference to the given NullableString and assigns it to the RatingKey field.
+func (o *MediaInfo) SetRatingKey(v string) {
+	o.RatingKey.Set(&v)
+}
+// SetRatingKeyNil sets the value for RatingKey to be an explicit nil
+func (o *MediaInfo) SetRatingKeyNil() {
+	o.RatingKey.Set(nil)
+}
+
+// UnsetRatingKey ensures that no value is present for RatingKey, not even an explicit nil
+func (o *MediaInfo) UnsetRatingKey() {
+	o.RatingKey.Unset()
+}
+
+// GetRatingKey4k returns the RatingKey4k field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetRatingKey4k() string {
+	if o == nil || IsNil(o.RatingKey4k.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.RatingKey4k.Get()
+}
+
+// GetRatingKey4kOk returns a tuple with the RatingKey4k field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetRatingKey4kOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RatingKey4k.Get(), o.RatingKey4k.IsSet()
+}
+
+// HasRatingKey4k returns a boolean if a field has been set.
+func (o *MediaInfo) HasRatingKey4k() bool {
+	if o != nil && o.RatingKey4k.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRatingKey4k gets a reference to the given NullableString and assigns it to the RatingKey4k field.
+func (o *MediaInfo) SetRatingKey4k(v string) {
+	o.RatingKey4k.Set(&v)
+}
+// SetRatingKey4kNil sets the value for RatingKey4k to be an explicit nil
+func (o *MediaInfo) SetRatingKey4kNil() {
+	o.RatingKey4k.Set(nil)
+}
+
+// UnsetRatingKey4k ensures that no value is present for RatingKey4k, not even an explicit nil
+func (o *MediaInfo) UnsetRatingKey4k() {
+	o.RatingKey4k.Unset()
+}
+
+// GetJellyfinMediaId returns the JellyfinMediaId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetJellyfinMediaId() string {
+	if o == nil || IsNil(o.JellyfinMediaId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.JellyfinMediaId.Get()
+}
+
+// GetJellyfinMediaIdOk returns a tuple with the JellyfinMediaId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetJellyfinMediaIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.JellyfinMediaId.Get(), o.JellyfinMediaId.IsSet()
+}
+
+// HasJellyfinMediaId returns a boolean if a field has been set.
+func (o *MediaInfo) HasJellyfinMediaId() bool {
+	if o != nil && o.JellyfinMediaId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetJellyfinMediaId gets a reference to the given NullableString and assigns it to the JellyfinMediaId field.
+func (o *MediaInfo) SetJellyfinMediaId(v string) {
+	o.JellyfinMediaId.Set(&v)
+}
+// SetJellyfinMediaIdNil sets the value for JellyfinMediaId to be an explicit nil
+func (o *MediaInfo) SetJellyfinMediaIdNil() {
+	o.JellyfinMediaId.Set(nil)
+}
+
+// UnsetJellyfinMediaId ensures that no value is present for JellyfinMediaId, not even an explicit nil
+func (o *MediaInfo) UnsetJellyfinMediaId() {
+	o.JellyfinMediaId.Unset()
+}
+
+// GetJellyfinMediaId4k returns the JellyfinMediaId4k field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetJellyfinMediaId4k() string {
+	if o == nil || IsNil(o.JellyfinMediaId4k.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.JellyfinMediaId4k.Get()
+}
+
+// GetJellyfinMediaId4kOk returns a tuple with the JellyfinMediaId4k field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetJellyfinMediaId4kOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.JellyfinMediaId4k.Get(), o.JellyfinMediaId4k.IsSet()
+}
+
+// HasJellyfinMediaId4k returns a boolean if a field has been set.
+func (o *MediaInfo) HasJellyfinMediaId4k() bool {
+	if o != nil && o.JellyfinMediaId4k.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetJellyfinMediaId4k gets a reference to the given NullableString and assigns it to the JellyfinMediaId4k field.
+func (o *MediaInfo) SetJellyfinMediaId4k(v string) {
+	o.JellyfinMediaId4k.Set(&v)
+}
+// SetJellyfinMediaId4kNil sets the value for JellyfinMediaId4k to be an explicit nil
+func (o *MediaInfo) SetJellyfinMediaId4kNil() {
+	o.JellyfinMediaId4k.Set(nil)
+}
+
+// UnsetJellyfinMediaId4k ensures that no value is present for JellyfinMediaId4k, not even an explicit nil
+func (o *MediaInfo) UnsetJellyfinMediaId4k() {
+	o.JellyfinMediaId4k.Unset()
+}
+
+// GetServiceUrl returns the ServiceUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetServiceUrl() string {
+	if o == nil || IsNil(o.ServiceUrl.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ServiceUrl.Get()
+}
+
+// GetServiceUrlOk returns a tuple with the ServiceUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetServiceUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ServiceUrl.Get(), o.ServiceUrl.IsSet()
+}
+
+// HasServiceUrl returns a boolean if a field has been set.
+func (o *MediaInfo) HasServiceUrl() bool {
+	if o != nil && o.ServiceUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceUrl gets a reference to the given NullableString and assigns it to the ServiceUrl field.
+func (o *MediaInfo) SetServiceUrl(v string) {
+	o.ServiceUrl.Set(&v)
+}
+// SetServiceUrlNil sets the value for ServiceUrl to be an explicit nil
+func (o *MediaInfo) SetServiceUrlNil() {
+	o.ServiceUrl.Set(nil)
+}
+
+// UnsetServiceUrl ensures that no value is present for ServiceUrl, not even an explicit nil
+func (o *MediaInfo) UnsetServiceUrl() {
+	o.ServiceUrl.Unset()
+}
+
+// GetDownloadStatus returns the DownloadStatus field value if set, zero value otherwise.
+func (o *MediaInfo) GetDownloadStatus() []map[string]interface{} {
+	if o == nil || IsNil(o.DownloadStatus) {
+		var ret []map[string]interface{}
+		return ret
+	}
+	return o.DownloadStatus
+}
+
+// GetDownloadStatusOk returns a tuple with the DownloadStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaInfo) GetDownloadStatusOk() ([]map[string]interface{}, bool) {
+	if o == nil || IsNil(o.DownloadStatus) {
+		return nil, false
+	}
+	return o.DownloadStatus, true
+}
+
+// HasDownloadStatus returns a boolean if a field has been set.
+func (o *MediaInfo) HasDownloadStatus() bool {
+	if o != nil && !IsNil(o.DownloadStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetDownloadStatus gets a reference to the given []map[string]interface{} and assigns it to the DownloadStatus field.
+func (o *MediaInfo) SetDownloadStatus(v []map[string]interface{}) {
+	o.DownloadStatus = v
+}
+
+// GetDownloadStatus4k returns the DownloadStatus4k field value if set, zero value otherwise.
+func (o *MediaInfo) GetDownloadStatus4k() []map[string]interface{} {
+	if o == nil || IsNil(o.DownloadStatus4k) {
+		var ret []map[string]interface{}
+		return ret
+	}
+	return o.DownloadStatus4k
+}
+
+// GetDownloadStatus4kOk returns a tuple with the DownloadStatus4k field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MediaInfo) GetDownloadStatus4kOk() ([]map[string]interface{}, bool) {
+	if o == nil || IsNil(o.DownloadStatus4k) {
+		return nil, false
+	}
+	return o.DownloadStatus4k, true
+}
+
+// HasDownloadStatus4k returns a boolean if a field has been set.
+func (o *MediaInfo) HasDownloadStatus4k() bool {
+	if o != nil && !IsNil(o.DownloadStatus4k) {
+		return true
+	}
+
+	return false
+}
+
+// SetDownloadStatus4k gets a reference to the given []map[string]interface{} and assigns it to the DownloadStatus4k field.
+func (o *MediaInfo) SetDownloadStatus4k(v []map[string]interface{}) {
+	o.DownloadStatus4k = v
+}
+
+// GetMediaUrl returns the MediaUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MediaInfo) GetMediaUrl() string {
+	if o == nil || IsNil(o.MediaUrl.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.MediaUrl.Get()
+}
+
+// GetMediaUrlOk returns a tuple with the MediaUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MediaInfo) GetMediaUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MediaUrl.Get(), o.MediaUrl.IsSet()
+}
+
+// HasMediaUrl returns a boolean if a field has been set.
+func (o *MediaInfo) HasMediaUrl() bool {
+	if o != nil && o.MediaUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMediaUrl gets a reference to the given NullableString and assigns it to the MediaUrl field.
+func (o *MediaInfo) SetMediaUrl(v string) {
+	o.MediaUrl.Set(&v)
+}
+// SetMediaUrlNil sets the value for MediaUrl to be an explicit nil
+func (o *MediaInfo) SetMediaUrlNil() {
+	o.MediaUrl.Set(nil)
+}
+
+// UnsetMediaUrl ensures that no value is present for MediaUrl, not even an explicit nil
+func (o *MediaInfo) UnsetMediaUrl() {
+	o.MediaUrl.Unset()
+}
+
 func (o MediaInfo) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -299,8 +1079,17 @@ func (o MediaInfo) ToMap() (map[string]interface{}, error) {
 	if o.TvdbId.IsSet() {
 		toSerialize["tvdbId"] = o.TvdbId.Get()
 	}
+	if o.ImdbId.IsSet() {
+		toSerialize["imdbId"] = o.ImdbId.Get()
+	}
+	if !IsNil(o.MediaType) {
+		toSerialize["mediaType"] = o.MediaType
+	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Status4k) {
+		toSerialize["status4k"] = o.Status4k
 	}
 	if !IsNil(o.Requests) {
 		toSerialize["requests"] = o.Requests
@@ -311,7 +1100,106 @@ func (o MediaInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+	if o.LastSeasonChange.IsSet() {
+		toSerialize["lastSeasonChange"] = o.LastSeasonChange.Get()
+	}
+	if o.MediaAddedAt.IsSet() {
+		toSerialize["mediaAddedAt"] = o.MediaAddedAt.Get()
+	}
+	if o.ServiceId.IsSet() {
+		toSerialize["serviceId"] = o.ServiceId.Get()
+	}
+	if o.ServiceId4k.IsSet() {
+		toSerialize["serviceId4k"] = o.ServiceId4k.Get()
+	}
+	if o.ExternalServiceId.IsSet() {
+		toSerialize["externalServiceId"] = o.ExternalServiceId.Get()
+	}
+	if o.ExternalServiceId4k.IsSet() {
+		toSerialize["externalServiceId4k"] = o.ExternalServiceId4k.Get()
+	}
+	if o.ExternalServiceSlug.IsSet() {
+		toSerialize["externalServiceSlug"] = o.ExternalServiceSlug.Get()
+	}
+	if o.ExternalServiceSlug4k.IsSet() {
+		toSerialize["externalServiceSlug4k"] = o.ExternalServiceSlug4k.Get()
+	}
+	if o.RatingKey.IsSet() {
+		toSerialize["ratingKey"] = o.RatingKey.Get()
+	}
+	if o.RatingKey4k.IsSet() {
+		toSerialize["ratingKey4k"] = o.RatingKey4k.Get()
+	}
+	if o.JellyfinMediaId.IsSet() {
+		toSerialize["jellyfinMediaId"] = o.JellyfinMediaId.Get()
+	}
+	if o.JellyfinMediaId4k.IsSet() {
+		toSerialize["jellyfinMediaId4k"] = o.JellyfinMediaId4k.Get()
+	}
+	if o.ServiceUrl.IsSet() {
+		toSerialize["serviceUrl"] = o.ServiceUrl.Get()
+	}
+	if !IsNil(o.DownloadStatus) {
+		toSerialize["downloadStatus"] = o.DownloadStatus
+	}
+	if !IsNil(o.DownloadStatus4k) {
+		toSerialize["downloadStatus4k"] = o.DownloadStatus4k
+	}
+	if o.MediaUrl.IsSet() {
+		toSerialize["mediaUrl"] = o.MediaUrl.Get()
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MediaInfo) UnmarshalJSON(data []byte) (err error) {
+	varMediaInfo := _MediaInfo{}
+
+	err = json.Unmarshal(data, &varMediaInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MediaInfo(varMediaInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "tmdbId")
+		delete(additionalProperties, "tvdbId")
+		delete(additionalProperties, "imdbId")
+		delete(additionalProperties, "mediaType")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "status4k")
+		delete(additionalProperties, "requests")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "lastSeasonChange")
+		delete(additionalProperties, "mediaAddedAt")
+		delete(additionalProperties, "serviceId")
+		delete(additionalProperties, "serviceId4k")
+		delete(additionalProperties, "externalServiceId")
+		delete(additionalProperties, "externalServiceId4k")
+		delete(additionalProperties, "externalServiceSlug")
+		delete(additionalProperties, "externalServiceSlug4k")
+		delete(additionalProperties, "ratingKey")
+		delete(additionalProperties, "ratingKey4k")
+		delete(additionalProperties, "jellyfinMediaId")
+		delete(additionalProperties, "jellyfinMediaId4k")
+		delete(additionalProperties, "serviceUrl")
+		delete(additionalProperties, "downloadStatus")
+		delete(additionalProperties, "downloadStatus4k")
+		delete(additionalProperties, "mediaUrl")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMediaInfo struct {

@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_TvAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_TvAPIService(t *testing.T) {
 
 	t.Run("Test TvAPIService TvTvIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tvId float32
 
@@ -38,7 +38,7 @@ func Test_api_TvAPIService(t *testing.T) {
 
 	t.Run("Test TvAPIService TvTvIdRatingsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tvId float32
 
@@ -52,7 +52,7 @@ func Test_api_TvAPIService(t *testing.T) {
 
 	t.Run("Test TvAPIService TvTvIdRecommendationsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tvId float32
 
@@ -66,7 +66,7 @@ func Test_api_TvAPIService(t *testing.T) {
 
 	t.Run("Test TvAPIService TvTvIdSeasonSeasonNumberGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tvId float32
 		var seasonNumber float32
@@ -81,7 +81,7 @@ func Test_api_TvAPIService(t *testing.T) {
 
 	t.Run("Test TvAPIService TvTvIdSimilarGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tvId float32
 

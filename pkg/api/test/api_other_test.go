@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_OtherAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_OtherAPIService(t *testing.T) {
 
 	t.Run("Test OtherAPIService CertificationsMovieGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OtherAPI.CertificationsMovieGet(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_OtherAPIService(t *testing.T) {
 
 	t.Run("Test OtherAPIService CertificationsTvGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OtherAPI.CertificationsTvGet(context.Background()).Execute()
 
@@ -48,7 +48,7 @@ func Test_api_OtherAPIService(t *testing.T) {
 
 	t.Run("Test OtherAPIService KeywordKeywordIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var keywordId float32
 
@@ -62,7 +62,7 @@ func Test_api_OtherAPIService(t *testing.T) {
 
 	t.Run("Test OtherAPIService WatchprovidersMoviesGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OtherAPI.WatchprovidersMoviesGet(context.Background()).Execute()
 
@@ -74,7 +74,7 @@ func Test_api_OtherAPIService(t *testing.T) {
 
 	t.Run("Test OtherAPIService WatchprovidersRegionsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OtherAPI.WatchprovidersRegionsGet(context.Background()).Execute()
 
@@ -86,7 +86,7 @@ func Test_api_OtherAPIService(t *testing.T) {
 
 	t.Run("Test OtherAPIService WatchprovidersTvGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.OtherAPI.WatchprovidersTvGet(context.Background()).Execute()
 

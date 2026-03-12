@@ -221,7 +221,7 @@ docs/UserUserIdWatchlistGet200ResponseResultsInner.md
 docs/UsersAPI.md
 docs/WatchProviderDetails.md
 docs/WatchProviderRegion.md
-docs/WatchProvidersInner.md
+docs/WatchProviders.md
 docs/Watchlist.md
 docs/WatchlistAPI.md
 docs/WebPushSettings.md
@@ -412,7 +412,7 @@ model_user_settings_notifications.go
 model_user_update_payload.go
 model_watch_provider_details.go
 model_watch_provider_region.go
-model_watch_providers_inner.go
+model_watch_providers.go
 model_watchlist.go
 model_web_push_settings.go
 model_webhook_settings.go

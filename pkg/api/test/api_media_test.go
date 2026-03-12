@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_MediaAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_MediaAPIService(t *testing.T) {
 
 	t.Run("Test MediaAPIService MediaGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.MediaAPI.MediaGet(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_MediaAPIService(t *testing.T) {
 
 	t.Run("Test MediaAPIService MediaMediaIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var mediaId string
 
@@ -49,7 +49,7 @@ func Test_api_MediaAPIService(t *testing.T) {
 
 	t.Run("Test MediaAPIService MediaMediaIdFileDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var mediaId string
 
@@ -62,7 +62,7 @@ func Test_api_MediaAPIService(t *testing.T) {
 
 	t.Run("Test MediaAPIService MediaMediaIdStatusPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var mediaId string
 		var status string
@@ -77,7 +77,7 @@ func Test_api_MediaAPIService(t *testing.T) {
 
 	t.Run("Test MediaAPIService MediaMediaIdWatchDataGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var mediaId string
 

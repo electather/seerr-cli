@@ -6,11 +6,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"seer-cli/cmd/search"
-	"seer-cli/cmd"
+	"bytes"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
-	"bytes"
+	"seer-cli/cmd"
+	"seer-cli/cmd/search"
 )
 
 func TestSearchCommands(t *testing.T) {
@@ -25,46 +25,46 @@ func TestSearchCommands(t *testing.T) {
 		expectedPath   string
 	}{
 		{
-			name: "multi search",
-			args: []string{"search", "multi", "-q", "Inception"},
-			mockResponse: `{"results": [{"id": 1, "title": "Inception", "mediaType": "movie"}]}`,
+			name:           "multi search",
+			args:           []string{"search", "multi", "-q", "Inception"},
+			mockResponse:   `{"results": [{"id": 1, "title": "Inception", "mediaType": "movie"}]}`,
 			expectedOutput: `"title": "Inception"`,
-			expectedPath: "/api/v1/search",
+			expectedPath:   "/api/v1/search",
 		},
 		{
-			name: "keyword search",
-			args: []string{"search", "keyword", "-q", "sci-fi"},
-			mockResponse: `{"results": [{"id": 1, "name": "sci-fi"}]}`,
+			name:           "keyword search",
+			args:           []string{"search", "keyword", "-q", "sci-fi"},
+			mockResponse:   `{"results": [{"id": 1, "name": "sci-fi"}]}`,
 			expectedOutput: `"name": "sci-fi"`,
-			expectedPath: "/api/v1/search/keyword",
+			expectedPath:   "/api/v1/search/keyword",
 		},
 		{
-			name: "company search",
-			args: []string{"search", "company", "-q", "Warner"},
-			mockResponse: `{"results": [{"id": 1, "name": "Warner Bros."}]}`,
+			name:           "company search",
+			args:           []string{"search", "company", "-q", "Warner"},
+			mockResponse:   `{"results": [{"id": 1, "name": "Warner Bros."}]}`,
 			expectedOutput: `"name": "Warner Bros."`,
-			expectedPath: "/api/v1/search/company",
+			expectedPath:   "/api/v1/search/company",
 		},
 		{
-			name: "trending search",
-			args: []string{"search", "trending"},
-			mockResponse: `{"results": [{"id": 1, "title": "Trending Movie", "mediaType": "movie"}]}`,
+			name:           "trending search",
+			args:           []string{"search", "trending"},
+			mockResponse:   `{"results": [{"id": 1, "title": "Trending Movie", "mediaType": "movie"}]}`,
 			expectedOutput: `"title": "Trending Movie"`,
-			expectedPath: "/api/v1/discover/trending",
+			expectedPath:   "/api/v1/discover/trending",
 		},
 		{
-			name: "discover movies",
-			args: []string{"search", "movies", "--genre", "18"},
-			mockResponse: `{"results": [{"id": 1, "title": "Drama Movie", "mediaType": "movie"}]}`,
+			name:           "discover movies",
+			args:           []string{"search", "movies", "--genre", "18"},
+			mockResponse:   `{"results": [{"id": 1, "title": "Drama Movie", "mediaType": "movie"}]}`,
 			expectedOutput: `"title": "Drama Movie"`,
-			expectedPath: "/api/v1/discover/movies",
+			expectedPath:   "/api/v1/discover/movies",
 		},
 		{
-			name: "discover tv",
-			args: []string{"search", "tv", "--network", "1"},
-			mockResponse: `{"results": [{"id": 1, "name": "TV Show"}]}`,
+			name:           "discover tv",
+			args:           []string{"search", "tv", "--network", "1"},
+			mockResponse:   `{"results": [{"id": 1, "name": "TV Show"}]}`,
 			expectedOutput: `"name": "TV Show"`,
-			expectedPath: "/api/v1/discover/tv",
+			expectedPath:   "/api/v1/discover/tv",
 		},
 	}
 
@@ -73,7 +73,7 @@ func TestSearchCommands(t *testing.T) {
 			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				assert.Equal(t, tt.expectedPath, r.URL.Path)
 				assert.Equal(t, "test-api-key", r.Header.Get("X-Api-Key"))
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusOK)
 				fmt.Fprintln(w, tt.mockResponse)
@@ -81,7 +81,7 @@ func TestSearchCommands(t *testing.T) {
 			defer server.Close()
 
 			search.OverrideServerURL = server.URL + "/api/v1"
-			
+
 			b := bytes.NewBufferString("")
 			command := cmd.RootCmd
 			command.SetOut(b)

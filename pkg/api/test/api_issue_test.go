@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_IssueAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssueCommentCommentIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var commentId string
 
@@ -37,7 +37,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssueCommentCommentIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var commentId string
 
@@ -51,7 +51,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssueCommentCommentIdPut", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var commentId string
 
@@ -65,7 +65,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssueCountGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.IssueAPI.IssueCountGet(context.Background()).Execute()
 
@@ -77,7 +77,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssueGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.IssueAPI.IssueGet(context.Background()).Execute()
 
@@ -89,7 +89,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssueIssueIdCommentPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var issueId float32
 
@@ -103,7 +103,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssueIssueIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var issueId string
 
@@ -116,7 +116,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssueIssueIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var issueId float32
 
@@ -130,7 +130,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssueIssueIdStatusPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var issueId string
 		var status string
@@ -145,7 +145,7 @@ func Test_api_IssueAPIService(t *testing.T) {
 
 	t.Run("Test IssueAPIService IssuePost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.IssueAPI.IssuePost(context.Background()).Execute()
 

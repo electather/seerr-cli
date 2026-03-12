@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_SettingsAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsAboutGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsAboutGet(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsCacheCacheIdFlushPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var cacheId string
 
@@ -49,7 +49,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsCacheDnsDnsEntryFlushPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var dnsEntry string
 
@@ -62,7 +62,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsCacheGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsCacheGet(context.Background()).Execute()
 
@@ -74,7 +74,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsDiscoverAddPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsDiscoverAddPost(context.Background()).Execute()
 
@@ -86,7 +86,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsDiscoverGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsDiscoverGet(context.Background()).Execute()
 
@@ -98,7 +98,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsDiscoverPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsDiscoverPost(context.Background()).Execute()
 
@@ -110,7 +110,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsDiscoverResetGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsDiscoverResetGet(context.Background()).Execute()
 
@@ -121,7 +121,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsDiscoverSliderIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var sliderId float32
 
@@ -135,7 +135,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsDiscoverSliderIdPut", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var sliderId float32
 
@@ -149,7 +149,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsInitializePost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsInitializePost(context.Background()).Execute()
 
@@ -161,7 +161,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJellyfinGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsJellyfinGet(context.Background()).Execute()
 
@@ -173,7 +173,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJellyfinLibraryGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsJellyfinLibraryGet(context.Background()).Execute()
 
@@ -185,7 +185,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJellyfinPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsJellyfinPost(context.Background()).Execute()
 
@@ -197,7 +197,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJellyfinSyncGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsJellyfinSyncGet(context.Background()).Execute()
 
@@ -209,7 +209,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJellyfinSyncPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsJellyfinSyncPost(context.Background()).Execute()
 
@@ -221,7 +221,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJellyfinUsersGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsJellyfinUsersGet(context.Background()).Execute()
 
@@ -233,7 +233,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJobsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsJobsGet(context.Background()).Execute()
 
@@ -245,7 +245,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJobsJobIdCancelPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var jobId string
 
@@ -259,7 +259,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJobsJobIdRunPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var jobId string
 
@@ -273,7 +273,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsJobsJobIdSchedulePost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var jobId string
 
@@ -287,7 +287,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsLogsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsLogsGet(context.Background()).Execute()
 
@@ -299,7 +299,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsMainGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsMainGet(context.Background()).Execute()
 
@@ -311,7 +311,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsMainPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsMainPost(context.Background()).Execute()
 
@@ -323,7 +323,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsMainRegeneratePost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsMainRegeneratePost(context.Background()).Execute()
 
@@ -335,7 +335,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsMetadatasGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsMetadatasGet(context.Background()).Execute()
 
@@ -347,7 +347,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsMetadatasPut", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsMetadatasPut(context.Background()).Execute()
 
@@ -359,7 +359,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsMetadatasTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsMetadatasTestPost(context.Background()).Execute()
 
@@ -371,7 +371,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNetworkGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNetworkGet(context.Background()).Execute()
 
@@ -383,7 +383,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNetworkPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNetworkPost(context.Background()).Execute()
 
@@ -395,7 +395,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsDiscordGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsDiscordGet(context.Background()).Execute()
 
@@ -407,7 +407,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsDiscordPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsDiscordPost(context.Background()).Execute()
 
@@ -419,7 +419,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsDiscordTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsDiscordTestPost(context.Background()).Execute()
 
@@ -430,7 +430,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsEmailGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsEmailGet(context.Background()).Execute()
 
@@ -442,7 +442,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsEmailPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsEmailPost(context.Background()).Execute()
 
@@ -454,7 +454,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsEmailTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsEmailTestPost(context.Background()).Execute()
 
@@ -465,7 +465,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsGotifyGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsGotifyGet(context.Background()).Execute()
 
@@ -477,7 +477,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsGotifyPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsGotifyPost(context.Background()).Execute()
 
@@ -489,7 +489,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsGotifyTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsGotifyTestPost(context.Background()).Execute()
 
@@ -500,7 +500,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsNtfyGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsNtfyGet(context.Background()).Execute()
 
@@ -512,7 +512,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsNtfyPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsNtfyPost(context.Background()).Execute()
 
@@ -524,7 +524,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsNtfyTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsNtfyTestPost(context.Background()).Execute()
 
@@ -535,7 +535,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsPushbulletGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsPushbulletGet(context.Background()).Execute()
 
@@ -547,7 +547,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsPushbulletPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsPushbulletPost(context.Background()).Execute()
 
@@ -559,7 +559,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsPushbulletTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsPushbulletTestPost(context.Background()).Execute()
 
@@ -570,7 +570,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsPushoverGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsPushoverGet(context.Background()).Execute()
 
@@ -582,7 +582,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsPushoverPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsPushoverPost(context.Background()).Execute()
 
@@ -594,7 +594,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsPushoverSoundsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsPushoverSoundsGet(context.Background()).Execute()
 
@@ -606,7 +606,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsPushoverTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsPushoverTestPost(context.Background()).Execute()
 
@@ -617,7 +617,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsSlackGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsSlackGet(context.Background()).Execute()
 
@@ -629,7 +629,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsSlackPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsSlackPost(context.Background()).Execute()
 
@@ -641,7 +641,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsSlackTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsSlackTestPost(context.Background()).Execute()
 
@@ -652,7 +652,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsTelegramGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsTelegramGet(context.Background()).Execute()
 
@@ -664,7 +664,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsTelegramPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsTelegramPost(context.Background()).Execute()
 
@@ -676,7 +676,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsTelegramTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsTelegramTestPost(context.Background()).Execute()
 
@@ -687,7 +687,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsWebhookGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsWebhookGet(context.Background()).Execute()
 
@@ -699,7 +699,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsWebhookPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsWebhookPost(context.Background()).Execute()
 
@@ -711,7 +711,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsWebhookTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsWebhookTestPost(context.Background()).Execute()
 
@@ -722,7 +722,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsWebpushGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsWebpushGet(context.Background()).Execute()
 
@@ -734,7 +734,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsWebpushPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsNotificationsWebpushPost(context.Background()).Execute()
 
@@ -746,7 +746,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsNotificationsWebpushTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.SettingsAPI.SettingsNotificationsWebpushTestPost(context.Background()).Execute()
 
@@ -757,7 +757,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsPlexDevicesServersGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsPlexDevicesServersGet(context.Background()).Execute()
 
@@ -769,7 +769,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsPlexGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsPlexGet(context.Background()).Execute()
 
@@ -781,7 +781,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsPlexLibraryGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsPlexLibraryGet(context.Background()).Execute()
 
@@ -793,7 +793,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsPlexPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsPlexPost(context.Background()).Execute()
 
@@ -805,7 +805,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsPlexSyncGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsPlexSyncGet(context.Background()).Execute()
 
@@ -817,7 +817,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsPlexSyncPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsPlexSyncPost(context.Background()).Execute()
 
@@ -829,7 +829,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsPlexUsersGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsPlexUsersGet(context.Background()).Execute()
 
@@ -841,7 +841,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsPublicGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsPublicGet(context.Background()).Execute()
 
@@ -853,7 +853,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsRadarrGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsRadarrGet(context.Background()).Execute()
 
@@ -865,7 +865,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsRadarrPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsRadarrPost(context.Background()).Execute()
 
@@ -877,7 +877,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsRadarrRadarrIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var radarrId int32
 
@@ -891,7 +891,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsRadarrRadarrIdProfilesGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var radarrId int32
 
@@ -905,7 +905,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsRadarrRadarrIdPut", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var radarrId int32
 
@@ -919,7 +919,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsRadarrTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsRadarrTestPost(context.Background()).Execute()
 
@@ -931,7 +931,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsSonarrGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsSonarrGet(context.Background()).Execute()
 
@@ -943,7 +943,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsSonarrPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsSonarrPost(context.Background()).Execute()
 
@@ -955,7 +955,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsSonarrSonarrIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var sonarrId int32
 
@@ -969,7 +969,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsSonarrSonarrIdPut", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var sonarrId int32
 
@@ -983,7 +983,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsSonarrTestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsSonarrTestPost(context.Background()).Execute()
 
@@ -995,7 +995,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsTautulliGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsTautulliGet(context.Background()).Execute()
 
@@ -1007,7 +1007,7 @@ func Test_api_SettingsAPIService(t *testing.T) {
 
 	t.Run("Test SettingsAPIService SettingsTautulliPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SettingsAPI.SettingsTautulliPost(context.Background()).Execute()
 

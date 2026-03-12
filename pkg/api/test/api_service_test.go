@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_ServiceAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_ServiceAPIService(t *testing.T) {
 
 	t.Run("Test ServiceAPIService ServiceRadarrGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.ServiceAPI.ServiceRadarrGet(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_ServiceAPIService(t *testing.T) {
 
 	t.Run("Test ServiceAPIService ServiceRadarrRadarrIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var radarrId float32
 
@@ -50,7 +50,7 @@ func Test_api_ServiceAPIService(t *testing.T) {
 
 	t.Run("Test ServiceAPIService ServiceSonarrGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.ServiceAPI.ServiceSonarrGet(context.Background()).Execute()
 
@@ -62,7 +62,7 @@ func Test_api_ServiceAPIService(t *testing.T) {
 
 	t.Run("Test ServiceAPIService ServiceSonarrLookupTmdbIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tmdbId float32
 
@@ -76,7 +76,7 @@ func Test_api_ServiceAPIService(t *testing.T) {
 
 	t.Run("Test ServiceAPIService ServiceSonarrSonarrIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var sonarrId float32
 

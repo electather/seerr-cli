@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_TmdbAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_TmdbAPIService(t *testing.T) {
 
 	t.Run("Test TmdbAPIService BackdropsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.TmdbAPI.BackdropsGet(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_TmdbAPIService(t *testing.T) {
 
 	t.Run("Test TmdbAPIService GenresMovieGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.TmdbAPI.GenresMovieGet(context.Background()).Execute()
 
@@ -48,7 +48,7 @@ func Test_api_TmdbAPIService(t *testing.T) {
 
 	t.Run("Test TmdbAPIService GenresTvGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.TmdbAPI.GenresTvGet(context.Background()).Execute()
 
@@ -60,7 +60,7 @@ func Test_api_TmdbAPIService(t *testing.T) {
 
 	t.Run("Test TmdbAPIService LanguagesGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.TmdbAPI.LanguagesGet(context.Background()).Execute()
 
@@ -72,7 +72,7 @@ func Test_api_TmdbAPIService(t *testing.T) {
 
 	t.Run("Test TmdbAPIService NetworkNetworkIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var networkId float32
 
@@ -86,7 +86,7 @@ func Test_api_TmdbAPIService(t *testing.T) {
 
 	t.Run("Test TmdbAPIService RegionsGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.TmdbAPI.RegionsGet(context.Background()).Execute()
 
@@ -98,7 +98,7 @@ func Test_api_TmdbAPIService(t *testing.T) {
 
 	t.Run("Test TmdbAPIService StudioStudioIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var studioId float32
 

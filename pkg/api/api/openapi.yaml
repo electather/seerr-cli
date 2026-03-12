@@ -5246,15 +5246,38 @@ components:
       example:
         tmdbId: 1
         media:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
         title: title
         userId: 1
       properties:
@@ -5321,15 +5344,38 @@ components:
         id: 1
         ratingKey: ratingKey
         media:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
         type: type
         title: title
         updatedAt: 2020-09-12T10:00:27.000Z
@@ -6245,15 +6291,38 @@ components:
         voteCount: 0.8008281904610115
         adult: false
         mediaInfo:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
         posterPath: posterPath
       properties:
         id:
@@ -6323,15 +6392,38 @@ components:
         backdropPath: backdropPath
         voteCount: 0.8008281904610115
         mediaInfo:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
         posterPath: posterPath
       properties:
         id:
@@ -6496,86 +6588,46 @@ components:
     MovieDetails:
       example:
         watchProviders:
-        - - buy:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            iso_3166_1: iso_3166_1
-            link: link
-            flatrate:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-          - buy:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            iso_3166_1: iso_3166_1
-            link: link
-            flatrate:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-        - - buy:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            iso_3166_1: iso_3166_1
-            link: link
-            flatrate:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-          - buy:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            iso_3166_1: iso_3166_1
-            link: link
-            flatrate:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
+        - buy:
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          iso_3166_1: iso_3166_1
+          link: link
+          flatrate:
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+        - buy:
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          iso_3166_1: iso_3166_1
+          link: link
+          flatrate:
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
         imdbId: tt123
         video: true
         title: title
@@ -6709,15 +6761,38 @@ components:
           name: name
           id: 1
         mediaInfo:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
         homepage: homepage
         status: status
       properties:
@@ -6896,86 +6971,46 @@ components:
     TvDetails:
       example:
         watchProviders:
-        - - buy:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            iso_3166_1: iso_3166_1
-            link: link
-            flatrate:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-          - buy:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            iso_3166_1: iso_3166_1
-            link: link
-            flatrate:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-        - - buy:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            iso_3166_1: iso_3166_1
-            link: link
-            flatrate:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-          - buy:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            iso_3166_1: iso_3166_1
-            link: link
-            flatrate:
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
-            - logoPath: logoPath
-              name: name
-              displayPriority: 4.145608029883936
-              id: 7.386281948385884
+        - buy:
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          iso_3166_1: iso_3166_1
+          link: link
+          flatrate:
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+        - buy:
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          iso_3166_1: iso_3166_1
+          link: link
+          flatrate:
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
+          - logoPath: logoPath
+            name: name
+            displayPriority: 4.145608029883936
+            id: 7.386281948385884
         keywords:
         - name: anime
           id: 1
@@ -7185,15 +7220,38 @@ components:
           name: name
           id: 1
         mediaInfo:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
         homepage: homepage
         status: status
       properties:
@@ -7298,7 +7356,53 @@ components:
           type: array
       type: object
     MediaRequest:
+      additionalProperties: true
       example:
+        profileName: profileName
+        seasons:
+        - "{}"
+        - "{}"
+        rootFolder: rootFolder
+        languageProfileId: 4.145608029883936
+        media:
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
+          requests:
+          - null
+          - null
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
+          updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
+        type: movie
+        serverId: 3.616076749251911
+        tags:
+        - 7.386281948385884
+        - 7.386281948385884
+        isAutoRequest: true
         is4k: false
         createdAt: 2020-09-12T10:00:27.000Z
         requestedBy:
@@ -7346,8 +7450,9 @@ components:
           jellyfinAuthToken: jellyfinAuthToken
           userType: 1
           username: username
-        profileId: 5.637376656633329
-        rootFolder: rootFolder
+        canRemove: true
+        seasonCount: 1.2315135367772556
+        profileId: 2.027123023002322
         modifiedBy:
           movieQuotaLimit: 1.4658129805029452
           recoveryLinkExpirationDate: recoveryLinkExpirationDate
@@ -7394,17 +7499,6 @@ components:
           userType: 1
           username: username
         id: 123
-        media:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
-          requests:
-          - null
-          - null
-          status: 0
-          updatedAt: 2020-09-12T10:00:27.000Z
-        serverId: 5.962133916683182
         status: 0
         updatedAt: 2020-09-12T10:00:27.000Z
       properties:
@@ -7441,21 +7535,70 @@ components:
           type: number
         rootFolder:
           type: string
+        type:
+          description: Type of the request (movie or tv)
+          example: movie
+          readOnly: true
+          type: string
+        languageProfileId:
+          nullable: true
+          type: number
+        tags:
+          items:
+            type: number
+          type: array
+        isAutoRequest:
+          type: boolean
+        seasons:
+          items:
+            type: object
+          type: array
+        seasonCount:
+          type: number
+        profileName:
+          nullable: true
+          type: string
+        canRemove:
+          type: boolean
       required:
       - id
       - status
       type: object
     MediaInfo:
+      additionalProperties: true
       example:
-        createdAt: 2020-09-12T10:00:27.000Z
-        tmdbId: 6.027456183070403
-        tvdbId: 1.4658129805029452
-        id: 0.8008281904610115
+        externalServiceSlug: externalServiceSlug
+        imdbId: imdbId
+        serviceUrl: serviceUrl
         requests:
         - null
         - null
-        status: 0
+        ratingKey: ratingKey
+        createdAt: 2020-09-12T10:00:27.000Z
+        tmdbId: 6.027456183070403
+        id: 0.8008281904610115
+        serviceId: 5.637376656633329
         updatedAt: 2020-09-12T10:00:27.000Z
+        tvdbId: 1.4658129805029452
+        externalServiceId: 7.061401241503109
+        mediaUrl: mediaUrl
+        mediaType: mediaType
+        externalServiceSlug4k: externalServiceSlug4k
+        serviceId4k: 2.3021358869347655
+        status4k: 5.962133916683182
+        externalServiceId4k: 9.301444243932576
+        downloadStatus4k:
+        - "{}"
+        - "{}"
+        ratingKey4k: ratingKey4k
+        mediaAddedAt: mediaAddedAt
+        lastSeasonChange: lastSeasonChange
+        downloadStatus:
+        - "{}"
+        - "{}"
+        jellyfinMediaId4k: jellyfinMediaId4k
+        status: 0
+        jellyfinMediaId: jellyfinMediaId
       properties:
         id:
           readOnly: true
@@ -7467,10 +7610,19 @@ components:
           nullable: true
           readOnly: true
           type: number
+        imdbId:
+          nullable: true
+          readOnly: true
+          type: string
+        mediaType:
+          readOnly: true
+          type: string
         status:
           description: "Availability of the media. 1 = `UNKNOWN`, 2 = `PENDING`, 3\
             \ = `PROCESSING`, 4 = `PARTIALLY_AVAILABLE`, 5 = `AVAILABLE`, 6 = `DELETED`"
           example: 0
+          type: number
+        status4k:
           type: number
         requests:
           items:
@@ -7484,6 +7636,56 @@ components:
         updatedAt:
           example: 2020-09-12T10:00:27.000Z
           readOnly: true
+          type: string
+        lastSeasonChange:
+          nullable: true
+          type: string
+        mediaAddedAt:
+          nullable: true
+          type: string
+        serviceId:
+          nullable: true
+          type: number
+        serviceId4k:
+          nullable: true
+          type: number
+        externalServiceId:
+          nullable: true
+          type: number
+        externalServiceId4k:
+          nullable: true
+          type: number
+        externalServiceSlug:
+          nullable: true
+          type: string
+        externalServiceSlug4k:
+          nullable: true
+          type: string
+        ratingKey:
+          nullable: true
+          type: string
+        ratingKey4k:
+          nullable: true
+          type: string
+        jellyfinMediaId:
+          nullable: true
+          type: string
+        jellyfinMediaId4k:
+          nullable: true
+          type: string
+        serviceUrl:
+          nullable: true
+          type: string
+        downloadStatus:
+          items:
+            type: object
+          type: array
+        downloadStatus4k:
+          items:
+            type: object
+          type: array
+        mediaUrl:
+          nullable: true
           type: string
       type: object
     Cast:
@@ -7906,15 +8108,38 @@ components:
         backdropPath: backdropPath
         adult: true
         mediaInfo:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
         posterPath: posterPath
       properties:
         id:
@@ -7998,15 +8223,38 @@ components:
         department: department
         job: job
         mediaInfo:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
         posterPath: posterPath
       properties:
         id:
@@ -8114,15 +8362,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -8141,15 +8412,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         id: 123
         backdropPath: backdropPath
@@ -8429,9 +8723,41 @@ components:
           type: number
       type: object
     WatchProviders:
-      items:
-        $ref: "#/components/schemas/WatchProviders_inner"
-      type: array
+      example:
+        buy:
+        - logoPath: logoPath
+          name: name
+          displayPriority: 4.145608029883936
+          id: 7.386281948385884
+        - logoPath: logoPath
+          name: name
+          displayPriority: 4.145608029883936
+          id: 7.386281948385884
+        iso_3166_1: iso_3166_1
+        link: link
+        flatrate:
+        - logoPath: logoPath
+          name: name
+          displayPriority: 4.145608029883936
+          id: 7.386281948385884
+        - logoPath: logoPath
+          name: name
+          displayPriority: 4.145608029883936
+          id: 7.386281948385884
+      properties:
+        iso_3166_1:
+          type: string
+        link:
+          type: string
+        buy:
+          items:
+            $ref: "#/components/schemas/WatchProviderDetails"
+          type: array
+        flatrate:
+          items:
+            $ref: "#/components/schemas/WatchProviderDetails"
+          type: array
+      type: object
     WatchProviderDetails:
       example:
         logoPath: logoPath
@@ -8638,15 +8964,38 @@ components:
           username: username
         id: 1
         media:
-          createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+          externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
       properties:
         id:
           example: 1
@@ -9577,7 +9926,52 @@ components:
           page: 1
           results: 100
         results:
-        - is4k: false
+        - profileName: profileName
+          seasons:
+          - "{}"
+          - "{}"
+          rootFolder: rootFolder
+          languageProfileId: 4.145608029883936
+          media:
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
+            requests:
+            - null
+            - null
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
+            updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
+          type: movie
+          serverId: 3.616076749251911
+          tags:
+          - 7.386281948385884
+          - 7.386281948385884
+          isAutoRequest: true
+          is4k: false
           createdAt: 2020-09-12T10:00:27.000Z
           requestedBy:
             movieQuotaLimit: 1.4658129805029452
@@ -9624,8 +10018,9 @@ components:
             jellyfinAuthToken: jellyfinAuthToken
             userType: 1
             username: username
-          profileId: 5.637376656633329
-          rootFolder: rootFolder
+          canRemove: true
+          seasonCount: 1.2315135367772556
+          profileId: 2.027123023002322
           modifiedBy:
             movieQuotaLimit: 1.4658129805029452
             recoveryLinkExpirationDate: recoveryLinkExpirationDate
@@ -9672,20 +10067,54 @@ components:
             userType: 1
             username: username
           id: 123
-          media:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
-            requests:
-            - null
-            - null
-            status: 0
-            updatedAt: 2020-09-12T10:00:27.000Z
-          serverId: 5.962133916683182
           status: 0
           updatedAt: 2020-09-12T10:00:27.000Z
-        - is4k: false
+        - profileName: profileName
+          seasons:
+          - "{}"
+          - "{}"
+          rootFolder: rootFolder
+          languageProfileId: 4.145608029883936
+          media:
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
+            requests:
+            - null
+            - null
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
+            updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
+          type: movie
+          serverId: 3.616076749251911
+          tags:
+          - 7.386281948385884
+          - 7.386281948385884
+          isAutoRequest: true
+          is4k: false
           createdAt: 2020-09-12T10:00:27.000Z
           requestedBy:
             movieQuotaLimit: 1.4658129805029452
@@ -9732,8 +10161,9 @@ components:
             jellyfinAuthToken: jellyfinAuthToken
             userType: 1
             username: username
-          profileId: 5.637376656633329
-          rootFolder: rootFolder
+          canRemove: true
+          seasonCount: 1.2315135367772556
+          profileId: 2.027123023002322
           modifiedBy:
             movieQuotaLimit: 1.4658129805029452
             recoveryLinkExpirationDate: recoveryLinkExpirationDate
@@ -9780,17 +10210,6 @@ components:
             userType: 1
             username: username
           id: 123
-          media:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
-            requests:
-            - null
-            - null
-            status: 0
-            updatedAt: 2020-09-12T10:00:27.000Z
-          serverId: 5.962133916683182
           status: 0
           updatedAt: 2020-09-12T10:00:27.000Z
       properties:
@@ -10119,24 +10538,70 @@ components:
     _user__userId__watch_data_get_200_response:
       example:
         recentlyWatched:
-        - createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+        - externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
-          updatedAt: 2020-09-12T10:00:27.000Z
-        - createdAt: 2020-09-12T10:00:27.000Z
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
           tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
           id: 0.8008281904610115
+          serviceId: 5.637376656633329
+          updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
+        - externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
         playCount: 0.8008281904610115
       properties:
         recentlyWatched:
@@ -10174,15 +10639,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -10201,15 +10689,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
       properties:
         page:
@@ -10301,15 +10812,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -10328,15 +10862,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
       properties:
         page:
@@ -10379,15 +10936,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -10406,15 +10986,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
       properties:
         page:
@@ -10460,15 +11063,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -10487,15 +11113,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
       properties:
         page:
@@ -10542,15 +11191,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -10569,15 +11241,38 @@ components:
           voteCount: 0.8008281904610115
           adult: false
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
       properties:
         page:
@@ -10620,15 +11315,38 @@ components:
           backdropPath: backdropPath
           voteCount: 0.8008281904610115
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -10648,15 +11366,38 @@ components:
           backdropPath: backdropPath
           voteCount: 0.8008281904610115
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
       properties:
         page:
@@ -10701,15 +11442,38 @@ components:
           backdropPath: backdropPath
           voteCount: 0.8008281904610115
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -10729,15 +11493,38 @@ components:
           backdropPath: backdropPath
           voteCount: 0.8008281904610115
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
       properties:
         page:
@@ -10783,15 +11570,38 @@ components:
           backdropPath: backdropPath
           voteCount: 0.8008281904610115
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -10811,15 +11621,38 @@ components:
           backdropPath: backdropPath
           voteCount: 0.8008281904610115
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
       properties:
         page:
@@ -10862,15 +11695,38 @@ components:
           backdropPath: backdropPath
           voteCount: 0.8008281904610115
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: Overview of the movie
           voteAverage: 6.027456183070403
@@ -10890,15 +11746,38 @@ components:
           backdropPath: backdropPath
           voteCount: 0.8008281904610115
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         network:
           logoPath: logoPath
@@ -11172,15 +12051,38 @@ components:
           backdropPath: backdropPath
           adult: true
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: overview
           voteAverage: 5.962133916683182
@@ -11208,15 +12110,38 @@ components:
           backdropPath: backdropPath
           adult: true
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         id: 4.145608029883936
         crew:
@@ -11247,15 +12172,38 @@ components:
           department: department
           job: job
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
         - overview: overview
           voteAverage: 3.616076749251911
@@ -11284,15 +12232,38 @@ components:
           department: department
           job: job
           mediaInfo:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
           posterPath: posterPath
       properties:
         cast:
@@ -11313,24 +12284,70 @@ components:
           page: 1
           results: 100
         results:
-        - createdAt: 2020-09-12T10:00:27.000Z
-          tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
-          id: 0.8008281904610115
+        - externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
-          updatedAt: 2020-09-12T10:00:27.000Z
-        - createdAt: 2020-09-12T10:00:27.000Z
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
           tmdbId: 6.027456183070403
-          tvdbId: 1.4658129805029452
           id: 0.8008281904610115
+          serviceId: 5.637376656633329
+          updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
+        - externalServiceSlug: externalServiceSlug
+          imdbId: imdbId
+          serviceUrl: serviceUrl
           requests:
           - null
           - null
-          status: 0
+          ratingKey: ratingKey
+          createdAt: 2020-09-12T10:00:27.000Z
+          tmdbId: 6.027456183070403
+          id: 0.8008281904610115
+          serviceId: 5.637376656633329
           updatedAt: 2020-09-12T10:00:27.000Z
+          tvdbId: 1.4658129805029452
+          externalServiceId: 7.061401241503109
+          mediaUrl: mediaUrl
+          mediaType: mediaType
+          externalServiceSlug4k: externalServiceSlug4k
+          serviceId4k: 2.3021358869347655
+          status4k: 5.962133916683182
+          externalServiceId4k: 9.301444243932576
+          downloadStatus4k:
+          - "{}"
+          - "{}"
+          ratingKey4k: ratingKey4k
+          mediaAddedAt: mediaAddedAt
+          lastSeasonChange: lastSeasonChange
+          downloadStatus:
+          - "{}"
+          - "{}"
+          jellyfinMediaId4k: jellyfinMediaId4k
+          status: 0
+          jellyfinMediaId: jellyfinMediaId
       properties:
         pageInfo:
           $ref: "#/components/schemas/PageInfo"
@@ -11957,15 +12974,38 @@ components:
             username: username
           id: 1
           media:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
         - issueType: 1
           comments:
           - id: 1
@@ -12154,15 +13194,38 @@ components:
             username: username
           id: 1
           media:
-            createdAt: 2020-09-12T10:00:27.000Z
-            tmdbId: 6.027456183070403
-            tvdbId: 1.4658129805029452
-            id: 0.8008281904610115
+            externalServiceSlug: externalServiceSlug
+            imdbId: imdbId
+            serviceUrl: serviceUrl
             requests:
             - null
             - null
-            status: 0
+            ratingKey: ratingKey
+            createdAt: 2020-09-12T10:00:27.000Z
+            tmdbId: 6.027456183070403
+            id: 0.8008281904610115
+            serviceId: 5.637376656633329
             updatedAt: 2020-09-12T10:00:27.000Z
+            tvdbId: 1.4658129805029452
+            externalServiceId: 7.061401241503109
+            mediaUrl: mediaUrl
+            mediaType: mediaType
+            externalServiceSlug4k: externalServiceSlug4k
+            serviceId4k: 2.3021358869347655
+            status4k: 5.962133916683182
+            externalServiceId4k: 9.301444243932576
+            downloadStatus4k:
+            - "{}"
+            - "{}"
+            ratingKey4k: ratingKey4k
+            mediaAddedAt: mediaAddedAt
+            lastSeasonChange: lastSeasonChange
+            downloadStatus:
+            - "{}"
+            - "{}"
+            jellyfinMediaId4k: jellyfinMediaId4k
+            status: 0
+            jellyfinMediaId: jellyfinMediaId
       properties:
         pageInfo:
           $ref: "#/components/schemas/PageInfo"
@@ -12743,42 +13806,6 @@ components:
         searchForMissingEpisodes:
           nullable: true
           type: boolean
-      type: object
-    WatchProviders_inner:
-      example:
-        buy:
-        - logoPath: logoPath
-          name: name
-          displayPriority: 4.145608029883936
-          id: 7.386281948385884
-        - logoPath: logoPath
-          name: name
-          displayPriority: 4.145608029883936
-          id: 7.386281948385884
-        iso_3166_1: iso_3166_1
-        link: link
-        flatrate:
-        - logoPath: logoPath
-          name: name
-          displayPriority: 4.145608029883936
-          id: 7.386281948385884
-        - logoPath: logoPath
-          name: name
-          displayPriority: 4.145608029883936
-          id: 7.386281948385884
-      properties:
-        iso_3166_1:
-          type: string
-        link:
-          type: string
-        buy:
-          items:
-            $ref: "#/components/schemas/WatchProviderDetails"
-          type: array
-        flatrate:
-          items:
-            $ref: "#/components/schemas/WatchProviderDetails"
-          type: array
       type: object
   securitySchemes:
     cookieAuth:

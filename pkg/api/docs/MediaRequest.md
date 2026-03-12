@@ -15,6 +15,14 @@ Name | Type | Description | Notes
 **ServerId** | Pointer to **float32** |  | [optional] 
 **ProfileId** | Pointer to **float32** |  | [optional] 
 **RootFolder** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** | Type of the request (movie or tv) | [optional] [readonly] 
+**LanguageProfileId** | Pointer to **NullableFloat32** |  | [optional] 
+**Tags** | Pointer to **[]float32** |  | [optional] 
+**IsAutoRequest** | Pointer to **bool** |  | [optional] 
+**Seasons** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**SeasonCount** | Pointer to **float32** |  | [optional] 
+**ProfileName** | Pointer to **NullableString** |  | [optional] 
+**CanRemove** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -299,6 +307,226 @@ SetRootFolder sets RootFolder field to given value.
 `func (o *MediaRequest) HasRootFolder() bool`
 
 HasRootFolder returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *MediaRequest) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *MediaRequest) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *MediaRequest) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *MediaRequest) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### GetLanguageProfileId
+
+`func (o *MediaRequest) GetLanguageProfileId() float32`
+
+GetLanguageProfileId returns the LanguageProfileId field if non-nil, zero value otherwise.
+
+### GetLanguageProfileIdOk
+
+`func (o *MediaRequest) GetLanguageProfileIdOk() (*float32, bool)`
+
+GetLanguageProfileIdOk returns a tuple with the LanguageProfileId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLanguageProfileId
+
+`func (o *MediaRequest) SetLanguageProfileId(v float32)`
+
+SetLanguageProfileId sets LanguageProfileId field to given value.
+
+### HasLanguageProfileId
+
+`func (o *MediaRequest) HasLanguageProfileId() bool`
+
+HasLanguageProfileId returns a boolean if a field has been set.
+
+### SetLanguageProfileIdNil
+
+`func (o *MediaRequest) SetLanguageProfileIdNil(b bool)`
+
+ SetLanguageProfileIdNil sets the value for LanguageProfileId to be an explicit nil
+
+### UnsetLanguageProfileId
+`func (o *MediaRequest) UnsetLanguageProfileId()`
+
+UnsetLanguageProfileId ensures that no value is present for LanguageProfileId, not even an explicit nil
+### GetTags
+
+`func (o *MediaRequest) GetTags() []float32`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *MediaRequest) GetTagsOk() (*[]float32, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *MediaRequest) SetTags(v []float32)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *MediaRequest) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
+
+### GetIsAutoRequest
+
+`func (o *MediaRequest) GetIsAutoRequest() bool`
+
+GetIsAutoRequest returns the IsAutoRequest field if non-nil, zero value otherwise.
+
+### GetIsAutoRequestOk
+
+`func (o *MediaRequest) GetIsAutoRequestOk() (*bool, bool)`
+
+GetIsAutoRequestOk returns a tuple with the IsAutoRequest field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsAutoRequest
+
+`func (o *MediaRequest) SetIsAutoRequest(v bool)`
+
+SetIsAutoRequest sets IsAutoRequest field to given value.
+
+### HasIsAutoRequest
+
+`func (o *MediaRequest) HasIsAutoRequest() bool`
+
+HasIsAutoRequest returns a boolean if a field has been set.
+
+### GetSeasons
+
+`func (o *MediaRequest) GetSeasons() []map[string]interface{}`
+
+GetSeasons returns the Seasons field if non-nil, zero value otherwise.
+
+### GetSeasonsOk
+
+`func (o *MediaRequest) GetSeasonsOk() (*[]map[string]interface{}, bool)`
+
+GetSeasonsOk returns a tuple with the Seasons field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSeasons
+
+`func (o *MediaRequest) SetSeasons(v []map[string]interface{})`
+
+SetSeasons sets Seasons field to given value.
+
+### HasSeasons
+
+`func (o *MediaRequest) HasSeasons() bool`
+
+HasSeasons returns a boolean if a field has been set.
+
+### GetSeasonCount
+
+`func (o *MediaRequest) GetSeasonCount() float32`
+
+GetSeasonCount returns the SeasonCount field if non-nil, zero value otherwise.
+
+### GetSeasonCountOk
+
+`func (o *MediaRequest) GetSeasonCountOk() (*float32, bool)`
+
+GetSeasonCountOk returns a tuple with the SeasonCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSeasonCount
+
+`func (o *MediaRequest) SetSeasonCount(v float32)`
+
+SetSeasonCount sets SeasonCount field to given value.
+
+### HasSeasonCount
+
+`func (o *MediaRequest) HasSeasonCount() bool`
+
+HasSeasonCount returns a boolean if a field has been set.
+
+### GetProfileName
+
+`func (o *MediaRequest) GetProfileName() string`
+
+GetProfileName returns the ProfileName field if non-nil, zero value otherwise.
+
+### GetProfileNameOk
+
+`func (o *MediaRequest) GetProfileNameOk() (*string, bool)`
+
+GetProfileNameOk returns a tuple with the ProfileName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProfileName
+
+`func (o *MediaRequest) SetProfileName(v string)`
+
+SetProfileName sets ProfileName field to given value.
+
+### HasProfileName
+
+`func (o *MediaRequest) HasProfileName() bool`
+
+HasProfileName returns a boolean if a field has been set.
+
+### SetProfileNameNil
+
+`func (o *MediaRequest) SetProfileNameNil(b bool)`
+
+ SetProfileNameNil sets the value for ProfileName to be an explicit nil
+
+### UnsetProfileName
+`func (o *MediaRequest) UnsetProfileName()`
+
+UnsetProfileName ensures that no value is present for ProfileName, not even an explicit nil
+### GetCanRemove
+
+`func (o *MediaRequest) GetCanRemove() bool`
+
+GetCanRemove returns the CanRemove field if non-nil, zero value otherwise.
+
+### GetCanRemoveOk
+
+`func (o *MediaRequest) GetCanRemoveOk() (*bool, bool)`
+
+GetCanRemoveOk returns a tuple with the CanRemove field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanRemove
+
+`func (o *MediaRequest) SetCanRemove(v bool)`
+
+SetCanRemove sets CanRemove field to given value.
+
+### HasCanRemove
+
+`func (o *MediaRequest) HasCanRemove() bool`
+
+HasCanRemove returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

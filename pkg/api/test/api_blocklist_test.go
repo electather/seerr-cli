@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_BlocklistAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_BlocklistAPIService(t *testing.T) {
 
 	t.Run("Test BlocklistAPIService BlacklistGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.BlocklistAPI.BlacklistGet(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_BlocklistAPIService(t *testing.T) {
 
 	t.Run("Test BlocklistAPIService BlacklistPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.BlocklistAPI.BlacklistPost(context.Background()).Execute()
 
@@ -47,7 +47,7 @@ func Test_api_BlocklistAPIService(t *testing.T) {
 
 	t.Run("Test BlocklistAPIService BlacklistTmdbIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tmdbId string
 
@@ -60,7 +60,7 @@ func Test_api_BlocklistAPIService(t *testing.T) {
 
 	t.Run("Test BlocklistAPIService BlacklistTmdbIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tmdbId string
 
@@ -73,7 +73,7 @@ func Test_api_BlocklistAPIService(t *testing.T) {
 
 	t.Run("Test BlocklistAPIService BlocklistGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.BlocklistAPI.BlocklistGet(context.Background()).Execute()
 
@@ -85,7 +85,7 @@ func Test_api_BlocklistAPIService(t *testing.T) {
 
 	t.Run("Test BlocklistAPIService BlocklistPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.BlocklistAPI.BlocklistPost(context.Background()).Execute()
 
@@ -96,7 +96,7 @@ func Test_api_BlocklistAPIService(t *testing.T) {
 
 	t.Run("Test BlocklistAPIService BlocklistTmdbIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tmdbId string
 
@@ -109,7 +109,7 @@ func Test_api_BlocklistAPIService(t *testing.T) {
 
 	t.Run("Test BlocklistAPIService BlocklistTmdbIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var tmdbId string
 

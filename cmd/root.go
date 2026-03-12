@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/viper"
 
 	"seer-cli/cmd/config"
+	"seer-cli/cmd/movies"
+	"seer-cli/cmd/request"
 	"seer-cli/cmd/search"
 	"seer-cli/cmd/status"
 	"seer-cli/cmd/users"
@@ -62,6 +64,8 @@ func init() {
 	RootCmd.AddCommand(status.Cmd)
 	RootCmd.AddCommand(users.Cmd)
 	RootCmd.AddCommand(search.Cmd)
+	RootCmd.AddCommand(movies.Cmd)
+	RootCmd.AddCommand(request.Cmd)
 }
 
 func initConfig() {

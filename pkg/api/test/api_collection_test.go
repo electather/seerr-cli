@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_CollectionAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_CollectionAPIService(t *testing.T) {
 
 	t.Run("Test CollectionAPIService CollectionCollectionIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var collectionId float32
 

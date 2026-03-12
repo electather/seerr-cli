@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_AuthAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_AuthAPIService(t *testing.T) {
 
 	t.Run("Test AuthAPIService AuthJellyfinPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthAPI.AuthJellyfinPost(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_AuthAPIService(t *testing.T) {
 
 	t.Run("Test AuthAPIService AuthLocalPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthAPI.AuthLocalPost(context.Background()).Execute()
 
@@ -48,7 +48,7 @@ func Test_api_AuthAPIService(t *testing.T) {
 
 	t.Run("Test AuthAPIService AuthLogoutPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthAPI.AuthLogoutPost(context.Background()).Execute()
 
@@ -60,7 +60,7 @@ func Test_api_AuthAPIService(t *testing.T) {
 
 	t.Run("Test AuthAPIService AuthMeGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthAPI.AuthMeGet(context.Background()).Execute()
 
@@ -72,7 +72,7 @@ func Test_api_AuthAPIService(t *testing.T) {
 
 	t.Run("Test AuthAPIService AuthPlexPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthAPI.AuthPlexPost(context.Background()).Execute()
 

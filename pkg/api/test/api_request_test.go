@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_RequestAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_RequestAPIService(t *testing.T) {
 
 	t.Run("Test RequestAPIService RequestCountGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RequestAPI.RequestCountGet(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_RequestAPIService(t *testing.T) {
 
 	t.Run("Test RequestAPIService RequestGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RequestAPI.RequestGet(context.Background()).Execute()
 
@@ -48,7 +48,7 @@ func Test_api_RequestAPIService(t *testing.T) {
 
 	t.Run("Test RequestAPIService RequestPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.RequestAPI.RequestPost(context.Background()).Execute()
 
@@ -60,7 +60,7 @@ func Test_api_RequestAPIService(t *testing.T) {
 
 	t.Run("Test RequestAPIService RequestRequestIdDelete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var requestId string
 
@@ -73,7 +73,7 @@ func Test_api_RequestAPIService(t *testing.T) {
 
 	t.Run("Test RequestAPIService RequestRequestIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var requestId string
 
@@ -87,7 +87,7 @@ func Test_api_RequestAPIService(t *testing.T) {
 
 	t.Run("Test RequestAPIService RequestRequestIdPut", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var requestId string
 
@@ -101,7 +101,7 @@ func Test_api_RequestAPIService(t *testing.T) {
 
 	t.Run("Test RequestAPIService RequestRequestIdRetryPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var requestId string
 
@@ -115,7 +115,7 @@ func Test_api_RequestAPIService(t *testing.T) {
 
 	t.Run("Test RequestAPIService RequestRequestIdStatusPost", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var requestId string
 		var status string

@@ -13,8 +13,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 	openapiclient "seer-cli/pkg/api"
+	"testing"
 )
 
 func Test_api_SearchAPIService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverGenresliderMovieGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.DiscoverGenresliderMovieGet(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverGenresliderTvGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.DiscoverGenresliderTvGet(context.Background()).Execute()
 
@@ -48,7 +48,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverKeywordKeywordIdMoviesGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var keywordId float32
 
@@ -62,7 +62,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverMoviesGenreGenreIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var genreId string
 
@@ -76,7 +76,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverMoviesGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.DiscoverMoviesGet(context.Background()).Execute()
 
@@ -88,7 +88,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverMoviesLanguageLanguageGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var language string
 
@@ -102,7 +102,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverMoviesStudioStudioIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var studioId string
 
@@ -116,7 +116,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverMoviesUpcomingGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.DiscoverMoviesUpcomingGet(context.Background()).Execute()
 
@@ -128,7 +128,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverTrendingGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.DiscoverTrendingGet(context.Background()).Execute()
 
@@ -140,7 +140,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverTvGenreGenreIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var genreId string
 
@@ -154,7 +154,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverTvGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.DiscoverTvGet(context.Background()).Execute()
 
@@ -166,7 +166,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverTvLanguageLanguageGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var language string
 
@@ -180,7 +180,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverTvNetworkNetworkIdGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var networkId string
 
@@ -194,7 +194,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverTvUpcomingGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.DiscoverTvUpcomingGet(context.Background()).Execute()
 
@@ -206,7 +206,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService DiscoverWatchlistGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.DiscoverWatchlistGet(context.Background()).Execute()
 
@@ -218,7 +218,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService SearchCompanyGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.SearchCompanyGet(context.Background()).Execute()
 
@@ -230,7 +230,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService SearchGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.SearchGet(context.Background()).Execute()
 
@@ -242,7 +242,7 @@ func Test_api_SearchAPIService(t *testing.T) {
 
 	t.Run("Test SearchAPIService SearchKeywordGet", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SearchAPI.SearchKeywordGet(context.Background()).Execute()
 
