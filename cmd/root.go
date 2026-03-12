@@ -8,15 +8,20 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
+	"seer-cli/cmd/blocklist"
+	"seer-cli/cmd/collection"
 	"seer-cli/cmd/config"
+	"seer-cli/cmd/media"
 	"seer-cli/cmd/movies"
 	"seer-cli/cmd/other"
 	"seer-cli/cmd/person"
 	"seer-cli/cmd/request"
 	"seer-cli/cmd/search"
+	"seer-cli/cmd/service"
 	"seer-cli/cmd/status"
 	"seer-cli/cmd/tv"
 	"seer-cli/cmd/users"
+	"seer-cli/cmd/watchlist"
 )
 
 var (
@@ -72,6 +77,11 @@ func init() {
 	RootCmd.AddCommand(other.Cmd)
 	RootCmd.AddCommand(person.Cmd)
 	RootCmd.AddCommand(request.Cmd)
+	RootCmd.AddCommand(media.Cmd)
+	RootCmd.AddCommand(blocklist.Cmd)
+	RootCmd.AddCommand(watchlist.Cmd)
+	RootCmd.AddCommand(collection.Cmd)
+	RootCmd.AddCommand(service.Cmd)
 }
 
 func initConfig() {
