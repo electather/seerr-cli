@@ -44,9 +44,18 @@ This is a **Go workspace** (`go.work`) with two modules:
 - **`pkg/api/`** — **Never edit manually.** Entirely auto-generated via `./generate-api-lib.sh` (Docker + OpenAPI Generator). Contains 19 API service types (`PublicAPIService`, `SearchAPIService`, etc.) and 200+ model structs.
 - **`tests/`** — Integration-style tests using `httptest` to mock the HTTP server.
 
+### Command Grouping Policy
+
+CLI command groups **must mirror the tag groups in `open-api.yaml`**. Every endpoint belongs to one or more tags — use those tags as the authoritative grouping for CLI commands. The goal is that a user familiar with the Seer API can predict the CLI structure without reading docs.
+
+- One `cmd/<group>/` directory per OpenAPI tag (e.g. `users`, `search`, `request`, `settings`, `auth`).
+- When an endpoint spans multiple tags, place it under the tag that best represents the primary resource.
+- Endpoints that logically belong together from the user's perspective must be reachable under the same parent command, even if they map to different API service types in `pkg/api/`. For example, user settings, user auth, and user details all live under `seer-cli users ...` — not split across separate top-level commands.
+- Before implementing any new command, consult `open-api.yaml` to identify which tag group it belongs to and confirm the right parent command exists or needs to be created.
+
 ### Adding a New Command Group
 
-1. Create `cmd/<group>/` with its own package name.
+1. Create `cmd/<group>/` with its own package name matching the OpenAPI tag.
 2. Declare `var Cmd = &cobra.Command{...}` in `cmd/<group>/<group>.go`.
 3. Add `RootCmd.AddCommand(<group>.Cmd)` in `cmd/root.go`'s `init()`.
 
