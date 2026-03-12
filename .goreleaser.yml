@@ -1,0 +1,83 @@
+version: 2
+
+project_name: seer-cli
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: seer-cli
+    main: .
+    binary: seer-cli
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+
+archives:
+  - id: seer-cli
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    files:
+      - README.md
+
+checksum:
+  name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
+
+changelog:
+  sort: asc
+  use: github
+  groups:
+    - title: "New Features"
+      regexp: '^.*?feat(\(.+\))??!?:.+$'
+      order: 0
+    - title: "Bug Fixes"
+      regexp: '^.*?fix(\(.+\))??!?:.+$'
+      order: 1
+    - title: "Documentation"
+      regexp: '^.*?docs(\(.+\))??!?:.+$'
+      order: 2
+    - title: "Other Changes"
+      order: 999
+  filters:
+    exclude:
+      - "^chore:"
+      - "^ci:"
+      - "^test:"
+      - Merge pull request
+      - Merge branch
+
+release:
+  github:
+    owner: "{{ .Env.GITHUB_REPOSITORY_OWNER }}"
+    name: seer-cli
+  name_template: "v{{ .Version }}"
+  draft: false
+  prerelease: auto
+  footer: |
+    ## Installation
+
+    ### macOS / Linux
+    ```sh
+    # Download the archive for your platform, extract, and move to your PATH:
+    tar -xzf seer-cli_{{ .Version }}_<os>_<arch>.tar.gz
+    sudo mv seer-cli /usr/local/bin/
+    ```
+
+    ### Windows
+    Extract the `.zip` archive and add `seer-cli.exe` to your `PATH`.
+
+    **Full Changelog**: https://github.com/{{ .Env.GITHUB_REPOSITORY }}/compare/{{ .PreviousTag }}...{{ .Tag }}

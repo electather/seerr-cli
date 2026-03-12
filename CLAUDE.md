@@ -92,3 +92,7 @@ Global flags (`--server`, `--api-key`, `--verbose`) are bound to Viper keys `ser
 ### Claude Usage Rules
 
 - Never add `Co-Authored-By`, `Generated with`, or any mention of Claude or Anthropic in commit messages or PR descriptions.
+- 
+### Commit & PR Convention
+
+All commits and PR titles must follow [Conventional Commits](https://www.conventionalcommits.org/) — e.g. `feat(movies): add get-details command`. PR titles are squash-merged into `main` and become the commit message, so they must follow this convention too. One PR per change.
