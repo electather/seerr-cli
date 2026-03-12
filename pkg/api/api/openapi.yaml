@@ -5273,18 +5273,50 @@ components:
       example:
         createdAt: 2020-09-12T10:00:27.000Z
         requestedBy:
-          plexUsername: plexUsername
+          movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
         tmdbId: 1
         id: 1
         ratingKey: ratingKey
@@ -5330,18 +5362,50 @@ components:
       type: object
     User:
       example:
-        plexUsername: plexUsername
+        movieQuotaLimit: 1.4658129805029452
+        recoveryLinkExpirationDate: recoveryLinkExpirationDate
+        tvQuotaDays: 2.3021358869347655
+        displayName: displayName
+        jellyfinUsername: jellyfinUsername
+        tvQuotaLimit: 5.637376656633329
         createdAt: 2020-09-02T05:02:23.000Z
-        requestCount: 5
         plexToken: plexToken
+        jellyfinUserId: jellyfinUserId
         permissions: 0
-        jellyfinAuthToken: jellyfinAuthToken
         id: 1
-        userType: 1
-        avatar: avatar
         email: hey@itsme.com
-        username: username
         updatedAt: 2020-09-02T05:02:23.000Z
+        avatarETag: avatarETag
+        plexUsername: plexUsername
+        settings:
+          movieQuotaLimit: 10
+          watchlistSyncTv: false
+          discordId: "123456789"
+          tvQuotaDays: 14
+          globalMovieQuotaLimit: 10
+          movieQuotaDays: 30
+          locale: en
+          originalLanguage: en
+          tvQuotaLimit: 5
+          watchlistSyncMovies: true
+          discoverRegion: US
+          globalTvQuotaLimit: 5
+          globalMovieQuotaDays: 30
+          streamingRegion: US
+          email: user@example.com
+          username: Mr User
+          globalTvQuotaDays: 14
+        requestCount: 5
+        warnings:
+        - warnings
+        - warnings
+        avatarVersion: 6
+        plexId: 0
+        movieQuotaDays: 5.962133916683182
+        avatar: avatar
+        jellyfinAuthToken: jellyfinAuthToken
+        userType: 1
+        username: username
       properties:
         id:
           example: 1
@@ -5380,8 +5444,58 @@ components:
           example: 2020-09-02T05:02:23.000Z
           readOnly: true
           type: string
+        settings:
+          $ref: "#/components/schemas/UserSettings"
         requestCount:
           example: 5
+          readOnly: true
+          type: number
+        displayName:
+          readOnly: true
+          type: string
+        jellyfinUsername:
+          nullable: true
+          readOnly: true
+          type: string
+        jellyfinUserId:
+          nullable: true
+          readOnly: true
+          type: string
+        plexId:
+          nullable: true
+          readOnly: true
+          type: integer
+        warnings:
+          items:
+            type: string
+          readOnly: true
+          type: array
+        recoveryLinkExpirationDate:
+          nullable: true
+          readOnly: true
+          type: string
+        avatarETag:
+          nullable: true
+          readOnly: true
+          type: string
+        avatarVersion:
+          nullable: true
+          readOnly: true
+          type: integer
+        movieQuotaLimit:
+          nullable: true
+          readOnly: true
+          type: number
+        movieQuotaDays:
+          nullable: true
+          readOnly: true
+          type: number
+        tvQuotaLimit:
+          nullable: true
+          readOnly: true
+          type: number
+        tvQuotaDays:
+          nullable: true
           readOnly: true
           type: number
       required:
@@ -7178,33 +7292,97 @@ components:
         is4k: false
         createdAt: 2020-09-12T10:00:27.000Z
         requestedBy:
-          plexUsername: plexUsername
+          movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
         profileId: 5.637376656633329
         rootFolder: rootFolder
         modifiedBy:
-          plexUsername: plexUsername
+          movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
         id: 123
         media:
           createdAt: 2020-09-12T10:00:27.000Z
@@ -8267,59 +8445,187 @@ components:
         - id: 1
           message: A comment
           user:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
         - id: 1
           message: A comment
           user:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
         createdBy:
-          plexUsername: plexUsername
+          movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
         modifiedBy:
-          plexUsername: plexUsername
+          movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
         id: 1
         media:
           createdAt: 2020-09-12T10:00:27.000Z
@@ -8354,18 +8660,50 @@ components:
         id: 1
         message: A comment
         user:
-          plexUsername: plexUsername
+          movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
       properties:
         id:
           example: 1
@@ -9062,30 +9400,94 @@ components:
           page: 1
           results: 100
         results:
-        - plexUsername: plexUsername
+        - movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
-        - plexUsername: plexUsername
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
+        - movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
       properties:
         pageInfo:
           $ref: "#/components/schemas/PageInfo"
@@ -9168,33 +9570,97 @@ components:
         - is4k: false
           createdAt: 2020-09-12T10:00:27.000Z
           requestedBy:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           profileId: 5.637376656633329
           rootFolder: rootFolder
           modifiedBy:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           id: 123
           media:
             createdAt: 2020-09-12T10:00:27.000Z
@@ -9212,33 +9678,97 @@ components:
         - is4k: false
           createdAt: 2020-09-12T10:00:27.000Z
           requestedBy:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           profileId: 5.637376656633329
           rootFolder: rootFolder
           modifiedBy:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           id: 123
           media:
             createdAt: 2020-09-12T10:00:27.000Z
@@ -9313,18 +9843,50 @@ components:
         id: 1
         title: Dune
         user:
-          plexUsername: plexUsername
+          movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
       properties:
         user:
           $ref: "#/components/schemas/User"
@@ -9357,36 +9919,100 @@ components:
           id: 1
           title: Dune
           user:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
         - createdAt: 2024-04-21T01:55:44.000Z
           tmdbId: 438631
           mediaType: movie
           id: 1
           title: Dune
           user:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
       properties:
         pageInfo:
           $ref: "#/components/schemas/PageInfo"
@@ -10718,30 +11344,94 @@ components:
         playCount: 1.4658129805029452
         playCount30Days: 6.027456183070403
         users:
-        - plexUsername: plexUsername
+        - movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
-        - plexUsername: plexUsername
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
+        - movieQuotaLimit: 1.4658129805029452
+          recoveryLinkExpirationDate: recoveryLinkExpirationDate
+          tvQuotaDays: 2.3021358869347655
+          displayName: displayName
+          jellyfinUsername: jellyfinUsername
+          tvQuotaLimit: 5.637376656633329
           createdAt: 2020-09-02T05:02:23.000Z
-          requestCount: 5
           plexToken: plexToken
+          jellyfinUserId: jellyfinUserId
           permissions: 0
-          jellyfinAuthToken: jellyfinAuthToken
           id: 1
-          userType: 1
-          avatar: avatar
           email: hey@itsme.com
-          username: username
           updatedAt: 2020-09-02T05:02:23.000Z
+          avatarETag: avatarETag
+          plexUsername: plexUsername
+          settings:
+            movieQuotaLimit: 10
+            watchlistSyncTv: false
+            discordId: "123456789"
+            tvQuotaDays: 14
+            globalMovieQuotaLimit: 10
+            movieQuotaDays: 30
+            locale: en
+            originalLanguage: en
+            tvQuotaLimit: 5
+            watchlistSyncMovies: true
+            discoverRegion: US
+            globalTvQuotaLimit: 5
+            globalMovieQuotaDays: 30
+            streamingRegion: US
+            email: user@example.com
+            username: Mr User
+            globalTvQuotaDays: 14
+          requestCount: 5
+          warnings:
+          - warnings
+          - warnings
+          avatarVersion: 6
+          plexId: 0
+          movieQuotaDays: 5.962133916683182
+          avatar: avatar
+          jellyfinAuthToken: jellyfinAuthToken
+          userType: 1
+          username: username
         playCount7Days: 0.8008281904610115
       properties:
         playCount7Days:
@@ -10761,59 +11451,187 @@ components:
           playCount: 1.4658129805029452
           playCount30Days: 6.027456183070403
           users:
-          - plexUsername: plexUsername
+          - movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
-          - plexUsername: plexUsername
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
+          - movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           playCount7Days: 0.8008281904610115
         data:
           playCount: 1.4658129805029452
           playCount30Days: 6.027456183070403
           users:
-          - plexUsername: plexUsername
+          - movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
-          - plexUsername: plexUsername
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
+          - movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           playCount7Days: 0.8008281904610115
       properties:
         data:
@@ -10946,59 +11764,187 @@ components:
           - id: 1
             message: A comment
             user:
-              plexUsername: plexUsername
+              movieQuotaLimit: 1.4658129805029452
+              recoveryLinkExpirationDate: recoveryLinkExpirationDate
+              tvQuotaDays: 2.3021358869347655
+              displayName: displayName
+              jellyfinUsername: jellyfinUsername
+              tvQuotaLimit: 5.637376656633329
               createdAt: 2020-09-02T05:02:23.000Z
-              requestCount: 5
               plexToken: plexToken
+              jellyfinUserId: jellyfinUserId
               permissions: 0
-              jellyfinAuthToken: jellyfinAuthToken
               id: 1
-              userType: 1
-              avatar: avatar
               email: hey@itsme.com
-              username: username
               updatedAt: 2020-09-02T05:02:23.000Z
+              avatarETag: avatarETag
+              plexUsername: plexUsername
+              settings:
+                movieQuotaLimit: 10
+                watchlistSyncTv: false
+                discordId: "123456789"
+                tvQuotaDays: 14
+                globalMovieQuotaLimit: 10
+                movieQuotaDays: 30
+                locale: en
+                originalLanguage: en
+                tvQuotaLimit: 5
+                watchlistSyncMovies: true
+                discoverRegion: US
+                globalTvQuotaLimit: 5
+                globalMovieQuotaDays: 30
+                streamingRegion: US
+                email: user@example.com
+                username: Mr User
+                globalTvQuotaDays: 14
+              requestCount: 5
+              warnings:
+              - warnings
+              - warnings
+              avatarVersion: 6
+              plexId: 0
+              movieQuotaDays: 5.962133916683182
+              avatar: avatar
+              jellyfinAuthToken: jellyfinAuthToken
+              userType: 1
+              username: username
           - id: 1
             message: A comment
             user:
-              plexUsername: plexUsername
+              movieQuotaLimit: 1.4658129805029452
+              recoveryLinkExpirationDate: recoveryLinkExpirationDate
+              tvQuotaDays: 2.3021358869347655
+              displayName: displayName
+              jellyfinUsername: jellyfinUsername
+              tvQuotaLimit: 5.637376656633329
               createdAt: 2020-09-02T05:02:23.000Z
-              requestCount: 5
               plexToken: plexToken
+              jellyfinUserId: jellyfinUserId
               permissions: 0
-              jellyfinAuthToken: jellyfinAuthToken
               id: 1
-              userType: 1
-              avatar: avatar
               email: hey@itsme.com
-              username: username
               updatedAt: 2020-09-02T05:02:23.000Z
+              avatarETag: avatarETag
+              plexUsername: plexUsername
+              settings:
+                movieQuotaLimit: 10
+                watchlistSyncTv: false
+                discordId: "123456789"
+                tvQuotaDays: 14
+                globalMovieQuotaLimit: 10
+                movieQuotaDays: 30
+                locale: en
+                originalLanguage: en
+                tvQuotaLimit: 5
+                watchlistSyncMovies: true
+                discoverRegion: US
+                globalTvQuotaLimit: 5
+                globalMovieQuotaDays: 30
+                streamingRegion: US
+                email: user@example.com
+                username: Mr User
+                globalTvQuotaDays: 14
+              requestCount: 5
+              warnings:
+              - warnings
+              - warnings
+              avatarVersion: 6
+              plexId: 0
+              movieQuotaDays: 5.962133916683182
+              avatar: avatar
+              jellyfinAuthToken: jellyfinAuthToken
+              userType: 1
+              username: username
           createdBy:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           modifiedBy:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           id: 1
           media:
             createdAt: 2020-09-12T10:00:27.000Z
@@ -11015,59 +11961,187 @@ components:
           - id: 1
             message: A comment
             user:
-              plexUsername: plexUsername
+              movieQuotaLimit: 1.4658129805029452
+              recoveryLinkExpirationDate: recoveryLinkExpirationDate
+              tvQuotaDays: 2.3021358869347655
+              displayName: displayName
+              jellyfinUsername: jellyfinUsername
+              tvQuotaLimit: 5.637376656633329
               createdAt: 2020-09-02T05:02:23.000Z
-              requestCount: 5
               plexToken: plexToken
+              jellyfinUserId: jellyfinUserId
               permissions: 0
-              jellyfinAuthToken: jellyfinAuthToken
               id: 1
-              userType: 1
-              avatar: avatar
               email: hey@itsme.com
-              username: username
               updatedAt: 2020-09-02T05:02:23.000Z
+              avatarETag: avatarETag
+              plexUsername: plexUsername
+              settings:
+                movieQuotaLimit: 10
+                watchlistSyncTv: false
+                discordId: "123456789"
+                tvQuotaDays: 14
+                globalMovieQuotaLimit: 10
+                movieQuotaDays: 30
+                locale: en
+                originalLanguage: en
+                tvQuotaLimit: 5
+                watchlistSyncMovies: true
+                discoverRegion: US
+                globalTvQuotaLimit: 5
+                globalMovieQuotaDays: 30
+                streamingRegion: US
+                email: user@example.com
+                username: Mr User
+                globalTvQuotaDays: 14
+              requestCount: 5
+              warnings:
+              - warnings
+              - warnings
+              avatarVersion: 6
+              plexId: 0
+              movieQuotaDays: 5.962133916683182
+              avatar: avatar
+              jellyfinAuthToken: jellyfinAuthToken
+              userType: 1
+              username: username
           - id: 1
             message: A comment
             user:
-              plexUsername: plexUsername
+              movieQuotaLimit: 1.4658129805029452
+              recoveryLinkExpirationDate: recoveryLinkExpirationDate
+              tvQuotaDays: 2.3021358869347655
+              displayName: displayName
+              jellyfinUsername: jellyfinUsername
+              tvQuotaLimit: 5.637376656633329
               createdAt: 2020-09-02T05:02:23.000Z
-              requestCount: 5
               plexToken: plexToken
+              jellyfinUserId: jellyfinUserId
               permissions: 0
-              jellyfinAuthToken: jellyfinAuthToken
               id: 1
-              userType: 1
-              avatar: avatar
               email: hey@itsme.com
-              username: username
               updatedAt: 2020-09-02T05:02:23.000Z
+              avatarETag: avatarETag
+              plexUsername: plexUsername
+              settings:
+                movieQuotaLimit: 10
+                watchlistSyncTv: false
+                discordId: "123456789"
+                tvQuotaDays: 14
+                globalMovieQuotaLimit: 10
+                movieQuotaDays: 30
+                locale: en
+                originalLanguage: en
+                tvQuotaLimit: 5
+                watchlistSyncMovies: true
+                discoverRegion: US
+                globalTvQuotaLimit: 5
+                globalMovieQuotaDays: 30
+                streamingRegion: US
+                email: user@example.com
+                username: Mr User
+                globalTvQuotaDays: 14
+              requestCount: 5
+              warnings:
+              - warnings
+              - warnings
+              avatarVersion: 6
+              plexId: 0
+              movieQuotaDays: 5.962133916683182
+              avatar: avatar
+              jellyfinAuthToken: jellyfinAuthToken
+              userType: 1
+              username: username
           createdBy:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           modifiedBy:
-            plexUsername: plexUsername
+            movieQuotaLimit: 1.4658129805029452
+            recoveryLinkExpirationDate: recoveryLinkExpirationDate
+            tvQuotaDays: 2.3021358869347655
+            displayName: displayName
+            jellyfinUsername: jellyfinUsername
+            tvQuotaLimit: 5.637376656633329
             createdAt: 2020-09-02T05:02:23.000Z
-            requestCount: 5
             plexToken: plexToken
+            jellyfinUserId: jellyfinUserId
             permissions: 0
-            jellyfinAuthToken: jellyfinAuthToken
             id: 1
-            userType: 1
-            avatar: avatar
             email: hey@itsme.com
-            username: username
             updatedAt: 2020-09-02T05:02:23.000Z
+            avatarETag: avatarETag
+            plexUsername: plexUsername
+            settings:
+              movieQuotaLimit: 10
+              watchlistSyncTv: false
+              discordId: "123456789"
+              tvQuotaDays: 14
+              globalMovieQuotaLimit: 10
+              movieQuotaDays: 30
+              locale: en
+              originalLanguage: en
+              tvQuotaLimit: 5
+              watchlistSyncMovies: true
+              discoverRegion: US
+              globalTvQuotaLimit: 5
+              globalMovieQuotaDays: 30
+              streamingRegion: US
+              email: user@example.com
+              username: Mr User
+              globalTvQuotaDays: 14
+            requestCount: 5
+            warnings:
+            - warnings
+            - warnings
+            avatarVersion: 6
+            plexId: 0
+            movieQuotaDays: 5.962133916683182
+            avatar: avatar
+            jellyfinAuthToken: jellyfinAuthToken
+            userType: 1
+            username: username
           id: 1
           media:
             createdAt: 2020-09-12T10:00:27.000Z

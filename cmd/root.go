@@ -10,6 +10,7 @@ import (
 
 	"seer-cli/cmd/config"
 	"seer-cli/cmd/status"
+	"seer-cli/cmd/users"
 )
 
 var (
@@ -58,6 +59,7 @@ func init() {
 
 	RootCmd.AddCommand(config.Cmd)
 	RootCmd.AddCommand(status.Cmd)
+	RootCmd.AddCommand(users.Cmd)
 }
 
 func initConfig() {

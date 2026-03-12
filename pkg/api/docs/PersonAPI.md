@@ -26,7 +26,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "seer-cli/pkg/api"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID/api"
 )
 
 func main() {
@@ -98,7 +98,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "seer-cli/pkg/api"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID/api"
 )
 
 func main() {

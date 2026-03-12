@@ -32,7 +32,20 @@ type User struct {
 	Avatar *string `json:"avatar,omitempty"`
 	CreatedAt string `json:"createdAt"`
 	UpdatedAt string `json:"updatedAt"`
+	Settings *UserSettings `json:"settings,omitempty"`
 	RequestCount *float32 `json:"requestCount,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	JellyfinUsername NullableString `json:"jellyfinUsername,omitempty"`
+	JellyfinUserId NullableString `json:"jellyfinUserId,omitempty"`
+	PlexId NullableInt32 `json:"plexId,omitempty"`
+	Warnings []string `json:"warnings,omitempty"`
+	RecoveryLinkExpirationDate NullableString `json:"recoveryLinkExpirationDate,omitempty"`
+	AvatarETag NullableString `json:"avatarETag,omitempty"`
+	AvatarVersion NullableInt32 `json:"avatarVersion,omitempty"`
+	MovieQuotaLimit NullableFloat32 `json:"movieQuotaLimit,omitempty"`
+	MovieQuotaDays NullableFloat32 `json:"movieQuotaDays,omitempty"`
+	TvQuotaLimit NullableFloat32 `json:"tvQuotaLimit,omitempty"`
+	TvQuotaDays NullableFloat32 `json:"tvQuotaDays,omitempty"`
 }
 
 type _User User
@@ -378,6 +391,38 @@ func (o *User) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
+// GetSettings returns the Settings field value if set, zero value otherwise.
+func (o *User) GetSettings() UserSettings {
+	if o == nil || IsNil(o.Settings) {
+		var ret UserSettings
+		return ret
+	}
+	return *o.Settings
+}
+
+// GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *User) GetSettingsOk() (*UserSettings, bool) {
+	if o == nil || IsNil(o.Settings) {
+		return nil, false
+	}
+	return o.Settings, true
+}
+
+// HasSettings returns a boolean if a field has been set.
+func (o *User) HasSettings() bool {
+	if o != nil && !IsNil(o.Settings) {
+		return true
+	}
+
+	return false
+}
+
+// SetSettings gets a reference to the given UserSettings and assigns it to the Settings field.
+func (o *User) SetSettings(v UserSettings) {
+	o.Settings = &v
+}
+
 // GetRequestCount returns the RequestCount field value if set, zero value otherwise.
 func (o *User) GetRequestCount() float32 {
 	if o == nil || IsNil(o.RequestCount) {
@@ -408,6 +453,490 @@ func (o *User) HasRequestCount() bool {
 // SetRequestCount gets a reference to the given float32 and assigns it to the RequestCount field.
 func (o *User) SetRequestCount(v float32) {
 	o.RequestCount = &v
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *User) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *User) GetDisplayNameOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayName) {
+		return nil, false
+	}
+	return o.DisplayName, true
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *User) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+func (o *User) SetDisplayName(v string) {
+	o.DisplayName = &v
+}
+
+// GetJellyfinUsername returns the JellyfinUsername field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetJellyfinUsername() string {
+	if o == nil || IsNil(o.JellyfinUsername.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.JellyfinUsername.Get()
+}
+
+// GetJellyfinUsernameOk returns a tuple with the JellyfinUsername field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetJellyfinUsernameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.JellyfinUsername.Get(), o.JellyfinUsername.IsSet()
+}
+
+// HasJellyfinUsername returns a boolean if a field has been set.
+func (o *User) HasJellyfinUsername() bool {
+	if o != nil && o.JellyfinUsername.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetJellyfinUsername gets a reference to the given NullableString and assigns it to the JellyfinUsername field.
+func (o *User) SetJellyfinUsername(v string) {
+	o.JellyfinUsername.Set(&v)
+}
+// SetJellyfinUsernameNil sets the value for JellyfinUsername to be an explicit nil
+func (o *User) SetJellyfinUsernameNil() {
+	o.JellyfinUsername.Set(nil)
+}
+
+// UnsetJellyfinUsername ensures that no value is present for JellyfinUsername, not even an explicit nil
+func (o *User) UnsetJellyfinUsername() {
+	o.JellyfinUsername.Unset()
+}
+
+// GetJellyfinUserId returns the JellyfinUserId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetJellyfinUserId() string {
+	if o == nil || IsNil(o.JellyfinUserId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.JellyfinUserId.Get()
+}
+
+// GetJellyfinUserIdOk returns a tuple with the JellyfinUserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetJellyfinUserIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.JellyfinUserId.Get(), o.JellyfinUserId.IsSet()
+}
+
+// HasJellyfinUserId returns a boolean if a field has been set.
+func (o *User) HasJellyfinUserId() bool {
+	if o != nil && o.JellyfinUserId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetJellyfinUserId gets a reference to the given NullableString and assigns it to the JellyfinUserId field.
+func (o *User) SetJellyfinUserId(v string) {
+	o.JellyfinUserId.Set(&v)
+}
+// SetJellyfinUserIdNil sets the value for JellyfinUserId to be an explicit nil
+func (o *User) SetJellyfinUserIdNil() {
+	o.JellyfinUserId.Set(nil)
+}
+
+// UnsetJellyfinUserId ensures that no value is present for JellyfinUserId, not even an explicit nil
+func (o *User) UnsetJellyfinUserId() {
+	o.JellyfinUserId.Unset()
+}
+
+// GetPlexId returns the PlexId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetPlexId() int32 {
+	if o == nil || IsNil(o.PlexId.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.PlexId.Get()
+}
+
+// GetPlexIdOk returns a tuple with the PlexId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetPlexIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PlexId.Get(), o.PlexId.IsSet()
+}
+
+// HasPlexId returns a boolean if a field has been set.
+func (o *User) HasPlexId() bool {
+	if o != nil && o.PlexId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPlexId gets a reference to the given NullableInt32 and assigns it to the PlexId field.
+func (o *User) SetPlexId(v int32) {
+	o.PlexId.Set(&v)
+}
+// SetPlexIdNil sets the value for PlexId to be an explicit nil
+func (o *User) SetPlexIdNil() {
+	o.PlexId.Set(nil)
+}
+
+// UnsetPlexId ensures that no value is present for PlexId, not even an explicit nil
+func (o *User) UnsetPlexId() {
+	o.PlexId.Unset()
+}
+
+// GetWarnings returns the Warnings field value if set, zero value otherwise.
+func (o *User) GetWarnings() []string {
+	if o == nil || IsNil(o.Warnings) {
+		var ret []string
+		return ret
+	}
+	return o.Warnings
+}
+
+// GetWarningsOk returns a tuple with the Warnings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *User) GetWarningsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Warnings) {
+		return nil, false
+	}
+	return o.Warnings, true
+}
+
+// HasWarnings returns a boolean if a field has been set.
+func (o *User) HasWarnings() bool {
+	if o != nil && !IsNil(o.Warnings) {
+		return true
+	}
+
+	return false
+}
+
+// SetWarnings gets a reference to the given []string and assigns it to the Warnings field.
+func (o *User) SetWarnings(v []string) {
+	o.Warnings = v
+}
+
+// GetRecoveryLinkExpirationDate returns the RecoveryLinkExpirationDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetRecoveryLinkExpirationDate() string {
+	if o == nil || IsNil(o.RecoveryLinkExpirationDate.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.RecoveryLinkExpirationDate.Get()
+}
+
+// GetRecoveryLinkExpirationDateOk returns a tuple with the RecoveryLinkExpirationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetRecoveryLinkExpirationDateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RecoveryLinkExpirationDate.Get(), o.RecoveryLinkExpirationDate.IsSet()
+}
+
+// HasRecoveryLinkExpirationDate returns a boolean if a field has been set.
+func (o *User) HasRecoveryLinkExpirationDate() bool {
+	if o != nil && o.RecoveryLinkExpirationDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRecoveryLinkExpirationDate gets a reference to the given NullableString and assigns it to the RecoveryLinkExpirationDate field.
+func (o *User) SetRecoveryLinkExpirationDate(v string) {
+	o.RecoveryLinkExpirationDate.Set(&v)
+}
+// SetRecoveryLinkExpirationDateNil sets the value for RecoveryLinkExpirationDate to be an explicit nil
+func (o *User) SetRecoveryLinkExpirationDateNil() {
+	o.RecoveryLinkExpirationDate.Set(nil)
+}
+
+// UnsetRecoveryLinkExpirationDate ensures that no value is present for RecoveryLinkExpirationDate, not even an explicit nil
+func (o *User) UnsetRecoveryLinkExpirationDate() {
+	o.RecoveryLinkExpirationDate.Unset()
+}
+
+// GetAvatarETag returns the AvatarETag field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetAvatarETag() string {
+	if o == nil || IsNil(o.AvatarETag.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.AvatarETag.Get()
+}
+
+// GetAvatarETagOk returns a tuple with the AvatarETag field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetAvatarETagOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AvatarETag.Get(), o.AvatarETag.IsSet()
+}
+
+// HasAvatarETag returns a boolean if a field has been set.
+func (o *User) HasAvatarETag() bool {
+	if o != nil && o.AvatarETag.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatarETag gets a reference to the given NullableString and assigns it to the AvatarETag field.
+func (o *User) SetAvatarETag(v string) {
+	o.AvatarETag.Set(&v)
+}
+// SetAvatarETagNil sets the value for AvatarETag to be an explicit nil
+func (o *User) SetAvatarETagNil() {
+	o.AvatarETag.Set(nil)
+}
+
+// UnsetAvatarETag ensures that no value is present for AvatarETag, not even an explicit nil
+func (o *User) UnsetAvatarETag() {
+	o.AvatarETag.Unset()
+}
+
+// GetAvatarVersion returns the AvatarVersion field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetAvatarVersion() int32 {
+	if o == nil || IsNil(o.AvatarVersion.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.AvatarVersion.Get()
+}
+
+// GetAvatarVersionOk returns a tuple with the AvatarVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetAvatarVersionOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AvatarVersion.Get(), o.AvatarVersion.IsSet()
+}
+
+// HasAvatarVersion returns a boolean if a field has been set.
+func (o *User) HasAvatarVersion() bool {
+	if o != nil && o.AvatarVersion.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatarVersion gets a reference to the given NullableInt32 and assigns it to the AvatarVersion field.
+func (o *User) SetAvatarVersion(v int32) {
+	o.AvatarVersion.Set(&v)
+}
+// SetAvatarVersionNil sets the value for AvatarVersion to be an explicit nil
+func (o *User) SetAvatarVersionNil() {
+	o.AvatarVersion.Set(nil)
+}
+
+// UnsetAvatarVersion ensures that no value is present for AvatarVersion, not even an explicit nil
+func (o *User) UnsetAvatarVersion() {
+	o.AvatarVersion.Unset()
+}
+
+// GetMovieQuotaLimit returns the MovieQuotaLimit field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetMovieQuotaLimit() float32 {
+	if o == nil || IsNil(o.MovieQuotaLimit.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.MovieQuotaLimit.Get()
+}
+
+// GetMovieQuotaLimitOk returns a tuple with the MovieQuotaLimit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetMovieQuotaLimitOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MovieQuotaLimit.Get(), o.MovieQuotaLimit.IsSet()
+}
+
+// HasMovieQuotaLimit returns a boolean if a field has been set.
+func (o *User) HasMovieQuotaLimit() bool {
+	if o != nil && o.MovieQuotaLimit.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMovieQuotaLimit gets a reference to the given NullableFloat32 and assigns it to the MovieQuotaLimit field.
+func (o *User) SetMovieQuotaLimit(v float32) {
+	o.MovieQuotaLimit.Set(&v)
+}
+// SetMovieQuotaLimitNil sets the value for MovieQuotaLimit to be an explicit nil
+func (o *User) SetMovieQuotaLimitNil() {
+	o.MovieQuotaLimit.Set(nil)
+}
+
+// UnsetMovieQuotaLimit ensures that no value is present for MovieQuotaLimit, not even an explicit nil
+func (o *User) UnsetMovieQuotaLimit() {
+	o.MovieQuotaLimit.Unset()
+}
+
+// GetMovieQuotaDays returns the MovieQuotaDays field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetMovieQuotaDays() float32 {
+	if o == nil || IsNil(o.MovieQuotaDays.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.MovieQuotaDays.Get()
+}
+
+// GetMovieQuotaDaysOk returns a tuple with the MovieQuotaDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetMovieQuotaDaysOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MovieQuotaDays.Get(), o.MovieQuotaDays.IsSet()
+}
+
+// HasMovieQuotaDays returns a boolean if a field has been set.
+func (o *User) HasMovieQuotaDays() bool {
+	if o != nil && o.MovieQuotaDays.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMovieQuotaDays gets a reference to the given NullableFloat32 and assigns it to the MovieQuotaDays field.
+func (o *User) SetMovieQuotaDays(v float32) {
+	o.MovieQuotaDays.Set(&v)
+}
+// SetMovieQuotaDaysNil sets the value for MovieQuotaDays to be an explicit nil
+func (o *User) SetMovieQuotaDaysNil() {
+	o.MovieQuotaDays.Set(nil)
+}
+
+// UnsetMovieQuotaDays ensures that no value is present for MovieQuotaDays, not even an explicit nil
+func (o *User) UnsetMovieQuotaDays() {
+	o.MovieQuotaDays.Unset()
+}
+
+// GetTvQuotaLimit returns the TvQuotaLimit field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetTvQuotaLimit() float32 {
+	if o == nil || IsNil(o.TvQuotaLimit.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.TvQuotaLimit.Get()
+}
+
+// GetTvQuotaLimitOk returns a tuple with the TvQuotaLimit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetTvQuotaLimitOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TvQuotaLimit.Get(), o.TvQuotaLimit.IsSet()
+}
+
+// HasTvQuotaLimit returns a boolean if a field has been set.
+func (o *User) HasTvQuotaLimit() bool {
+	if o != nil && o.TvQuotaLimit.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTvQuotaLimit gets a reference to the given NullableFloat32 and assigns it to the TvQuotaLimit field.
+func (o *User) SetTvQuotaLimit(v float32) {
+	o.TvQuotaLimit.Set(&v)
+}
+// SetTvQuotaLimitNil sets the value for TvQuotaLimit to be an explicit nil
+func (o *User) SetTvQuotaLimitNil() {
+	o.TvQuotaLimit.Set(nil)
+}
+
+// UnsetTvQuotaLimit ensures that no value is present for TvQuotaLimit, not even an explicit nil
+func (o *User) UnsetTvQuotaLimit() {
+	o.TvQuotaLimit.Unset()
+}
+
+// GetTvQuotaDays returns the TvQuotaDays field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetTvQuotaDays() float32 {
+	if o == nil || IsNil(o.TvQuotaDays.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.TvQuotaDays.Get()
+}
+
+// GetTvQuotaDaysOk returns a tuple with the TvQuotaDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetTvQuotaDaysOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TvQuotaDays.Get(), o.TvQuotaDays.IsSet()
+}
+
+// HasTvQuotaDays returns a boolean if a field has been set.
+func (o *User) HasTvQuotaDays() bool {
+	if o != nil && o.TvQuotaDays.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTvQuotaDays gets a reference to the given NullableFloat32 and assigns it to the TvQuotaDays field.
+func (o *User) SetTvQuotaDays(v float32) {
+	o.TvQuotaDays.Set(&v)
+}
+// SetTvQuotaDaysNil sets the value for TvQuotaDays to be an explicit nil
+func (o *User) SetTvQuotaDaysNil() {
+	o.TvQuotaDays.Set(nil)
+}
+
+// UnsetTvQuotaDays ensures that no value is present for TvQuotaDays, not even an explicit nil
+func (o *User) UnsetTvQuotaDays() {
+	o.TvQuotaDays.Unset()
 }
 
 func (o User) MarshalJSON() ([]byte, error) {
@@ -445,8 +974,47 @@ func (o User) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.Settings) {
+		toSerialize["settings"] = o.Settings
+	}
 	if !IsNil(o.RequestCount) {
 		toSerialize["requestCount"] = o.RequestCount
+	}
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
+	}
+	if o.JellyfinUsername.IsSet() {
+		toSerialize["jellyfinUsername"] = o.JellyfinUsername.Get()
+	}
+	if o.JellyfinUserId.IsSet() {
+		toSerialize["jellyfinUserId"] = o.JellyfinUserId.Get()
+	}
+	if o.PlexId.IsSet() {
+		toSerialize["plexId"] = o.PlexId.Get()
+	}
+	if !IsNil(o.Warnings) {
+		toSerialize["warnings"] = o.Warnings
+	}
+	if o.RecoveryLinkExpirationDate.IsSet() {
+		toSerialize["recoveryLinkExpirationDate"] = o.RecoveryLinkExpirationDate.Get()
+	}
+	if o.AvatarETag.IsSet() {
+		toSerialize["avatarETag"] = o.AvatarETag.Get()
+	}
+	if o.AvatarVersion.IsSet() {
+		toSerialize["avatarVersion"] = o.AvatarVersion.Get()
+	}
+	if o.MovieQuotaLimit.IsSet() {
+		toSerialize["movieQuotaLimit"] = o.MovieQuotaLimit.Get()
+	}
+	if o.MovieQuotaDays.IsSet() {
+		toSerialize["movieQuotaDays"] = o.MovieQuotaDays.Get()
+	}
+	if o.TvQuotaLimit.IsSet() {
+		toSerialize["tvQuotaLimit"] = o.TvQuotaLimit.Get()
+	}
+	if o.TvQuotaDays.IsSet() {
+		toSerialize["tvQuotaDays"] = o.TvQuotaDays.Get()
 	}
 	return toSerialize, nil
 }

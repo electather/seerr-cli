@@ -129,9 +129,60 @@ components:
           type: string
           example: "2020-09-02T05:02:23.000Z"
           readOnly: true
+        settings:
+          $ref: "#/components/schemas/UserSettings"
+          nullable: true
         requestCount:
           type: number
           example: 5
+          readOnly: true
+        displayName:
+          type: string
+          readOnly: true
+        jellyfinUsername:
+          type: string
+          nullable: true
+          readOnly: true
+        jellyfinUserId:
+          type: string
+          nullable: true
+          readOnly: true
+        plexId:
+          type: integer
+          nullable: true
+          readOnly: true
+        warnings:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        recoveryLinkExpirationDate:
+          type: string
+          nullable: true
+          readOnly: true
+        avatarETag:
+          type: string
+          nullable: true
+          readOnly: true
+        avatarVersion:
+          type: integer
+          nullable: true
+          readOnly: true
+        movieQuotaLimit:
+          type: number
+          nullable: true
+          readOnly: true
+        movieQuotaDays:
+          type: number
+          nullable: true
+          readOnly: true
+        tvQuotaLimit:
+          type: number
+          nullable: true
+          readOnly: true
+        tvQuotaDays:
+          type: number
+          nullable: true
           readOnly: true
       required:
         - id

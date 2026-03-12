@@ -1,52 +1,91 @@
-# Seer CLI - Agent Guide
+# CLAUDE.md
 
-## Core Principles
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-1.  **Test-Driven Development (TDD):**
-    - **Bug Fixes:** Always reproduce the bug with a failing test case before applying a fix.
-    - **Features:** Write tests alongside implementation. A feature is not complete without verification logic.
-    - **Mocking:** Use `httptest` to mock API responses. Never make live network calls in tests.
+## Commands
 
-2.  **Clean Code & Idiomatic Go:**
-    - **Single Responsibility:** Keep command files small. Extract complex logic into helper functions.
-    - **Small Functions:** Functions should do one thing and do it well.
-    - **Error Handling:** Return descriptive errors. Use `fmt.Errorf("context: %w", err)` for wrapping.
-    - **Formatting:** Always run `go fmt` and `go mod tidy` after changes.
+```bash
+# Build
+go build
 
-3.  **Surgical Updates:**
-    - Modify only what is necessary. Avoid unrelated refactoring or "cleanup" of stable code.
+# Run all tests
+go test -v ./...
 
-## CLI Standards
+# Run tests in a specific package
+go test -v ./tests/
 
-1.  **Configuration & Viper:**
-    - Always use `viper` for configuration (`server`, `api_key`, `verbose`).
-    - Access config via `viper.GetString("key")` or `viper.GetBool("key")`.
-    - Ensure `PersistentPreRunE` in `root.go` handles global validation (e.g., checking for the `server` URL).
+# Run a single test
+go test -v ./tests/ -run TestStatusSystem
 
-2.  **Verbose Mode:**
-    - Respect the global `--verbose` (`-v`) flag.
-    - **Normal Mode:** Output should be raw, pretty-printed JSON only (suitable for `jq`).
-    - **Verbose Mode:** Output should include progress messages, target URLs, and HTTP status codes.
+# Format code
+go fmt ./...
 
-3.  **Command Structure:**
-    - Follow the Cobra pattern: `cmd/<resource>.go` for top-level, `cmd/<resource>_<action>.go` for subcommands.
-    - Use `cmd.Printf` and `cmd.Println` instead of `fmt` to allow output capturing in tests.
+# Tidy dependencies
+go mod tidy
 
-4.  **Avoid Testing Logs/Verbose Output:** Do not write tests that assert specific strings in verbose output or log messages. These are brittle and prone to breaking during UI/UX refinements.
-5.  **Focus on Functional Correctness:** Tests should verify that the command executes successfully, handles errors correctly, and returns the expected data (e.g., core JSON fields).
-6.  **Mocking:** Always use `httptest` for API interactions to ensure tests are fast, reliable, and decoupled from the network.
+# Regenerate pkg/api from open-api.yaml (requires Docker)
+./generate-api-lib.sh
+```
 
-## API & Generation
+## Architecture
 
-1.  **Ephemeral `pkg/api`:**
-    - Never edit `pkg/api` manually. It is strictly auto-generated.
-    - To change the API: Update `open-api.yaml` -> Run `./generate-api-lib.sh` -> Fix module imports with `sed`.
-    - **Note:** The generator currently produces duplicate declarations for multi-tagged endpoints; keep `open-api.yaml` tags lean to avoid this.
+**seer-cli** is a Cobra/Viper CLI that wraps the auto-generated Seer API client.
 
-## Development Workflow
+### Module Structure
 
-1.  **Research:** Map the OpenAPI spec to the required command.
-2.  **Test:** Add a failing test in `tests/*_test.go`.
-3.  **Implement:** Add the command logic, respecting configuration and verbose flags.
-4.  **Validate:** Run `go test -v ./...` and `go build`.
-5.  **Clean:** Ensure `.gitignore` is respected and the index is clean.
+This is a **Go workspace** (`go.work`) with two modules:
+
+- `.` — the main CLI (imports `cobra`, `viper`)
+- `./pkg/api` — the auto-generated OpenAPI client (its own `go.mod`)
+
+### Key Layers
+
+- **`cmd/root.go`** — Root command, global flags, `initConfig()`, and `AddCommand` calls that wire in subpackages.
+- **`cmd/<group>/`** — One subdirectory per command group (e.g. `cmd/config/`, `cmd/status/`), each its own Go package. The top-level file (`config.go`, `status.go`) declares the parent `Cmd` and any test hooks (e.g. `OverrideServerURL`). Each action gets its own file (`set.go`, `system.go`) whose `init()` calls `Cmd.AddCommand(...)`.
+- **`pkg/api/`** — **Never edit manually.** Entirely auto-generated via `./generate-api-lib.sh` (Docker + OpenAPI Generator). Contains 19 API service types (`PublicAPIService`, `SearchAPIService`, etc.) and 200+ model structs.
+- **`tests/`** — Integration-style tests using `httptest` to mock the HTTP server.
+
+### Command Grouping Policy
+
+CLI command groups **must mirror the tag groups in `open-api.yaml`**. Every endpoint belongs to one or more tags — use those tags as the authoritative grouping for CLI commands. The goal is that a user familiar with the Seer API can predict the CLI structure without reading docs.
+
+- One `cmd/<group>/` directory per OpenAPI tag (e.g. `users`, `search`, `request`, `settings`, `auth`).
+- When an endpoint spans multiple tags, place it under the tag that best represents the primary resource.
+- Endpoints that logically belong together from the user's perspective must be reachable under the same parent command, even if they map to different API service types in `pkg/api/`. For example, user settings, user auth, and user details all live under `seer-cli users ...` — not split across separate top-level commands.
+- Before implementing any new command, consult `open-api.yaml` to identify which tag group it belongs to and confirm the right parent command exists or needs to be created.
+
+### Adding a New Command Group
+
+1. Create `cmd/<group>/` with its own package name matching the OpenAPI tag.
+2. Declare `var Cmd = &cobra.Command{...}` in `cmd/<group>/<group>.go`.
+3. Add `RootCmd.AddCommand(<group>.Cmd)` in `cmd/root.go`'s `init()`.
+
+### Adding a Subcommand to an Existing Group
+
+Follow this pattern (see `cmd/status/system.go` as the canonical example):
+
+1. **Look up** the endpoint in `open-api.yaml` and the corresponding service in `pkg/api/api_*.go`.
+2. **Write a failing test** in `tests/<group>_<action>_test.go` using `httptest.NewServer()`.
+3. **Implement** the command in `cmd/<group>/<action>.go`:
+   - Build `api.NewConfiguration()`, set `configuration.Servers` to `viper.GetString("server") + "/api/v1"`.
+   - Add `X-Api-Key` header via `configuration.AddDefaultHeader`.
+   - Call the appropriate `apiClient.<ServiceAPI>.<Method>(ctx).Execute()`.
+   - Print JSON with `cmd.Println(string(jsonRes))` — never use `fmt` (breaks test output capture).
+   - Respect `viper.GetBool("verbose")` for progress/URL/status output.
+4. Register via `Cmd.AddCommand(...)` in the file's `init()`.
+
+### Configuration & Viper
+
+Global flags (`--server`, `--api-key`, `--verbose`) are bound to Viper keys `server`, `api_key`, `verbose`. Config is persisted to `~/.seer-cli.yaml`. `PersistentPreRunE` in `root.go` validates that `server` is set (skipped for `config`, `help`, `completion` commands).
+
+### Testing Conventions
+
+- Mock HTTP with `httptest.NewServer()` — no live network calls.
+- Set `<group>.OverrideServerURL = ts.URL` and `os.Setenv("SEER_SERVER", ts.URL)`, clean up with `defer`.
+- Capture output with `cmd.RootCmd.SetOut(&buf)`, then call `cmd.RootCmd.Execute()`.
+- **Do not assert on verbose/log output strings** — only assert on functional data (JSON fields, exit behavior).
+
+### Output Rules
+
+- **Normal mode**: Raw pretty-printed JSON only (piping to `jq` must work).
+- **Verbose mode**: Include progress messages, target URL, HTTP status code before the JSON.

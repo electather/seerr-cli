@@ -44,10 +44,10 @@ func TestConfigCommands(t *testing.T) {
 		b := new(bytes.Buffer)
 		cmd.RootCmd.SetOut(b)
 		cmd.RootCmd.SetErr(b)
-		
+
 		testServer := "http://test-server:5055"
 		testKey := "test-api-key-12345"
-		
+
 		cmd.RootCmd.SetArgs([]string{"config", "set", "--server", testServer, "--api-key", testKey, "--config", configPath})
 
 		err := cmd.RootCmd.Execute()
@@ -65,7 +65,7 @@ func TestConfigCommands(t *testing.T) {
 		if err != nil {
 			t.Fatalf("failed to read config file: %v", err)
 		}
-		
+
 		content := string(data)
 		if !strings.Contains(content, testServer) || !strings.Contains(content, testKey) {
 			t.Errorf("config file does not contain expected values: %s", content)
@@ -78,7 +78,7 @@ func TestConfigCommands(t *testing.T) {
 		b := new(bytes.Buffer)
 		cmd.RootCmd.SetOut(b)
 		cmd.RootCmd.SetErr(b)
-		
+
 		cmd.RootCmd.SetArgs([]string{"config", "show", "--config", configPath})
 
 		err := cmd.RootCmd.Execute()
@@ -99,11 +99,11 @@ func TestConfigCommands(t *testing.T) {
 	t.Run("config show empty", func(t *testing.T) {
 		viper.Reset()
 		emptyConfig := filepath.Join(tempDir, "empty.yaml")
-		
+
 		b := new(bytes.Buffer)
 		cmd.RootCmd.SetOut(b)
 		cmd.RootCmd.SetErr(b)
-		
+
 		cmd.RootCmd.SetArgs([]string{"config", "show", "--config", emptyConfig})
 
 		err := cmd.RootCmd.Execute()
