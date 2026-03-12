@@ -6,17 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **float32** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Deathday** | Pointer to **string** |  | [optional] 
+**Birthday** | Pointer to **NullableString** |  | [optional] 
+**Deathday** | Pointer to **NullableString** |  | [optional] 
 **KnownForDepartment** | Pointer to **string** |  | [optional] 
 **AlsoKnownAs** | Pointer to **[]string** |  | [optional] 
-**Gender** | Pointer to **string** |  | [optional] 
+**Gender** | Pointer to **float32** |  | [optional] 
 **Biography** | Pointer to **string** |  | [optional] 
-**Popularity** | Pointer to **string** |  | [optional] 
-**PlaceOfBirth** | Pointer to **string** |  | [optional] 
-**ProfilePath** | Pointer to **string** |  | [optional] 
+**Popularity** | Pointer to **float32** |  | [optional] 
+**PlaceOfBirth** | Pointer to **NullableString** |  | [optional] 
+**ProfilePath** | Pointer to **NullableString** |  | [optional] 
 **Adult** | Pointer to **bool** |  | [optional] 
-**ImdbId** | Pointer to **string** |  | [optional] 
-**Homepage** | Pointer to **string** |  | [optional] 
+**ImdbId** | Pointer to **NullableString** |  | [optional] 
+**Homepage** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
@@ -87,6 +88,41 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
+### GetBirthday
+
+`func (o *PersonDetails) GetBirthday() string`
+
+GetBirthday returns the Birthday field if non-nil, zero value otherwise.
+
+### GetBirthdayOk
+
+`func (o *PersonDetails) GetBirthdayOk() (*string, bool)`
+
+GetBirthdayOk returns a tuple with the Birthday field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBirthday
+
+`func (o *PersonDetails) SetBirthday(v string)`
+
+SetBirthday sets Birthday field to given value.
+
+### HasBirthday
+
+`func (o *PersonDetails) HasBirthday() bool`
+
+HasBirthday returns a boolean if a field has been set.
+
+### SetBirthdayNil
+
+`func (o *PersonDetails) SetBirthdayNil(b bool)`
+
+ SetBirthdayNil sets the value for Birthday to be an explicit nil
+
+### UnsetBirthday
+`func (o *PersonDetails) UnsetBirthday()`
+
+UnsetBirthday ensures that no value is present for Birthday, not even an explicit nil
 ### GetDeathday
 
 `func (o *PersonDetails) GetDeathday() string`
@@ -112,6 +148,16 @@ SetDeathday sets Deathday field to given value.
 
 HasDeathday returns a boolean if a field has been set.
 
+### SetDeathdayNil
+
+`func (o *PersonDetails) SetDeathdayNil(b bool)`
+
+ SetDeathdayNil sets the value for Deathday to be an explicit nil
+
+### UnsetDeathday
+`func (o *PersonDetails) UnsetDeathday()`
+
+UnsetDeathday ensures that no value is present for Deathday, not even an explicit nil
 ### GetKnownForDepartment
 
 `func (o *PersonDetails) GetKnownForDepartment() string`
@@ -164,20 +210,20 @@ HasAlsoKnownAs returns a boolean if a field has been set.
 
 ### GetGender
 
-`func (o *PersonDetails) GetGender() string`
+`func (o *PersonDetails) GetGender() float32`
 
 GetGender returns the Gender field if non-nil, zero value otherwise.
 
 ### GetGenderOk
 
-`func (o *PersonDetails) GetGenderOk() (*string, bool)`
+`func (o *PersonDetails) GetGenderOk() (*float32, bool)`
 
 GetGenderOk returns a tuple with the Gender field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGender
 
-`func (o *PersonDetails) SetGender(v string)`
+`func (o *PersonDetails) SetGender(v float32)`
 
 SetGender sets Gender field to given value.
 
@@ -214,20 +260,20 @@ HasBiography returns a boolean if a field has been set.
 
 ### GetPopularity
 
-`func (o *PersonDetails) GetPopularity() string`
+`func (o *PersonDetails) GetPopularity() float32`
 
 GetPopularity returns the Popularity field if non-nil, zero value otherwise.
 
 ### GetPopularityOk
 
-`func (o *PersonDetails) GetPopularityOk() (*string, bool)`
+`func (o *PersonDetails) GetPopularityOk() (*float32, bool)`
 
 GetPopularityOk returns a tuple with the Popularity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPopularity
 
-`func (o *PersonDetails) SetPopularity(v string)`
+`func (o *PersonDetails) SetPopularity(v float32)`
 
 SetPopularity sets Popularity field to given value.
 
@@ -262,6 +308,16 @@ SetPlaceOfBirth sets PlaceOfBirth field to given value.
 
 HasPlaceOfBirth returns a boolean if a field has been set.
 
+### SetPlaceOfBirthNil
+
+`func (o *PersonDetails) SetPlaceOfBirthNil(b bool)`
+
+ SetPlaceOfBirthNil sets the value for PlaceOfBirth to be an explicit nil
+
+### UnsetPlaceOfBirth
+`func (o *PersonDetails) UnsetPlaceOfBirth()`
+
+UnsetPlaceOfBirth ensures that no value is present for PlaceOfBirth, not even an explicit nil
 ### GetProfilePath
 
 `func (o *PersonDetails) GetProfilePath() string`
@@ -287,6 +343,16 @@ SetProfilePath sets ProfilePath field to given value.
 
 HasProfilePath returns a boolean if a field has been set.
 
+### SetProfilePathNil
+
+`func (o *PersonDetails) SetProfilePathNil(b bool)`
+
+ SetProfilePathNil sets the value for ProfilePath to be an explicit nil
+
+### UnsetProfilePath
+`func (o *PersonDetails) UnsetProfilePath()`
+
+UnsetProfilePath ensures that no value is present for ProfilePath, not even an explicit nil
 ### GetAdult
 
 `func (o *PersonDetails) GetAdult() bool`
@@ -337,6 +403,16 @@ SetImdbId sets ImdbId field to given value.
 
 HasImdbId returns a boolean if a field has been set.
 
+### SetImdbIdNil
+
+`func (o *PersonDetails) SetImdbIdNil(b bool)`
+
+ SetImdbIdNil sets the value for ImdbId to be an explicit nil
+
+### UnsetImdbId
+`func (o *PersonDetails) UnsetImdbId()`
+
+UnsetImdbId ensures that no value is present for ImdbId, not even an explicit nil
 ### GetHomepage
 
 `func (o *PersonDetails) GetHomepage() string`
@@ -362,6 +438,16 @@ SetHomepage sets Homepage field to given value.
 
 HasHomepage returns a boolean if a field has been set.
 
+### SetHomepageNil
+
+`func (o *PersonDetails) SetHomepageNil(b bool)`
+
+ SetHomepageNil sets the value for Homepage to be an explicit nil
+
+### UnsetHomepage
+`func (o *PersonDetails) UnsetHomepage()`
+
+UnsetHomepage ensures that no value is present for Homepage, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

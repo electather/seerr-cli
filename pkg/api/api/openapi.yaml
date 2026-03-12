@@ -8034,8 +8034,9 @@ components:
       type: object
     PersonDetails:
       example:
+        birthday: birthday
         placeOfBirth: placeOfBirth
-        gender: gender
+        gender: 0.8008281904610115
         imdbId: imdbId
         knownForDepartment: knownForDepartment
         biography: biography
@@ -8043,7 +8044,7 @@ components:
         alsoKnownAs:
         - alsoKnownAs
         - alsoKnownAs
-        popularity: popularity
+        popularity: 6.027456183070403
         name: name
         id: 1
         profilePath: profilePath
@@ -8055,7 +8056,11 @@ components:
           type: number
         name:
           type: string
+        birthday:
+          nullable: true
+          type: string
         deathday:
+          nullable: true
           type: string
         knownForDepartment:
           type: string
@@ -8064,20 +8069,24 @@ components:
             type: string
           type: array
         gender:
-          type: string
+          type: number
         biography:
           type: string
         popularity:
-          type: string
+          type: number
         placeOfBirth:
+          nullable: true
           type: string
         profilePath:
+          nullable: true
           type: string
         adult:
           type: boolean
         imdbId:
+          nullable: true
           type: string
         homepage:
+          nullable: true
           type: string
       type: object
     CreditCast:

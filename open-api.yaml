@@ -1767,8 +1767,12 @@ components:
           example: 1
         name:
           type: string
+        birthday:
+          type: string
+          nullable: true
         deathday:
           type: string
+          nullable: true
         knownForDepartment:
           type: string
         alsoKnownAs:
@@ -1776,21 +1780,25 @@ components:
           items:
             type: string
         gender:
-          type: string
+          type: number
         biography:
           type: string
         popularity:
-          type: string
+          type: number
         placeOfBirth:
           type: string
+          nullable: true
         profilePath:
           type: string
+          nullable: true
         adult:
           type: boolean
         imdbId:
           type: string
+          nullable: true
         homepage:
           type: string
+          nullable: true
     CreditCast:
       type: object
       properties:
