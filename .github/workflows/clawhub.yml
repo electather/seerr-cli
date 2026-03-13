@@ -28,8 +28,8 @@ jobs:
         run: |
           cp AGENT.md SKILL.md
           clawhub publish SKILL.md \
-            --slug seer-cli \
-            --name "seer-cli" \
+            --slug seer-manager \
+            --name "Seer server manager" \
             --version "${{ github.event.release.tag_name }}" \
             --changelog "${{ github.event.release.body }}" \
             --no-input
