@@ -110,3 +110,19 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to ClawHub
+        if: inputs.prerelease == ''
+        run: |
+          npm install -g clawhub
+          clawhub login --token "${{ secrets.CLAWHUB_TOKEN }}"
+          cp AGENT.md SKILL.md
+          clawhub publish SKILL.md \
+            --slug seer-manager \
+            --name "Seer server manager" \
+            --description "Manage a self-hosted Seer media server from the command line. Search movies and TV shows, create and approve media requests, manage users and permissions, track issues, control watchlists and blocklists, and query Radarr/Sonarr service integrations — all via a fast Go CLI that returns structured JSON output." \
+            --version "${{ steps.version.outputs.tag }}" \
+            --changelog "Release ${{ steps.version.outputs.tag }}" \
+            --no-input
+        env:
+          CLAWHUB_DISABLE_TELEMETRY: 1
