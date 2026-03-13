@@ -32,7 +32,20 @@ var (
 	server  string
 	apiKey  string
 	verbose bool
+
+	buildVersion = "dev"
+	buildCommit  = "none"
+	buildDate    = "unknown"
 )
+
+// SetVersionInfo is called from main to inject linker-set build variables.
+func SetVersionInfo(version, commit, date string) {
+	buildVersion = version
+	buildCommit = commit
+	buildDate = date
+
+	RootCmd.Version = fmt.Sprintf("%s (commit: %s, built: %s)", buildVersion, buildCommit, buildDate)
+}
 
 var RootCmd = &cobra.Command{
 	Use:   "seer-cli",
