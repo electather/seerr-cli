@@ -9,6 +9,13 @@ description: >-
 metadata:
   author: electather
   repo: https://github.com/electather/seer-cli
+env:
+  - name: SEER_SERVER
+    description: Full URL of your Seer instance (e.g. https://seer.example.com)
+    required: true
+  - name: SEER_API_KEY
+    description: API key for authenticating with the Seer server
+    required: true
 ---
 
 # seer-cli
@@ -17,11 +24,18 @@ CLI for interacting with a [Seer](https://github.com/seerr/app) media request ma
 
 ## Installation
 
+Download the latest release archive and checksum file from the [Releases page](https://github.com/electather/seer-cli/releases/latest), verify, and install:
+
 ```bash
-curl -fsSL https://raw.githubusercontent.com/electather/seer-cli/main/install.sh | sh
+# Replace <os> and <arch> with your platform (linux/darwin, amd64/arm64)
+curl -fsSL https://github.com/electather/seer-cli/releases/latest/download/seer-cli_<version>_<os>_<arch>.tar.gz -o seer-cli.tar.gz
+curl -fsSL https://github.com/electather/seer-cli/releases/latest/download/seer-cli_<version>_checksums.txt -o checksums.txt
+grep seer-cli_<version>_<os>_<arch>.tar.gz checksums.txt | sha256sum -c
+tar -xzf seer-cli.tar.gz
+sudo mv seer-cli /usr/local/bin/
 ```
 
-Installs the latest stable release to `/usr/local/bin`. Supports Linux and macOS (amd64 / arm64).
+Supports Linux and macOS (amd64 / arm64).
 
 ## Setup
 
