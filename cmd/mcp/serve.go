@@ -37,13 +37,14 @@ func init() {
 	serveCmd.Flags().Bool("no-auth", false, "Disable authentication (insecure — must be explicit)")
 	serveCmd.Flags().String("tls-cert", "", "Path to TLS certificate file")
 	serveCmd.Flags().String("tls-key", "", "Path to TLS private key file")
+	viper.BindPFlag("mcp_auth_token", serveCmd.Flags().Lookup("auth-token"))
 	Cmd.AddCommand(serveCmd)
 }
 
 func runServe(cmd *cobra.Command, args []string) error {
 	transport, _ := cmd.Flags().GetString("transport")
 	addr, _ := cmd.Flags().GetString("addr")
-	authToken, _ := cmd.Flags().GetString("auth-token")
+	authToken := viper.GetString("mcp_auth_token")
 	noAuth, _ := cmd.Flags().GetBool("no-auth")
 	tlsCert, _ := cmd.Flags().GetString("tls-cert")
 	tlsKey, _ := cmd.Flags().GetString("tls-key")

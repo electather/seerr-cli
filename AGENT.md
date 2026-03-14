@@ -37,6 +37,45 @@ sudo mv seer-cli /usr/local/bin/
 
 Supports Linux and macOS (amd64 / arm64).
 
+## Docker
+
+Run the MCP HTTP server in a container next to your Seer instance:
+
+```bash
+docker run --rm \
+  -e SEER_SERVER=http://your-seer-instance:5055 \
+  -e SEER_API_KEY=your-api-key \
+  -e SEER_MCP_AUTH_TOKEN=your-secret-token \
+  -p 8811:8811 \
+  ghcr.io/electather/seer-cli:latest
+```
+
+MCP endpoint: `http://localhost:8811/mcp` — set `Authorization: Bearer your-secret-token` in your MCP client.
+
+`SEER_MCP_AUTH_TOKEN` is required for HTTP transport. Omitting it will produce an error unless you also pass `--no-auth` (insecure).
+
+### docker-compose deployment
+
+Use the included `docker-compose.yml` to deploy alongside Seer:
+
+```bash
+SEER_API_KEY=xxx SEER_MCP_AUTH_TOKEN=secret docker compose up -d
+```
+
+The default `SEER_SERVER` in the compose file points to `http://seer:5055` (the Seer service name). Override it if your Seer instance is elsewhere.
+
+### Running CLI commands via Docker
+
+Override the default CMD to run any CLI command:
+
+```bash
+docker run --rm \
+  -e SEER_SERVER=http://your-seer-instance:5055 \
+  -e SEER_API_KEY=your-api-key \
+  ghcr.io/electather/seer-cli:latest \
+  status system
+```
+
 ## Setup
 
 ```bash
