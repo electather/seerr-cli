@@ -12,6 +12,7 @@ import (
 	"seer-cli/cmd/collection"
 	"seer-cli/cmd/config"
 	"seer-cli/cmd/issue"
+	"seer-cli/cmd/mcp"
 	"seer-cli/cmd/media"
 	"seer-cli/cmd/movies"
 	"seer-cli/cmd/other"
@@ -52,7 +53,7 @@ var RootCmd = &cobra.Command{
 	Short: "A CLI to interact with the Seer API",
 	Long:  `A command line interface to call endpoints defined in the Seer OpenAPI specification.`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-		if cmd.Root() != cmd && (cmd.Name() == "config" || cmd.Parent().Name() == "config" || cmd.Name() == "help" || cmd.Name() == "completion") {
+		if cmd.Root() != cmd && (cmd.Name() == "config" || cmd.Parent().Name() == "config" || cmd.Name() == "help" || cmd.Name() == "completion" || cmd.Parent().Name() == "completion" || cmd.Name() == "mcp" || cmd.Parent().Name() == "mcp") {
 			return nil
 		}
 		if viper.GetString("server") == "" {
@@ -85,6 +86,7 @@ func init() {
 	viper.BindPFlag("verbose", RootCmd.PersistentFlags().Lookup("verbose"))
 
 	RootCmd.AddCommand(config.Cmd)
+	RootCmd.AddCommand(mcp.Cmd)
 	RootCmd.AddCommand(status.Cmd)
 	RootCmd.AddCommand(users.Cmd)
 	RootCmd.AddCommand(search.Cmd)

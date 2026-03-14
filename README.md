@@ -300,6 +300,72 @@ seer-cli status system
 seer-cli status appdata
 ```
 
+## MCP Server
+
+`seer-cli` includes a built-in [Model Context Protocol](https://modelcontextprotocol.io) server that exposes the Seer API as tools for AI agents.
+
+### Claude Desktop (stdio)
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+
+```json
+{
+  "mcpServers": {
+    "seer": {
+      "command": "/usr/local/bin/seer-cli",
+      "args": ["mcp", "serve"],
+      "env": {
+        "SEER_SERVER": "https://your-seer-instance.com",
+        "SEER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+Restart Claude Desktop. The Seer tools will appear automatically.
+
+### HTTP transport (other MCP clients)
+
+For clients that support HTTP MCP with Bearer token authentication:
+
+```sh
+# Start with a secret token
+seer-cli mcp serve --transport http --addr :8811 --auth-token mysecrettoken
+
+# With TLS
+seer-cli mcp serve --transport http --addr :8811 \
+  --auth-token mysecrettoken \
+  --tls-cert /path/to/cert.pem \
+  --tls-key /path/to/key.pem
+
+# Without authentication (insecure — local use only)
+seer-cli mcp serve --transport http --addr :8811 --no-auth
+```
+
+The MCP endpoint will be `http://localhost:8811/mcp`. Configure your client with `Authorization: Bearer mysecrettoken`.
+
+> **Note:** The HTTP transport uses Bearer token auth. It does not implement OAuth 2.0, so it is not compatible with clients that require OAuth (e.g. claude.ai remote MCP). Use stdio for Claude Desktop.
+
+### Available tools (43)
+
+| Category | Tools |
+|---|---|
+| Search & Discovery | `search_multi`, `search_discover_movies`, `search_discover_tv`, `search_trending` |
+| Movies | `movies_get`, `movies_recommendations`, `movies_similar`, `movies_ratings` |
+| TV Shows | `tv_get`, `tv_season`, `tv_recommendations`, `tv_similar`, `tv_ratings` |
+| Requests | `request_list`, `request_get`, `request_create`, `request_approve`, `request_decline`, `request_delete`, `request_count` |
+| Media | `media_list`, `media_status_update` |
+| Issues | `issue_list`, `issue_get`, `issue_create`, `issue_status_update`, `issue_count` |
+| Users | `users_list`, `users_get`, `users_quota` |
+| People | `person_get`, `person_credits` |
+| Collections | `collection_get` |
+| Services | `service_radarr_list`, `service_sonarr_list` |
+| Settings | `settings_about`, `settings_jobs_list`, `settings_jobs_run` |
+| Watchlist | `watchlist_add`, `watchlist_remove` |
+| Blocklist | `blocklist_list`, `blocklist_add`, `blocklist_remove` |
+| System | `status_system` |
+
 ## Supported Platforms
 
 | OS | Architecture |
