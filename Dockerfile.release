@@ -1,0 +1,12 @@
+FROM alpine:latest
+
+ARG TARGETPLATFORM
+
+RUN apk add --no-cache ca-certificates
+
+COPY $TARGETPLATFORM/seer-cli /usr/local/bin/seer-cli
+
+EXPOSE 8811
+
+ENTRYPOINT ["seer-cli"]
+CMD ["mcp", "serve", "--transport", "http"]
