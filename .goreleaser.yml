@@ -44,6 +44,7 @@ dockers_v2:
       - "{{ .Version }}"
       - latest
     dockerfile: Dockerfile.release
+    sbom: false
 
 changelog:
   sort: asc
