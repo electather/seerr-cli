@@ -58,10 +58,25 @@ echo "Installing ${BIN} ${VERSION} (${OS}/${ARCH})..."
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
+CHECKSUMS_FILE="${BIN}_${VERSION_BARE}_checksums.txt"
+CHECKSUMS_URL="https://github.com/${REPO}/releases/download/${VERSION}/${CHECKSUMS_FILE}"
+
 if command -v curl > /dev/null 2>&1; then
   curl -fsSL "$URL" -o "${TMP}/${ARCHIVE}"
+  curl -fsSL "$CHECKSUMS_URL" -o "${TMP}/${CHECKSUMS_FILE}"
 else
   wget -qO "${TMP}/${ARCHIVE}" "$URL"
+  wget -qO "${TMP}/${CHECKSUMS_FILE}" "$CHECKSUMS_URL"
+fi
+
+# ── Verify checksum ───────────────────────────────────────────────────────────
+echo "Verifying checksum..."
+if command -v sha256sum > /dev/null 2>&1; then
+  (cd "$TMP" && grep "${ARCHIVE}" "${CHECKSUMS_FILE}" | sha256sum -c -)
+elif command -v shasum > /dev/null 2>&1; then
+  (cd "$TMP" && grep "${ARCHIVE}" "${CHECKSUMS_FILE}" | shasum -a 256 -c -)
+else
+  echo "Warning: sha256sum/shasum not found — skipping checksum verification"
 fi
 
 tar -xzf "${TMP}/${ARCHIVE}" -C "$TMP"

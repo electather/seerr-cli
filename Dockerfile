@@ -18,7 +18,7 @@ COPY . .
 RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /seer-cli .
 
 # Stage 2: Final image
-FROM alpine:latest
+FROM alpine:3.21
 
 RUN apk add --no-cache ca-certificates
 
