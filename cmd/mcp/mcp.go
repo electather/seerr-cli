@@ -16,6 +16,11 @@ var Cmd = &cobra.Command{
 	Use:   "mcp",
 	Short: "Run a Model Context Protocol (MCP) server exposing the Seer API",
 	Long:  `Start an MCP server that exposes the Seer API as tools for use by AI agents.`,
+	Example: `  # Start the MCP server using stdio transport (for Claude Desktop)
+  seer-cli mcp serve
+
+  # Start the MCP server over HTTP with a Bearer token
+  seer-cli mcp serve --transport http --auth-token mysecret`,
 }
 
 func newAPIClient() (*api.APIClient, context.Context) {

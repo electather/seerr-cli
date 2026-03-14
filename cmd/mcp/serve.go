@@ -16,7 +16,18 @@ var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Start the MCP server",
 	Long:  `Start a Model Context Protocol server that exposes the Seer API as tools.`,
-	RunE:  runServe,
+	Example: `  # Start with stdio transport (default, for Claude Desktop)
+  seer-cli mcp serve
+
+  # Start over HTTP with Bearer token auth
+  seer-cli mcp serve --transport http --auth-token mysecret
+
+  # Start over HTTPS with TLS
+  seer-cli mcp serve --transport http --auth-token mysecret --tls-cert /path/to/cert.pem --tls-key /path/to/key.pem
+
+  # Start over HTTP without auth (insecure, not recommended)
+  seer-cli mcp serve --transport http --no-auth`,
+	RunE: runServe,
 }
 
 func init() {
