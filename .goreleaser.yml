@@ -37,15 +37,6 @@ archives:
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
 
-dockers_v2:
-  - images:
-      - "ghcr.io/{{ .Env.GITHUB_REPOSITORY_OWNER }}/seer-cli"
-    tags:
-      - "{{ .Version }}"
-      - latest
-    dockerfile: Dockerfile.release
-    sbom: false
-
 changelog:
   sort: asc
   use: github
