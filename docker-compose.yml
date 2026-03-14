@@ -1,0 +1,11 @@
+services:
+  seer-cli:
+    build: .
+    # image: ghcr.io/electather/seer-cli:latest  # use pre-built image once published
+    environment:
+      SEER_SERVER: http://seer:5055       # or your Seer hostname
+      SEER_API_KEY: ${SEER_API_KEY}
+      SEER_MCP_AUTH_TOKEN: ${SEER_MCP_AUTH_TOKEN}
+    ports:
+      - "8811:8811"
+    restart: unless-stopped
