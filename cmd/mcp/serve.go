@@ -44,30 +44,8 @@ var serveCmd = &cobra.Command{
 }
 
 func init() {
-	serveCmd.Flags().String("transport", "stdio", "Transport protocol: stdio or http (env: SEER_MCP_TRANSPORT)")
-	serveCmd.Flags().String("addr", ":8811", "HTTP bind address (http transport only) (env: SEER_MCP_ADDR)")
-	serveCmd.Flags().String("auth-token", "", "Bearer token required for HTTP transport (env: SEER_MCP_AUTH_TOKEN)")
-	serveCmd.Flags().Bool("no-auth", false, "Disable authentication (insecure — must be explicit) (env: SEER_MCP_NO_AUTH)")
-	serveCmd.Flags().String("route-token", "", "Secret path prefix for the MCP endpoint (e.g. 'abc123' → /abc123/mcp). Useful for clients that cannot send custom headers (env: SEER_MCP_ROUTE_TOKEN)")
-	serveCmd.Flags().String("tls-cert", "", "Path to TLS certificate file (env: SEER_MCP_TLS_CERT)")
-	serveCmd.Flags().String("tls-key", "", "Path to TLS private key file (env: SEER_MCP_TLS_KEY)")
-	serveCmd.Flags().Bool("cors", false, "Enable CORS headers (required for browser-based clients such as claude.ai) (env: SEER_MCP_CORS)")
-	serveCmd.Flags().Bool("multi-tenant", false, "Route /{seer-api-token}/mcp for per-user API keys (HTTP transport only)")
-	serveCmd.Flags().String("log-file", "", "Path to log file; required for stdio transport to capture logs (env: SEER_MCP_LOG_FILE)")
-	serveCmd.Flags().String("log-level", "info", "Log level: debug, info, warn, error (env: SEER_MCP_LOG_LEVEL)")
-	serveCmd.Flags().String("log-format", "text", "Log format: text or json (env: SEER_MCP_LOG_FORMAT)")
-	viper.BindPFlag("mcp.transport", serveCmd.Flags().Lookup("transport"))
-	viper.BindPFlag("mcp.addr", serveCmd.Flags().Lookup("addr"))
-	viper.BindPFlag("mcp.auth_token", serveCmd.Flags().Lookup("auth-token"))
-	viper.BindPFlag("mcp.no_auth", serveCmd.Flags().Lookup("no-auth"))
-	viper.BindPFlag("mcp.route_token", serveCmd.Flags().Lookup("route-token"))
-	viper.BindPFlag("mcp.tls_cert", serveCmd.Flags().Lookup("tls-cert"))
-	viper.BindPFlag("mcp.tls_key", serveCmd.Flags().Lookup("tls-key"))
-	viper.BindPFlag("mcp.cors", serveCmd.Flags().Lookup("cors"))
-	viper.BindPFlag("mcp.multi_tenant", serveCmd.Flags().Lookup("multi-tenant"))
-	viper.BindPFlag("mcp.log_file", serveCmd.Flags().Lookup("log-file"))
-	viper.BindPFlag("mcp.log_level", serveCmd.Flags().Lookup("log-level"))
-	viper.BindPFlag("mcp.log_format", serveCmd.Flags().Lookup("log-format"))
+	RegisterFlags(serveCmd)
+	BindFlags(serveCmd)
 	Cmd.AddCommand(serveCmd)
 }
 

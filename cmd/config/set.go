@@ -1,6 +1,7 @@
 package config
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -9,6 +10,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"gopkg.in/yaml.v3"
+	"seer-cli/cmd/mcp"
 )
 
 const schemaComment = "# yaml-language-server: $schema=https://raw.githubusercontent.com/electather/seer-cli/main/seer-cli.schema.json\n"
@@ -16,7 +18,16 @@ const schemaComment = "# yaml-language-server: $schema=https://raw.githubusercon
 var configSetCmd = &cobra.Command{
 	Use:   "set",
 	Short: "Persist configuration to the config file",
-	Long:  `Save the server URL and API key provided as flags to the CLI configuration file (~/.seer-cli.yaml by default).`,
+	Long: `Save configuration to the CLI config file (~/.seer-cli.yaml by default).
+
+Accepts the global --server and --api-key flags for Seer instance settings,
+and all MCP server flags (same as 'mcp serve') for MCP settings.`,
+	Example: `  # Set Seer instance
+  seer-cli config set --server https://seer.example.com --api-key mykey
+
+  # Set Seer instance and configure the MCP server for HTTP transport
+  seer-cli config set --server https://seer.example.com --api-key mykey \
+    --transport http --auth-token mysecret`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		configPath := viper.ConfigFileUsed()
 		if configPath == "" {
@@ -28,12 +39,30 @@ var configSetCmd = &cobra.Command{
 			viper.SetConfigFile(configPath)
 		}
 
+		// Promote explicitly-passed root flags into Viper.
 		if s, _ := cmd.Root().PersistentFlags().GetString("server"); s != "" {
 			viper.Set("seer.server", s)
 		}
-
 		if k, _ := cmd.Root().PersistentFlags().GetString("api-key"); k != "" {
 			viper.Set("seer.api_key", k)
+		}
+
+		// Promote explicitly-passed MCP flags into Viper without touching the
+		// serve command's Viper bindings. We only propagate flags that the user
+		// actually provided (flag.Changed), leaving existing config-file values
+		// for everything else.
+		for _, f := range mcp.ServeFlags {
+			flag := cmd.Flags().Lookup(f.Name)
+			if flag == nil || !flag.Changed {
+				continue
+			}
+			if f.IsBool {
+				val, _ := cmd.Flags().GetBool(f.Name)
+				viper.Set(f.ViperKey, val)
+			} else {
+				val, _ := cmd.Flags().GetString(f.Name)
+				viper.Set(f.ViperKey, val)
+			}
 		}
 
 		if err := writeStructuredConfig(configPath); err != nil {
@@ -45,103 +74,110 @@ var configSetCmd = &cobra.Command{
 	},
 }
 
-// writeStructuredConfig writes only non-empty config values as structured YAML
-// with a yaml-language-server schema comment for IDE autocomplete support.
+// writeStructuredConfig writes only non-empty/non-default config values as
+// structured YAML with a yaml-language-server schema comment.
 func writeStructuredConfig(path string) error {
-	cfg := buildConfig()
+	root := &yaml.Node{Kind: yaml.MappingNode}
 
-	raw, err := yaml.Marshal(cfg)
-	if err != nil {
+	if seerNode := buildSeerNode(); seerNode != nil {
+		root.Content = append(root.Content,
+			scalarNode("seer"),
+			seerNode,
+		)
+	}
+
+	if mcpNode := buildMCPNode(); mcpNode != nil {
+		root.Content = append(root.Content,
+			scalarNode("mcp"),
+			mcpNode,
+		)
+	}
+
+	if len(root.Content) == 0 {
+		// Nothing to write — produce an empty document.
+		return os.WriteFile(path, []byte(schemaComment), 0600)
+	}
+
+	var buf bytes.Buffer
+	enc := yaml.NewEncoder(&buf)
+	enc.SetIndent(2)
+	if err := enc.Encode(&yaml.Node{Kind: yaml.DocumentNode, Content: []*yaml.Node{root}}); err != nil {
 		return err
 	}
+	enc.Close()
 
-	content := schemaComment + string(raw)
-	return os.WriteFile(path, []byte(content), 0600)
+	return os.WriteFile(path, []byte(schemaComment+buf.String()), 0600)
 }
 
-// configFile is the serialisation model for the YAML config file.
-// Struct field order determines the YAML key order in the written file.
-// Fields tagged with omitempty are omitted when they hold their zero value.
-type configFile struct {
-	Seer *seerSection `yaml:"seer,omitempty"`
-	MCP  *mcpSection  `yaml:"mcp,omitempty"`
+// buildSeerNode returns a YAML mapping node for the seer: section, or nil if
+// neither server nor api_key is set.
+func buildSeerNode() *yaml.Node {
+	server := strings.TrimRight(viper.GetString("seer.server"), "/")
+	apiKey := viper.GetString("seer.api_key")
+
+	if server == "" && apiKey == "" {
+		return nil
+	}
+
+	node := &yaml.Node{Kind: yaml.MappingNode}
+	if server != "" {
+		node.Content = append(node.Content, scalarNode("server"), scalarNode(server))
+	}
+	if apiKey != "" {
+		node.Content = append(node.Content, scalarNode("api_key"), scalarNode(apiKey))
+	}
+	return node
 }
 
-type seerSection struct {
-	Server string `yaml:"server,omitempty"`
-	APIKey string `yaml:"api_key,omitempty"`
+// buildMCPNode returns a YAML mapping node for the mcp: section driven entirely
+// by mcp.ServeFlags. A key is included only when viper.IsSet reports the value
+// was explicitly configured (flag, env var, or config file) — defaults are never
+// written. Returns nil when no MCP setting is active.
+func buildMCPNode() *yaml.Node {
+	node := &yaml.Node{Kind: yaml.MappingNode}
+
+	for _, f := range mcp.ServeFlags {
+		if !viper.IsSet(f.ViperKey) {
+			continue
+		}
+		// YAML key: take the part of the Viper key after the first dot.
+		yamlKey := f.ViperKey
+		if idx := strings.Index(f.ViperKey, "."); idx >= 0 {
+			yamlKey = f.ViperKey[idx+1:]
+		}
+
+		var valNode *yaml.Node
+		if f.IsBool {
+			valNode = boolNode(viper.GetBool(f.ViperKey))
+		} else {
+			valNode = scalarNode(viper.GetString(f.ViperKey))
+		}
+		node.Content = append(node.Content, scalarNode(yamlKey), valNode)
+	}
+
+	if len(node.Content) == 0 {
+		return nil
+	}
+	return node
 }
 
-type mcpSection struct {
-	Transport   string `yaml:"transport,omitempty"`
-	Addr        string `yaml:"addr,omitempty"`
-	AuthToken   string `yaml:"auth_token,omitempty"`
-	NoAuth      bool   `yaml:"no_auth,omitempty"`
-	RouteToken  string `yaml:"route_token,omitempty"`
-	TLSCert     string `yaml:"tls_cert,omitempty"`
-	TLSKey      string `yaml:"tls_key,omitempty"`
-	CORS        bool   `yaml:"cors,omitempty"`
-	MultiTenant bool   `yaml:"multi_tenant,omitempty"`
-	LogFile     string `yaml:"log_file,omitempty"`
-	LogLevel    string `yaml:"log_level,omitempty"`
-	LogFormat   string `yaml:"log_format,omitempty"`
+// scalarNode creates a plain YAML scalar node.
+func scalarNode(value string) *yaml.Node {
+	return &yaml.Node{Kind: yaml.ScalarNode, Value: value}
 }
 
-// buildConfig assembles the config from Viper, omitting default and empty
-// values so the written file stays minimal.
-func buildConfig() configFile {
-	var cfg configFile
-
-	seer := &seerSection{}
-	if v := viper.GetString("seer.server"); v != "" {
-		seer.Server = strings.TrimRight(v, "/")
+// boolNode creates a YAML bool scalar node.
+func boolNode(value bool) *yaml.Node {
+	v := "false"
+	if value {
+		v = "true"
 	}
-	if v := viper.GetString("seer.api_key"); v != "" {
-		seer.APIKey = v
-	}
-	if seer.Server != "" || seer.APIKey != "" {
-		cfg.Seer = seer
-	}
-
-	mcp := &mcpSection{}
-	if v := viper.GetString("mcp.transport"); v != "" && v != "stdio" {
-		mcp.Transport = v
-	}
-	if v := viper.GetString("mcp.addr"); v != "" && v != ":8811" {
-		mcp.Addr = v
-	}
-	if v := viper.GetString("mcp.auth_token"); v != "" {
-		mcp.AuthToken = v
-	}
-	mcp.NoAuth = viper.GetBool("mcp.no_auth")
-	if v := viper.GetString("mcp.route_token"); v != "" {
-		mcp.RouteToken = v
-	}
-	if v := viper.GetString("mcp.tls_cert"); v != "" {
-		mcp.TLSCert = v
-	}
-	if v := viper.GetString("mcp.tls_key"); v != "" {
-		mcp.TLSKey = v
-	}
-	mcp.CORS = viper.GetBool("mcp.cors")
-	mcp.MultiTenant = viper.GetBool("mcp.multi_tenant")
-	if v := viper.GetString("mcp.log_file"); v != "" {
-		mcp.LogFile = v
-	}
-	if v := viper.GetString("mcp.log_level"); v != "" && v != "info" {
-		mcp.LogLevel = v
-	}
-	if v := viper.GetString("mcp.log_format"); v != "" && v != "text" {
-		mcp.LogFormat = v
-	}
-	// Only write the mcp section when at least one non-default value is present.
-	if *mcp != (mcpSection{}) {
-		cfg.MCP = mcp
-	}
-
-	return cfg
+	return &yaml.Node{Kind: yaml.ScalarNode, Value: v, Tag: "!!bool"}
 }
 
 func init() {
+	// Register the same MCP flags as 'mcp serve' so users can configure them
+	// with 'config set' without Viper binding conflicts.
+	mcp.RegisterFlags(configSetCmd)
 	Cmd.AddCommand(configSetCmd)
 }
