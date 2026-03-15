@@ -6,9 +6,10 @@ import (
 	"fmt"
 	"strings"
 
+	api "seerr-cli/pkg/api"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	api "seer-cli/pkg/api"
 )
 
 var statusAppdataCmd = &cobra.Command{
@@ -18,7 +19,7 @@ var statusAppdataCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		configuration := api.NewConfiguration()
 
-		serverURL := viper.GetString("seer.server")
+		serverURL := viper.GetString("seerr.server")
 		if !strings.HasSuffix(serverURL, "/api/v1") && !strings.HasSuffix(serverURL, "/api/v1/") {
 			serverURL = strings.TrimSuffix(serverURL, "/") + "/api/v1"
 		}
@@ -27,7 +28,7 @@ var statusAppdataCmd = &cobra.Command{
 			{URL: serverURL, Description: "Configured Server"},
 		}
 
-		if apiKey := viper.GetString("seer.api_key"); apiKey != "" {
+		if apiKey := viper.GetString("seerr.api_key"); apiKey != "" {
 			configuration.AddDefaultHeader("X-Api-Key", apiKey)
 		}
 

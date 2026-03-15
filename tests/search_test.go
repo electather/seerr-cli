@@ -7,15 +7,16 @@ import (
 	"testing"
 
 	"bytes"
+	"seerr-cli/cmd"
+	"seerr-cli/cmd/search"
+
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
-	"seer-cli/cmd"
-	"seer-cli/cmd/search"
 )
 
 func TestSearchCommands(t *testing.T) {
-	viper.Set("seer.server", "http://localhost:8080")
-	viper.Set("seer.api_key", "test-api-key")
+	viper.Set("seerr.server", "http://localhost:8080")
+	viper.Set("seerr.api_key", "test-api-key")
 
 	tests := []struct {
 		name           string

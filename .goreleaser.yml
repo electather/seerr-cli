@@ -1,15 +1,15 @@
 version: 2
 
-project_name: seer-cli
+project_name: seerr-cli
 
 before:
   hooks:
     - go mod tidy
 
 builds:
-  - id: seer-cli
+  - id: seerr-cli
     main: .
-    binary: seer-cli
+    binary: seerr-cli
     env:
       - CGO_ENABLED=0
     goos:
@@ -26,7 +26,7 @@ builds:
       - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
 
 archives:
-  - id: seer-cli
+  - id: seerr-cli
     name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
     format_overrides:
       - goos: windows
@@ -63,7 +63,7 @@ changelog:
 release:
   github:
     owner: "{{ .Env.GITHUB_REPOSITORY_OWNER }}"
-    name: seer-cli
+    name: seerr-cli
   name_template: "v{{ .Version }}"
   draft: false
   prerelease: auto
@@ -73,11 +73,11 @@ release:
     ### macOS / Linux
     ```sh
     # Download the archive for your platform, extract, and move to your PATH:
-    tar -xzf seer-cli_{{ .Version }}_<os>_<arch>.tar.gz
-    sudo mv seer-cli /usr/local/bin/
+    tar -xzf seerr-cli_{{ .Version }}_<os>_<arch>.tar.gz
+    sudo mv seerr-cli /usr/local/bin/
     ```
 
     ### Windows
-    Extract the `.zip` archive and add `seer-cli.exe` to your `PATH`.
+    Extract the `.zip` archive and add `seerr-cli.exe` to your `PATH`.
 
     **Full Changelog**: https://github.com/{{ .Env.GITHUB_REPOSITORY }}/compare/{{ .PreviousTag }}...{{ .Tag }}

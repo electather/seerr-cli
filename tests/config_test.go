@@ -7,19 +7,20 @@ import (
 	"strings"
 	"testing"
 
+	"seerr-cli/cmd"
+
 	"github.com/spf13/viper"
-	"seer-cli/cmd"
 )
 
 func TestConfigCommands(t *testing.T) {
 	// Create a temporary directory for the config file
-	tempDir, err := os.MkdirTemp("", "seer-cli-test")
+	tempDir, err := os.MkdirTemp("", "seerr-cli-test")
 	if err != nil {
 		t.Fatalf("failed to create temp dir: %v", err)
 	}
 	defer os.RemoveAll(tempDir)
 
-	configPath := filepath.Join(tempDir, ".seer-cli.yaml")
+	configPath := filepath.Join(tempDir, ".seerr-cli.yaml")
 
 	t.Run("config help", func(t *testing.T) {
 		viper.Reset()
@@ -34,7 +35,7 @@ func TestConfigCommands(t *testing.T) {
 		}
 
 		out := b.String()
-		if !strings.Contains(out, "View or update the configuration for the Seer CLI") {
+		if !strings.Contains(out, "View or update the configuration for the Seerr CLI") {
 			t.Errorf("expected help output to contain command description, got: %q", out)
 		}
 	})

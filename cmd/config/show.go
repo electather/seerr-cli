@@ -11,9 +11,9 @@ var configShowCmd = &cobra.Command{
 	Long:  `Show the currently active server URL and API key from flags, environment variables, or the config file.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Printf("Config File: %s\n", viper.ConfigFileUsed())
-		cmd.Printf("Server:      %s\n", viper.GetString("seer.server"))
+		cmd.Printf("Server:      %s\n", viper.GetString("seerr.server"))
 
-		apiKey := viper.GetString("seer.api_key")
+		apiKey := viper.GetString("seerr.api_key")
 		if apiKey != "" {
 			masked := apiKey
 			if len(apiKey) > 4 {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
-	api "seer-cli/pkg/api"
+	api "seerr-cli/pkg/api"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"

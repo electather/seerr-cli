@@ -8,7 +8,7 @@ var keywordCmd = &cobra.Command{
 	Use:   "keyword",
 	Short: "Search for keywords",
 	Example: `  # Search for the "sci-fi" keyword
-  seer-cli search keyword -q "sci-fi"`,
+  seerr-cli search keyword -q "sci-fi"`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

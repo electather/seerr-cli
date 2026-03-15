@@ -1,4 +1,4 @@
-module seer-cli
+module seerr-cli
 
 go 1.26.1
 

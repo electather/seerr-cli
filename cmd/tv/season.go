@@ -11,10 +11,10 @@ var seasonCmd = &cobra.Command{
 	Short: "Get season details and episode list",
 	Args:  cobra.ExactArgs(2),
 	Example: `  # Get season 1 of Breaking Bad (ID 1396)
-  seer-cli tv season 1396 1
+  seerr-cli tv season 1396 1
 
   # Get season 2 in Spanish
-  seer-cli tv season 1396 2 --language es`,
+  seerr-cli tv season 1396 2 --language es`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

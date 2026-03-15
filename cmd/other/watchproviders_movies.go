@@ -7,7 +7,7 @@ import (
 var watchprovidersMoviesCmd = &cobra.Command{
 	Use:     "watchproviders-movies",
 	Short:   "List watch providers for movies in a region",
-	Example: `  seer-cli other watchproviders-movies --watch-region US`,
+	Example: `  seerr-cli other watchproviders-movies --watch-region US`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

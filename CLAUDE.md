@@ -29,11 +29,12 @@ go mod tidy
 
 ## Architecture
 
-**seer-cli** is a Cobra/Viper CLI that wraps the auto-generated Seer API client.
+**seerr-cli** is a Cobra/Viper CLI that wraps the auto-generated Seerr API client.
 
 ### Module Structure
 
 This is a **Go workspace** (`go.work`) with two modules:
+
 - `.` — the main CLI (imports `cobra`, `viper`)
 - `./pkg/api` — the auto-generated OpenAPI client (its own `go.mod`)
 
@@ -46,11 +47,11 @@ This is a **Go workspace** (`go.work`) with two modules:
 
 ### Command Grouping Policy
 
-CLI command groups **must mirror the tag groups in `open-api.yaml`**. Every endpoint belongs to one or more tags — use those tags as the authoritative grouping for CLI commands. The goal is that a user familiar with the Seer API can predict the CLI structure without reading docs.
+CLI command groups **must mirror the tag groups in `open-api.yaml`**. Every endpoint belongs to one or more tags — use those tags as the authoritative grouping for CLI commands. The goal is that a user familiar with the Seerr API can predict the CLI structure without reading docs.
 
 - One `cmd/<group>/` directory per OpenAPI tag (e.g. `users`, `search`, `request`, `settings`, `auth`).
 - When an endpoint spans multiple tags, place it under the tag that best represents the primary resource.
-- Endpoints that logically belong together from the user's perspective must be reachable under the same parent command, even if they map to different API service types in `pkg/api/`. For example, user settings, user auth, and user details all live under `seer-cli users ...` — not split across separate top-level commands.
+- Endpoints that logically belong together from the user's perspective must be reachable under the same parent command, even if they map to different API service types in `pkg/api/`. For example, user settings, user auth, and user details all live under `seerr-cli users ...` — not split across separate top-level commands.
 - Before implementing any new command, consult `open-api.yaml` to identify which tag group it belongs to and confirm the right parent command exists or needs to be created.
 
 ### Adding a New Command Group
@@ -75,7 +76,7 @@ Follow this pattern (see `cmd/status/system.go` as the canonical example):
 
 ### Configuration & Viper
 
-Global flags (`--server`, `--api-key`, `--verbose`) are bound to Viper keys `server`, `api_key`, `verbose`. Config is persisted to `~/.seer-cli.yaml`. `PersistentPreRunE` in `root.go` validates that `server` is set (skipped for `config`, `help`, `completion` commands).
+Global flags (`--server`, `--api-key`, `--verbose`) are bound to Viper keys `server`, `api_key`, `verbose`. Config is persisted to `~/.seerr-cli.yaml`. `PersistentPreRunE` in `root.go` validates that `server` is set (skipped for `config`, `help`, `completion` commands).
 
 ### Testing Conventions
 
@@ -92,7 +93,8 @@ Global flags (`--server`, `--api-key`, `--verbose`) are bound to Viper keys `ser
 ### Claude Usage Rules
 
 - Never add `Co-Authored-By`, `Generated with`, or any mention of Claude or Anthropic in commit messages or PR descriptions.
-- 
+-
+
 ### Commit & PR Convention
 
 All commits and PR titles must follow [Conventional Commits](https://www.conventionalcommits.org/) — e.g. `feat(movies): add get-details command`. PR titles are squash-merged into `main` and become the commit message, so they must follow this convention too. One PR per change.

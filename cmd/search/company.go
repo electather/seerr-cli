@@ -8,7 +8,7 @@ var companyCmd = &cobra.Command{
 	Use:   "company",
 	Short: "Search for companies",
 	Example: `  # Search for "Warner Bros."
-  seer-cli search company -q "Warner Bros."`,
+  seerr-cli search company -q "Warner Bros."`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

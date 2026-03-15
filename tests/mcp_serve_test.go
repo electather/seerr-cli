@@ -8,10 +8,11 @@ import (
 	"strings"
 	"testing"
 
+	cmdmcp "seerr-cli/cmd/mcp"
+
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	cmdmcp "seer-cli/cmd/mcp"
 )
 
 func newMCPTestServer(handler http.HandlerFunc) (*httptest.Server, func()) {

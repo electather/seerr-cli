@@ -1,14 +1,15 @@
 package watchlist
 
 import (
+	api "seerr-cli/pkg/api"
+
 	"github.com/spf13/cobra"
-	api "seer-cli/pkg/api"
 )
 
 var addCmd = &cobra.Command{
 	Use:     "add",
 	Short:   "Add media to the watchlist",
-	Example: `  seer-cli watchlist add --tmdb-id 12345 --media-type movie --title "Dune"`,
+	Example: `  seerr-cli watchlist add --tmdb-id 12345 --media-type movie --title "Dune"`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

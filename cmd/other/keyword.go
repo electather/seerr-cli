@@ -10,7 +10,7 @@ var keywordCmd = &cobra.Command{
 	Use:     "keyword <keywordId>",
 	Short:   "Get a keyword by ID",
 	Args:    cobra.ExactArgs(1),
-	Example: `  seer-cli other keyword 1`,
+	Example: `  seerr-cli other keyword 1`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

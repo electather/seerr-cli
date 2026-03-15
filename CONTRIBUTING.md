@@ -50,7 +50,7 @@ Follow the architecture described in `CLAUDE.md`:
 ### Adding an MCP Tool
 
 - Register the tool in the appropriate `cmd/mcp/tools_<group>.go` file.
-- Use `apiToolError` for Seer API call failures so error details are visible to the client.
+- Use `apiToolError` for Seerr API call failures so error details are visible to the client.
 - Add a test in `tests/mcp_serve_test.go` using `httptest`.
 
 ### Generated Code

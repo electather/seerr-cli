@@ -9,9 +9,10 @@ import (
 	"strings"
 	"testing"
 
+	"seerr-cli/cmd"
+	"seerr-cli/cmd/users"
+
 	"github.com/spf13/viper"
-	"seer-cli/cmd"
-	"seer-cli/cmd/users"
 )
 
 func TestUsersSettings(t *testing.T) {
@@ -40,7 +41,7 @@ func TestUsersSettings(t *testing.T) {
 	defer ts.Close()
 
 	users.OverrideServerURL = ts.URL + "/api/v1"
-	viper.Set("seer.server", ts.URL)
+	viper.Set("seerr.server", ts.URL)
 	os.Setenv("SEER_SERVER", ts.URL)
 
 	tests := []struct {

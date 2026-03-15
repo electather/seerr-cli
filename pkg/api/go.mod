@@ -1,4 +1,4 @@
-module seer-cli/pkg/api
+module seerr-cli/pkg/api
 
 go 1.23
 

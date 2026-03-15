@@ -11,10 +11,10 @@ var getCmd = &cobra.Command{
 	Short: "Get movie details",
 	Args:  cobra.ExactArgs(1),
 	Example: `  # Get details for The Matrix (ID 603)
-  seer-cli movies get 603
+  seerr-cli movies get 603
 
   # Get details in Spanish
-  seer-cli movies get 603 --language es`,
+  seerr-cli movies get 603 --language es`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

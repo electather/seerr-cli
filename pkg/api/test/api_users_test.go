@@ -11,10 +11,11 @@ package api
 
 import (
 	"context"
+	openapiclient "seerr-cli/pkg/api"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	openapiclient "seer-cli/pkg/api"
-	"testing"
 )
 
 func Test_api_UsersAPIService(t *testing.T) {

@@ -8,10 +8,10 @@ var trendingCmd = &cobra.Command{
 	Use:   "trending",
 	Short: "Get trending movies and TV shows",
 	Example: `  # Get currently trending movies and TV shows
-  seer-cli search trending
+  seerr-cli search trending
 
   # Get trending items for the week
-  seer-cli search trending --time-window week`,
+  seerr-cli search trending --time-window week`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

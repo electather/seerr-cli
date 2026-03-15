@@ -1,7 +1,7 @@
 package media
 
 import (
-	api "seer-cli/pkg/api"
+	api "seerr-cli/pkg/api"
 
 	"github.com/spf13/cobra"
 )
@@ -11,10 +11,10 @@ var statusCmd = &cobra.Command{
 	Short: "Update media status",
 	Args:  cobra.ExactArgs(2),
 	Example: `  # Mark media as available
-  seer-cli media status 42 available
+  seerr-cli media status 42 available
 
   # Mark 4K version as available
-  seer-cli media status 42 available --is4k`,
+  seerr-cli media status 42 available --is4k`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-REPO="electather/seer-cli"
-BIN="seer-cli"
+REPO="electather/seerr-cli"
+BIN="seerr-cli"
 INSTALL_DIR="/usr/local/bin"
 
 # ── Detect OS ────────────────────────────────────────────────────────────────

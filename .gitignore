@@ -9,12 +9,12 @@
 *.test
 
 # Output of the go build command
-seer-cli
-seer-cli-*
+seerr-cli
+seerr-cli-*
 tests/tests.test
 
 # Project-specific local config
-.seer-cli.yaml
+.seerr-cli.yaml
 test-config.yaml
 .env
 

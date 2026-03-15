@@ -7,9 +7,10 @@ import (
 	"net/http"
 	"strings"
 
+	api "seerr-cli/pkg/api"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	api "seer-cli/pkg/api"
 )
 
 // encodingRoundTripper is a custom RoundTripper that replaces '+' with '%20' in query parameters.
@@ -49,12 +50,12 @@ var Cmd = &cobra.Command{
 
 func newAPIClient() (*api.APIClient, context.Context, bool) {
 	configuration := api.NewConfiguration()
-	serverURL := viper.GetString("seer.server")
+	serverURL := viper.GetString("seerr.server")
 	if !strings.HasSuffix(serverURL, "/api/v1") {
 		serverURL = strings.TrimSuffix(serverURL, "/") + "/api/v1"
 	}
 	configuration.Servers = api.ServerConfigurations{{URL: serverURL, Description: "Configured Server"}}
-	if apiKey := viper.GetString("seer.api_key"); apiKey != "" {
+	if apiKey := viper.GetString("seerr.api_key"); apiKey != "" {
 		configuration.AddDefaultHeader("X-Api-Key", apiKey)
 	}
 	if OverrideServerURL != "" {

@@ -4,9 +4,10 @@ import (
 	"context"
 	"encoding/json"
 
+	api "seerr-cli/pkg/api"
+
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	api "seer-cli/pkg/api"
 )
 
 func registerUsersTools(s *server.MCPServer) {

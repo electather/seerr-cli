@@ -11,10 +11,10 @@ var recommendationsCmd = &cobra.Command{
 	Short: "Get recommended movies",
 	Args:  cobra.ExactArgs(1),
 	Example: `  # Get recommendations based on The Matrix (ID 603)
-  seer-cli movies recommendations 603
+  seerr-cli movies recommendations 603
 
   # Get second page of recommendations
-  seer-cli movies recommendations 603 --page 2`,
+  seerr-cli movies recommendations 603 --page 2`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

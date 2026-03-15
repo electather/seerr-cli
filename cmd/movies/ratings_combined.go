@@ -11,7 +11,7 @@ var ratingsCombinedCmd = &cobra.Command{
 	Short: "Get combined movie ratings (RT/IMDB)",
 	Args:  cobra.ExactArgs(1),
 	Example: `  # Get combined ratings for The Matrix (ID 603)
-  seer-cli movies ratings-combined 603`,
+  seerr-cli movies ratings-combined 603`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

@@ -8,7 +8,7 @@ import (
 	"github.com/mark3labs/mcp-go/server"
 )
 
-// statusLabels maps numeric Seer media status codes to human-readable names.
+// statusLabels maps numeric Seerr media status codes to human-readable names.
 var statusLabels = map[float64]string{
 	1: "UNKNOWN",
 	2: "PENDING",
@@ -22,7 +22,7 @@ func registerMediaTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("media_list",
 			mcp.WithDescription(
-				"List movies and TV shows tracked by Seer (i.e. requested or added to the library), "+
+				"List movies and TV shows tracked by Seerr (i.e. requested or added to the library), "+
 					"including their download/availability status and associated requests. "+
 					"Supports pagination via take/skip. "+
 					"Each result includes statusLabel and status4kLabel string fields alongside the numeric status codes.",

@@ -8,13 +8,13 @@ var moviesCmd = &cobra.Command{
 	Use:   "movies",
 	Short: "Discover and filter movies",
 	Example: `  # Discover Drama movies (Genre ID 18)
-  seer-cli search movies --genre 18
+  seerr-cli search movies --genre 18
 
   # Discover movies from Warner Bros. (Studio ID 174)
-  seer-cli search movies --studio 174
+  seerr-cli search movies --studio 174
 
   # Discover movies sorted by release date
-  seer-cli search movies --sort-by primary_release_date.desc`,
+  seerr-cli search movies --sort-by primary_release_date.desc`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

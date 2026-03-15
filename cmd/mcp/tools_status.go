@@ -11,7 +11,7 @@ import (
 func registerStatusTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("status_system",
-			mcp.WithDescription("Get the system status of the Seer API"),
+			mcp.WithDescription("Get the system status of the Seerr API"),
 		),
 		StatusSystemHandler(),
 	)

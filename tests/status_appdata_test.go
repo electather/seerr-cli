@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"seer-cli/cmd"
-	"seer-cli/cmd/status"
+	"seerr-cli/cmd"
+	"seerr-cli/cmd/status"
 )
 
 func TestStatusAppdataCommand(t *testing.T) {
