@@ -18,6 +18,7 @@ var statusLabels = map[float64]string{
 	6: "DELETED",
 }
 
+
 func registerMediaTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("media_list",
