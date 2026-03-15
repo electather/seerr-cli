@@ -117,7 +117,7 @@ func initConfig() {
 		viper.SetConfigName(".seerr-cli")
 	}
 
-	viper.SetEnvPrefix("SEER")
+	viper.SetEnvPrefix("SEERR")
 	// Replace dots and hyphens so nested keys like "mcp.transport" map to
 	// env vars like "SEERR_MCP_TRANSPORT".
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_"))
