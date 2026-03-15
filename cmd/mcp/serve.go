@@ -92,7 +92,7 @@ func runServe(_ *cobra.Command, args []string) error {
 	registerWatchlistTools(s)
 	registerBlocklistTools(s)
 
-	seerServer := viper.GetString("seer.server")
+	seerServer := viper.GetString("seerr.server")
 
 	switch transport {
 	case "stdio":

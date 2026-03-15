@@ -56,7 +56,7 @@ var RootCmd = &cobra.Command{
 		if cmd.Root() != cmd && (cmd.Name() == "config" || cmd.Parent().Name() == "config" || cmd.Name() == "help" || cmd.Name() == "completion" || cmd.Parent().Name() == "completion" || cmd.Name() == "mcp" || cmd.Parent().Name() == "mcp") {
 			return nil
 		}
-		if viper.GetString("seer.server") == "" {
+		if viper.GetString("seerr.server") == "" {
 			return fmt.Errorf("server URL is required. Set it via --server flag, SEER_SERVER env var, or in the config file")
 		}
 		return nil
@@ -77,12 +77,12 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.seerr-cli.yaml)")
-	RootCmd.PersistentFlags().StringVarP(&server, "server", "s", "", "Seerr server URL (e.g., https://seer.example.com). The /api/v1 prefix is added automatically if not provided.")
+	RootCmd.PersistentFlags().StringVarP(&server, "server", "s", "", "Seerr server URL (e.g., https://seerr.example.com). The /api/v1 prefix is added automatically if not provided.")
 	RootCmd.PersistentFlags().StringVarP(&apiKey, "api-key", "k", "", "Seerr API Key")
 	RootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output")
 
-	viper.BindPFlag("seer.server", RootCmd.PersistentFlags().Lookup("server"))
-	viper.BindPFlag("seer.api_key", RootCmd.PersistentFlags().Lookup("api-key"))
+	viper.BindPFlag("seerr.server", RootCmd.PersistentFlags().Lookup("server"))
+	viper.BindPFlag("seerr.api_key", RootCmd.PersistentFlags().Lookup("api-key"))
 	viper.BindPFlag("verbose", RootCmd.PersistentFlags().Lookup("verbose"))
 
 	RootCmd.AddCommand(config.Cmd)
@@ -123,9 +123,9 @@ func initConfig() {
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_"))
 	viper.AutomaticEnv()
 	// AutomaticEnv with the SEERR prefix would construct "SEER_SEER_SERVER" for
-	// the "seer.server" key, so we bind those explicitly instead.
-	viper.BindEnv("seer.server", "SEER_SERVER")
-	viper.BindEnv("seer.api_key", "SEER_API_KEY")
+	// the "seerr.server" key, so we bind those explicitly instead.
+	viper.BindEnv("seerr.server", "SEER_SERVER")
+	viper.BindEnv("seerr.api_key", "SEER_API_KEY")
 
 	if err := viper.ReadInConfig(); err == nil {
 		if viper.GetBool("verbose") {

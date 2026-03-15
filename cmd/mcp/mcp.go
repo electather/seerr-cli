@@ -41,14 +41,14 @@ var Cmd = &cobra.Command{
 // newAPIClientWithKey builds a client using apiKey, falling back to Viper when empty.
 func newAPIClientWithKey(apiKey string) *api.APIClient {
 	configuration := api.NewConfiguration()
-	serverURL := viper.GetString("seer.server")
+	serverURL := viper.GetString("seerr.server")
 	if !strings.HasSuffix(serverURL, "/api/v1") {
 		serverURL = strings.TrimSuffix(serverURL, "/") + "/api/v1"
 	}
 	configuration.Servers = api.ServerConfigurations{{URL: serverURL, Description: "Configured Server"}}
 	key := apiKey
 	if key == "" {
-		key = viper.GetString("seer.api_key")
+		key = viper.GetString("seerr.api_key")
 	}
 	if key != "" {
 		configuration.AddDefaultHeader("X-Api-Key", key)

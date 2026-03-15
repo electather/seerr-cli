@@ -24,10 +24,10 @@ var configSetCmd = &cobra.Command{
 Accepts the global --server and --api-key flags for Seerr instance settings,
 and all MCP server flags (same as 'mcp serve') for MCP settings.`,
 	Example: `  # Set Seerr instance
-  seerr-cli config set --server https://seer.example.com --api-key mykey
+  seerr-cli config set --server https://seerr.example.com --api-key mykey
 
   # Set Seerr instance and configure the MCP server for HTTP transport
-  seerr-cli config set --server https://seer.example.com --api-key mykey \
+  seerr-cli config set --server https://seerr.example.com --api-key mykey \
     --transport http --auth-token mysecret`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		configPath := viper.ConfigFileUsed()
@@ -42,10 +42,10 @@ and all MCP server flags (same as 'mcp serve') for MCP settings.`,
 
 		// Promote explicitly-passed root flags into Viper.
 		if s, _ := cmd.Root().PersistentFlags().GetString("server"); s != "" {
-			viper.Set("seer.server", s)
+			viper.Set("seerr.server", s)
 		}
 		if k, _ := cmd.Root().PersistentFlags().GetString("api-key"); k != "" {
-			viper.Set("seer.api_key", k)
+			viper.Set("seerr.api_key", k)
 		}
 
 		// Promote explicitly-passed MCP flags into Viper without touching the
@@ -113,8 +113,8 @@ func writeStructuredConfig(path string) error {
 // buildSeerNode returns a YAML mapping node for the seer: section, or nil if
 // neither server nor api_key is set.
 func buildSeerNode() *yaml.Node {
-	server := strings.TrimRight(viper.GetString("seer.server"), "/")
-	apiKey := viper.GetString("seer.api_key")
+	server := strings.TrimRight(viper.GetString("seerr.server"), "/")
+	apiKey := viper.GetString("seerr.api_key")
 
 	if server == "" && apiKey == "" {
 		return nil

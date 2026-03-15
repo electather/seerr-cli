@@ -11,7 +11,7 @@ metadata:
   repo: https://github.com/electather/seerr-cli
 env:
   - name: SEER_SERVER
-    description: Full URL of your Seerr instance (e.g. https://seer.example.com)
+    description: Full URL of your Seerr instance (e.g. https://seerr.example.com)
     required: true
   - name: SEER_API_KEY
     description: API key for authenticating with the Seerr server

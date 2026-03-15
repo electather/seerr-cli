@@ -41,7 +41,7 @@ func TestUsersSettings(t *testing.T) {
 	defer ts.Close()
 
 	users.OverrideServerURL = ts.URL + "/api/v1"
-	viper.Set("seer.server", ts.URL)
+	viper.Set("seerr.server", ts.URL)
 	os.Setenv("SEER_SERVER", ts.URL)
 
 	tests := []struct {

@@ -12,10 +12,10 @@
       "additionalProperties": false,
       "properties": {
         "server": {
-          "description": "Base URL of your Seerr instance (e.g. https://seer.example.com). The /api/v1 path is appended automatically.",
+          "description": "Base URL of your Seerr instance (e.g. https://seerr.example.com). The /api/v1 path is appended automatically.",
           "type": "string",
           "examples": [
-            "https://seer.example.com"
+            "https://seerr.example.com"
           ]
         },
         "api_key": {
