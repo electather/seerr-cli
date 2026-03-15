@@ -5,7 +5,6 @@ import (
 	"crypto/subtle"
 	"fmt"
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/mark3labs/mcp-go/server"
@@ -54,6 +53,9 @@ func init() {
 	serveCmd.Flags().String("tls-key", "", "Path to TLS private key file (env: SEER_MCP_TLS_KEY)")
 	serveCmd.Flags().Bool("cors", false, "Enable CORS headers (required for browser-based clients such as claude.ai) (env: SEER_MCP_CORS)")
 	serveCmd.Flags().Bool("multi-tenant", false, "Route /{seer-api-token}/mcp for per-user API keys (HTTP transport only)")
+	serveCmd.Flags().String("log-file", "", "Path to log file; required for stdio transport to capture logs (env: SEER_MCP_LOG_FILE)")
+	serveCmd.Flags().String("log-level", "info", "Log level: debug, info, warn, error (env: SEER_MCP_LOG_LEVEL)")
+	serveCmd.Flags().String("log-format", "text", "Log format: text or json (env: SEER_MCP_LOG_FORMAT)")
 	viper.BindPFlag("mcp_transport", serveCmd.Flags().Lookup("transport"))
 	viper.BindPFlag("mcp_addr", serveCmd.Flags().Lookup("addr"))
 	viper.BindPFlag("mcp_auth_token", serveCmd.Flags().Lookup("auth-token"))
@@ -63,6 +65,9 @@ func init() {
 	viper.BindPFlag("mcp_tls_key", serveCmd.Flags().Lookup("tls-key"))
 	viper.BindPFlag("mcp_cors", serveCmd.Flags().Lookup("cors"))
 	viper.BindPFlag("mcp_multi_tenant", serveCmd.Flags().Lookup("multi-tenant"))
+	viper.BindPFlag("mcp_log_file", serveCmd.Flags().Lookup("log-file"))
+	viper.BindPFlag("mcp_log_level", serveCmd.Flags().Lookup("log-level"))
+	viper.BindPFlag("mcp_log_format", serveCmd.Flags().Lookup("log-format"))
 	Cmd.AddCommand(serveCmd)
 }
 
@@ -76,6 +81,13 @@ func runServe(_ *cobra.Command, args []string) error {
 	tlsKey := viper.GetString("mcp_tls_key")
 	cors := viper.GetBool("mcp_cors")
 	multiTenant := viper.GetBool("mcp_multi_tenant")
+	logFile := viper.GetString("mcp_log_file")
+	logLevel := viper.GetString("mcp_log_level")
+	logFormat := viper.GetString("mcp_log_format")
+
+	if err := initLogger(transport, logFile, logLevel, logFormat); err != nil {
+		return err
+	}
 
 	if transport == "http" && authToken == "" && routeToken == "" && !noAuth {
 		return fmt.Errorf("HTTP transport requires --auth-token, --route-token, or --no-auth (insecure) to be set explicitly")
@@ -84,8 +96,6 @@ func runServe(_ *cobra.Command, args []string) error {
 	if multiTenant && transport != "http" {
 		return fmt.Errorf("--multi-tenant requires --transport http")
 	}
-
-	verbose := viper.GetBool("verbose")
 
 	s := server.NewMCPServer("seer-mcp", "1.0.0")
 
@@ -104,17 +114,16 @@ func runServe(_ *cobra.Command, args []string) error {
 	registerWatchlistTools(s)
 	registerBlocklistTools(s)
 
+	seerServer := viper.GetString("server")
+
 	switch transport {
 	case "stdio":
-		if verbose {
-			seerServer := viper.GetString("server")
-			fmt.Fprintf(os.Stderr, "seer-mcp: transport=stdio\n")
-			fmt.Fprintf(os.Stderr, "seer-mcp: seer API → %s\n", seerServer)
-			fmt.Fprintf(os.Stderr, "seer-mcp: tools registered: 44\n")
-			fmt.Fprintf(os.Stderr, "seer-mcp: waiting for MCP client on stdin…\n")
-		} else {
-			fmt.Fprintf(os.Stderr, "seer-mcp: ready (stdio) — waiting for MCP client on stdin\n")
-		}
+		mcpLog.Info("starting MCP server",
+			"transport", "stdio",
+			"seer_api", seerServer,
+			"tools", 44,
+		)
+		mcpLog.Debug("stdio transport ready, waiting for MCP client on stdin")
 		return server.ServeStdio(s)
 	case "http":
 		scheme := "http"
@@ -134,29 +143,17 @@ func runServe(_ *cobra.Command, args []string) error {
 		}
 		endpoint := fmt.Sprintf("%s://%s%s", scheme, host, mcpPath)
 
-		fmt.Fprintf(os.Stderr, "seer-mcp: listening on %s\n", endpoint)
-		fmt.Fprintf(os.Stderr, "\nConfigure your MCP client:\n")
-		fmt.Fprintf(os.Stderr, "  URL:  %s\n", endpoint)
-		if authToken != "" {
-			fmt.Fprintf(os.Stderr, "  Authorization: Bearer %s\n", authToken)
-		} else {
-			fmt.Fprintf(os.Stderr, "  Authorization: none\n")
-		}
-
-		if verbose {
-			seerServer := viper.GetString("server")
-			fmt.Fprintf(os.Stderr, "\nVerbose:\n")
-			fmt.Fprintf(os.Stderr, "  Seer API → %s\n", seerServer)
-			fmt.Fprintf(os.Stderr, "  Bind addr: %s\n", addr)
-			fmt.Fprintf(os.Stderr, "  TLS: %v\n", tlsCert != "")
-			fmt.Fprintf(os.Stderr, "  Auth token: %v\n", authToken != "")
-			fmt.Fprintf(os.Stderr, "  Route token: %v\n", routeToken != "")
-			fmt.Fprintf(os.Stderr, "  CORS: %v\n", cors)
-			fmt.Fprintf(os.Stderr, "  Tools registered: 44\n")
-			fmt.Fprintf(os.Stderr, "  Multi-tenant: %v\n", multiTenant)
-		}
-
-		fmt.Fprintf(os.Stderr, "\n")
+		mcpLog.Info("starting MCP server",
+			"transport", "http",
+			"endpoint", endpoint,
+			"seer_api", seerServer,
+			"tools", 44,
+			"tls", tlsCert != "",
+			"auth_token", authToken != "",
+			"route_token", routeToken != "",
+			"cors", cors,
+			"multi_tenant", multiTenant,
+		)
 
 		httpHandler := server.NewStreamableHTTPServer(s)
 		var handler http.Handler
@@ -171,6 +168,7 @@ func runServe(_ *cobra.Command, args []string) error {
 		} else {
 			handler = httpHandler
 		}
+		handler = httpLoggingMiddleware(handler)
 		if authToken != "" {
 			handler = bearerAuthMiddleware(authToken, handler)
 		}

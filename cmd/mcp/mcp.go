@@ -76,6 +76,9 @@ func apiToolError(label string, err error) (*mcplib.CallToolResult, error) {
 	if e, ok := err.(*api.GenericOpenAPIError); ok && len(e.Body()) > 0 {
 		msg = fmt.Sprintf("%s: %s (HTTP %v)", label, e.Body(), err)
 	}
+	if mcpLog != nil {
+		mcpLog.Warn("tool error", "label", label, "error", err)
+	}
 	return mcplib.NewToolResultError(msg), nil
 }
 
