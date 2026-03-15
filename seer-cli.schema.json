@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/electather/seer-cli/main/seer-cli.schema.json",
+  "title": "seer-cli configuration",
+  "description": "Configuration file for seer-cli (~/.seer-cli.yaml).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "seer": {
+      "description": "Seer instance connection settings.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "server": {
+          "description": "Base URL of your Seer instance (e.g. https://seer.example.com). The /api/v1 path is appended automatically.",
+          "type": "string",
+          "examples": ["https://seer.example.com"]
+        },
+        "api_key": {
+          "description": "Seer API key. Generate one in Seer → Settings → API Keys.",
+          "type": "string"
+        }
+      }
+    },
+    "mcp": {
+      "description": "MCP server settings (seer-cli mcp serve).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "transport": {
+          "description": "Transport protocol for the MCP server.",
+          "type": "string",
+          "enum": ["stdio", "http"],
+          "default": "stdio"
+        },
+        "addr": {
+          "description": "Bind address for the HTTP transport (host:port).",
+          "type": "string",
+          "default": ":8811",
+          "examples": [":8811", "127.0.0.1:8811"]
+        },
+        "auth_token": {
+          "description": "Bearer token required by HTTP clients. Omit only when using --no-auth.",
+          "type": "string"
+        },
+        "no_auth": {
+          "description": "Disable authentication entirely. Only use in trusted environments.",
+          "type": "boolean",
+          "default": false
+        },
+        "route_token": {
+          "description": "Secret path prefix for the MCP endpoint (e.g. 'abc123' → /abc123/mcp). Useful for clients that cannot send custom headers.",
+          "type": "string"
+        },
+        "tls_cert": {
+          "description": "Path to TLS certificate file (PEM). Required together with tls_key to enable HTTPS.",
+          "type": "string"
+        },
+        "tls_key": {
+          "description": "Path to TLS private key file (PEM). Required together with tls_cert to enable HTTPS.",
+          "type": "string"
+        },
+        "cors": {
+          "description": "Enable CORS headers. Required for browser-based clients such as claude.ai.",
+          "type": "boolean",
+          "default": false
+        },
+        "multi_tenant": {
+          "description": "Route /{seer-api-token}/mcp so each user supplies their own API key in the URL.",
+          "type": "boolean",
+          "default": false
+        },
+        "log_file": {
+          "description": "Path to log file. For stdio transport this is the only way to capture logs.",
+          "type": "string"
+        },
+        "log_level": {
+          "description": "Minimum log level to emit.",
+          "type": "string",
+          "enum": ["debug", "info", "warn", "error"],
+          "default": "info"
+        },
+        "log_format": {
+          "description": "Log output format.",
+          "type": "string",
+          "enum": ["text", "json"],
+          "default": "text"
+        }
+      }
+    }
+  }
+}

@@ -56,7 +56,7 @@ var RootCmd = &cobra.Command{
 		if cmd.Root() != cmd && (cmd.Name() == "config" || cmd.Parent().Name() == "config" || cmd.Name() == "help" || cmd.Name() == "completion" || cmd.Parent().Name() == "completion" || cmd.Name() == "mcp" || cmd.Parent().Name() == "mcp") {
 			return nil
 		}
-		if viper.GetString("server") == "" {
+		if viper.GetString("seer.server") == "" {
 			return fmt.Errorf("server URL is required. Set it via --server flag, SEER_SERVER env var, or in the config file")
 		}
 		return nil
@@ -81,8 +81,8 @@ func init() {
 	RootCmd.PersistentFlags().StringVarP(&apiKey, "api-key", "k", "", "Seer API Key")
 	RootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output")
 
-	viper.BindPFlag("server", RootCmd.PersistentFlags().Lookup("server"))
-	viper.BindPFlag("api_key", RootCmd.PersistentFlags().Lookup("api-key"))
+	viper.BindPFlag("seer.server", RootCmd.PersistentFlags().Lookup("server"))
+	viper.BindPFlag("seer.api_key", RootCmd.PersistentFlags().Lookup("api-key"))
 	viper.BindPFlag("verbose", RootCmd.PersistentFlags().Lookup("verbose"))
 
 	RootCmd.AddCommand(config.Cmd)
@@ -118,8 +118,14 @@ func initConfig() {
 	}
 
 	viper.SetEnvPrefix("SEER")
-	viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
+	// Replace dots and hyphens so nested keys like "mcp.transport" map to
+	// env vars like "SEER_MCP_TRANSPORT".
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_"))
 	viper.AutomaticEnv()
+	// AutomaticEnv with the SEER prefix would construct "SEER_SEER_SERVER" for
+	// the "seer.server" key, so we bind those explicitly instead.
+	viper.BindEnv("seer.server", "SEER_SERVER")
+	viper.BindEnv("seer.api_key", "SEER_API_KEY")
 
 	if err := viper.ReadInConfig(); err == nil {
 		if viper.GetBool("verbose") {

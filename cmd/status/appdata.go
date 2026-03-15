@@ -18,7 +18,7 @@ var statusAppdataCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		configuration := api.NewConfiguration()
 
-		serverURL := viper.GetString("server")
+		serverURL := viper.GetString("seer.server")
 		if !strings.HasSuffix(serverURL, "/api/v1") && !strings.HasSuffix(serverURL, "/api/v1/") {
 			serverURL = strings.TrimSuffix(serverURL, "/") + "/api/v1"
 		}
@@ -27,7 +27,7 @@ var statusAppdataCmd = &cobra.Command{
 			{URL: serverURL, Description: "Configured Server"},
 		}
 
-		if apiKey := viper.GetString("api_key"); apiKey != "" {
+		if apiKey := viper.GetString("seer.api_key"); apiKey != "" {
 			configuration.AddDefaultHeader("X-Api-Key", apiKey)
 		}
 

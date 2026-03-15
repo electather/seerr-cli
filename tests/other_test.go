@@ -14,8 +14,8 @@ import (
 )
 
 func TestOtherCommands(t *testing.T) {
-	viper.Set("server", "http://localhost:8080")
-	viper.Set("api_key", "test-api-key")
+	viper.Set("seer.server", "http://localhost:8080")
+	viper.Set("seer.api_key", "test-api-key")
 
 	tests := []struct {
 		name           string

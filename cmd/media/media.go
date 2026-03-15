@@ -23,12 +23,12 @@ var Cmd = &cobra.Command{
 
 func newAPIClient() (*api.APIClient, context.Context, bool) {
 	configuration := api.NewConfiguration()
-	serverURL := viper.GetString("server")
+	serverURL := viper.GetString("seer.server")
 	if !strings.HasSuffix(serverURL, "/api/v1") {
 		serverURL = strings.TrimSuffix(serverURL, "/") + "/api/v1"
 	}
 	configuration.Servers = api.ServerConfigurations{{URL: serverURL, Description: "Configured Server"}}
-	if apiKey := viper.GetString("api_key"); apiKey != "" {
+	if apiKey := viper.GetString("seer.api_key"); apiKey != "" {
 		configuration.AddDefaultHeader("X-Api-Key", apiKey)
 	}
 	if OverrideServerURL != "" {
