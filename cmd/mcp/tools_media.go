@@ -8,14 +8,43 @@ import (
 	"github.com/mark3labs/mcp-go/server"
 )
 
+// statusLabels maps numeric Seer media status codes to human-readable names.
+var statusLabels = map[float64]string{
+	1: "UNKNOWN",
+	2: "PENDING",
+	3: "PROCESSING",
+	4: "PARTIALLY_AVAILABLE",
+	5: "AVAILABLE",
+	6: "DELETED",
+}
+
 func registerMediaTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("media_list",
-			mcp.WithDescription("List media items"),
-			mcp.WithNumber("take", mcp.Description("Number of results to return")),
-			mcp.WithNumber("skip", mcp.Description("Number of results to skip")),
-			mcp.WithString("filter", mcp.Description("Filter by status")),
-			mcp.WithString("sort", mcp.Description("Sort field")),
+			mcp.WithDescription(
+				"List movies and TV shows tracked by Seer (i.e. requested or added to the library), "+
+					"including their download/availability status and associated requests. "+
+					"Supports pagination via take/skip. "+
+					"Each result includes statusLabel and status4kLabel string fields alongside the numeric status codes.",
+			),
+			mcp.WithNumber("take", mcp.Description("Max number of results to return per page (omit for all).")),
+			mcp.WithNumber("skip", mcp.Description("Number of results to skip, for pagination.")),
+			mcp.WithString("filter", mcp.Description(
+				"Filter results by availability status. Valid values: "+
+					"all (default, no filter), "+
+					"available (fully available), "+
+					"partial (partially available), "+
+					"allavailable (available or partially available), "+
+					"processing (currently being downloaded), "+
+					"pending (requested but not yet downloading), "+
+					"deleted (removed from library).",
+			)),
+			mcp.WithString("sort", mcp.Description(
+				"Field to sort results by. Valid values: "+
+					"added (default, sort by date added to Seer), "+
+					"modified (sort by last modified date), "+
+					"mediaAdded (sort by date media was added to the library).",
+			)),
 		),
 		MediaListHandler(),
 	)
@@ -54,7 +83,40 @@ func MediaListHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
-		return mcp.NewToolResultText(string(b)), nil
+
+		// Enrich the response with human-readable status labels so agents can
+		// interpret numeric codes without a separate lookup table.
+		var envelope map[string]interface{}
+		if err := json.Unmarshal(b, &envelope); err != nil {
+			return mcp.NewToolResultText(string(b)), nil
+		}
+		if results, ok := envelope["results"].([]interface{}); ok {
+			for _, item := range results {
+				m, ok := item.(map[string]interface{})
+				if !ok {
+					continue
+				}
+				if v, ok := m["status"].(float64); ok {
+					m["statusLabel"] = statusLabels[v]
+				}
+				if v, ok := m["status4k"].(float64); ok {
+					m["status4kLabel"] = statusLabels[v]
+				}
+			}
+		}
+		envelope["_statusLegend"] = map[string]string{
+			"1": "UNKNOWN",
+			"2": "PENDING",
+			"3": "PROCESSING",
+			"4": "PARTIALLY_AVAILABLE",
+			"5": "AVAILABLE",
+			"6": "DELETED",
+		}
+		enriched, err := json.Marshal(envelope)
+		if err != nil {
+			return mcp.NewToolResultText(string(b)), nil
+		}
+		return mcp.NewToolResultText(string(enriched)), nil
 	}
 }
 
