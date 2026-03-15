@@ -8,10 +8,10 @@ var multiCmd = &cobra.Command{
 	Use:   "multi",
 	Short: "Search for movies, TV shows, and people",
 	Example: `  # Search for "The Matrix"
-  seer-cli search multi -q "The Matrix"
+  seerr-cli search multi -q "The Matrix"
 
   # Search for "Christopher Nolan" on the second page
-  seer-cli search multi -q "Christopher Nolan" --page 2`,
+  seerr-cli search multi -q "Christopher Nolan" --page 2`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

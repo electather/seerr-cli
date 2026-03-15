@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"strings"
 
+	api "seerr-cli/pkg/api"
+
 	mcplib "github.com/mark3labs/mcp-go/mcp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	api "seer-cli/pkg/api"
 )
 
 // OverrideServerURL is used by tests to redirect API calls to a mock server.
@@ -28,13 +29,13 @@ func apiKeyFromContext(ctx context.Context) string {
 
 var Cmd = &cobra.Command{
 	Use:   "mcp",
-	Short: "Run a Model Context Protocol (MCP) server exposing the Seer API",
-	Long:  `Start an MCP server that exposes the Seer API as tools for use by AI agents.`,
+	Short: "Run a Model Context Protocol (MCP) server exposing the Seerr API",
+	Long:  `Start an MCP server that exposes the Seerr API as tools for use by AI agents.`,
 	Example: `  # Start the MCP server using stdio transport (for Claude Desktop)
-  seer-cli mcp serve
+  seerr-cli mcp serve
 
   # Start the MCP server over HTTP with a Bearer token
-  seer-cli mcp serve --transport http --auth-token mysecret`,
+  seerr-cli mcp serve --transport http --auth-token mysecret`,
 }
 
 // newAPIClientWithKey builds a client using apiKey, falling back to Viper when empty.
@@ -67,9 +68,9 @@ func NewAPIClientForTest() (*api.APIClient, context.Context) {
 	return newAPIClient()
 }
 
-// apiToolError converts a Seer API error into a visible MCP tool result error.
+// apiToolError converts a Seerr API error into a visible MCP tool result error.
 // Using mcp.NewToolResultError (IsError=true) instead of returning a Go error
-// makes the actual Seer error message visible in the MCP client (e.g. Claude)
+// makes the actual Seerr error message visible in the MCP client (e.g. Claude)
 // rather than the generic "Error occurred during tool execution" wrapper.
 func apiToolError(label string, err error) (*mcplib.CallToolResult, error) {
 	msg := fmt.Sprintf("%s: %v", label, err)

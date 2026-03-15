@@ -15,31 +15,31 @@ import (
 var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Start the MCP server",
-	Long:  `Start a Model Context Protocol server that exposes the Seer API as tools.`,
+	Long:  `Start a Model Context Protocol server that exposes the Seerr API as tools.`,
 	Example: `  # Start with stdio transport (default, for Claude Desktop)
-  seer-cli mcp serve
+  seerr-cli mcp serve
 
   # Start over HTTP with Bearer token auth
-  seer-cli mcp serve --transport http --auth-token mysecret
+  seerr-cli mcp serve --transport http --auth-token mysecret
 
   # Start over HTTPS with TLS
-  seer-cli mcp serve --transport http --auth-token mysecret --tls-cert /path/to/cert.pem --tls-key /path/to/key.pem
+  seerr-cli mcp serve --transport http --auth-token mysecret --tls-cert /path/to/cert.pem --tls-key /path/to/key.pem
 
   # Start over HTTP with a secret path prefix (for clients that cannot send custom headers)
-  seer-cli mcp serve --transport http --route-token abc123 --no-auth
+  seerr-cli mcp serve --transport http --route-token abc123 --no-auth
   # MCP endpoint becomes: http://localhost:8811/abc123/mcp
 
   # Enable CORS for browser-based clients (e.g. claude.ai)
-  seer-cli mcp serve --transport http --route-token abc123 --no-auth --cors
+  seerr-cli mcp serve --transport http --route-token abc123 --no-auth --cors
 
   # Combine both auth methods for defense in depth
-  seer-cli mcp serve --transport http --route-token abc123 --auth-token mysecret
+  seerr-cli mcp serve --transport http --route-token abc123 --auth-token mysecret
 
   # Start over HTTP without auth (insecure, not recommended)
-  seer-cli mcp serve --transport http --no-auth
+  seerr-cli mcp serve --transport http --no-auth
 
   # Start in multi-tenant mode (per-user API keys in URL path)
-  seer-cli mcp serve --transport http --no-auth --multi-tenant`,
+  seerr-cli mcp serve --transport http --no-auth --multi-tenant`,
 	RunE: runServe,
 }
 
@@ -199,7 +199,7 @@ func bearerAuthMiddleware(token string, next http.Handler) http.Handler {
 	})
 }
 
-// TenantRoutingHandler extracts the Seer API token from /{token}/mcp paths and
+// TenantRoutingHandler extracts the Seerr API token from /{token}/mcp paths and
 // injects it into the request context before forwarding to the MCP handler.
 // Exported for testing.
 func TenantRoutingHandler(mcpHandler http.Handler) http.Handler {

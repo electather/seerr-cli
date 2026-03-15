@@ -9,10 +9,10 @@ var deleteFileCmd = &cobra.Command{
 	Short: "Delete a media file from Radarr/Sonarr",
 	Args:  cobra.ExactArgs(1),
 	Example: `  # Delete the regular (non-4K) file
-  seer-cli media delete-file 42
+  seerr-cli media delete-file 42
 
   # Delete the 4K file
-  seer-cli media delete-file 42 --is4k`,
+  seerr-cli media delete-file 42 --is4k`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

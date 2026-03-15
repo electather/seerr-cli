@@ -19,7 +19,7 @@ permissions:
   packages: write
 
 env:
-  GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/seer-cli
+  GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/seerr-cli
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
@@ -127,7 +127,7 @@ jobs:
           cp AGENT.md .clawhub-publish/SKILL.md
           clawhub publish .clawhub-publish \
             --slug seer-manager \
-            --name "Seer server manager" \
+            --name "Seerr server manager" \
             --version "${{ steps.version.outputs.tag }}" \
             --changelog "Release ${{ steps.version.outputs.tag }}" \
             --no-input

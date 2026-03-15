@@ -6,14 +6,15 @@ import (
 	"fmt"
 	"strings"
 
+	api "seerr-cli/pkg/api"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	api "seer-cli/pkg/api"
 )
 
 var statusSystemCmd = &cobra.Command{
 	Use:   "system",
-	Short: "Get the system status of the Seer API",
+	Short: "Get the system status of the Seerr API",
 	Long:  `Call the status endpoint defined in the OpenAPI specification to get the service version and commit details.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		configuration := api.NewConfiguration()

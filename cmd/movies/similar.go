@@ -11,7 +11,7 @@ var similarCmd = &cobra.Command{
 	Short: "Get similar movies",
 	Args:  cobra.ExactArgs(1),
 	Example: `  # Get similar movies to The Matrix (ID 603)
-  seer-cli movies similar 603`,
+  seerr-cli movies similar 603`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

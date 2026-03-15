@@ -1,43 +1,51 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/electather/seer-cli/main/seer-cli.schema.json",
-  "title": "seer-cli configuration",
-  "description": "Configuration file for seer-cli (~/.seer-cli.yaml).",
+  "$id": "https://raw.githubusercontent.com/electather/seerr-cli/main/seerr-cli.schema.json",
+  "title": "seerr-cli configuration",
+  "description": "Configuration file for seerr-cli (~/.seerr-cli.yaml).",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "seer": {
-      "description": "Seer instance connection settings.",
+      "description": "Seerr instance connection settings.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "server": {
-          "description": "Base URL of your Seer instance (e.g. https://seer.example.com). The /api/v1 path is appended automatically.",
+          "description": "Base URL of your Seerr instance (e.g. https://seer.example.com). The /api/v1 path is appended automatically.",
           "type": "string",
-          "examples": ["https://seer.example.com"]
+          "examples": [
+            "https://seer.example.com"
+          ]
         },
         "api_key": {
-          "description": "Seer API key. Generate one in Seer → Settings → API Keys.",
+          "description": "Seerr API key. Generate one in Seerr → Settings → API Keys.",
           "type": "string"
         }
       }
     },
     "mcp": {
-      "description": "MCP server settings (seer-cli mcp serve).",
+      "description": "MCP server settings (seerr-cli mcp serve).",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "transport": {
           "description": "Transport protocol for the MCP server.",
           "type": "string",
-          "enum": ["stdio", "http"],
+          "enum": [
+            "stdio",
+            "http"
+          ],
           "default": "stdio"
         },
         "addr": {
           "description": "Bind address for the HTTP transport (host:port).",
           "type": "string",
           "default": ":8811",
-          "examples": [":8811", "127.0.0.1:8811"]
+          "examples": [
+            ":8811",
+            "127.0.0.1:8811"
+          ]
         },
         "auth_token": {
           "description": "Bearer token required by HTTP clients. Omit only when using --no-auth.",
@@ -77,13 +85,21 @@
         "log_level": {
           "description": "Minimum log level to emit.",
           "type": "string",
-          "enum": ["debug", "info", "warn", "error"],
+          "enum": [
+            "debug",
+            "info",
+            "warn",
+            "error"
+          ],
           "default": "info"
         },
         "log_format": {
           "description": "Log output format.",
           "type": "string",
-          "enum": ["text", "json"],
+          "enum": [
+            "text",
+            "json"
+          ],
           "default": "text"
         }
       }

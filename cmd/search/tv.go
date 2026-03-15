@@ -8,10 +8,10 @@ var tvCmd = &cobra.Command{
 	Use:   "tv",
 	Short: "Discover and filter TV shows",
 	Example: `  # Discover Drama TV shows (Genre ID 18)
-  seer-cli search tv --genre 18
+  seerr-cli search tv --genre 18
 
   # Discover TV shows on Netflix (Network ID 213)
-  seer-cli search tv --network 213`,
+  seerr-cli search tv --network 213`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

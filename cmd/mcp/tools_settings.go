@@ -11,7 +11,7 @@ import (
 func registerSettingsTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("settings_about",
-			mcp.WithDescription("Get Seer system information and settings"),
+			mcp.WithDescription("Get Seerr system information and settings"),
 		),
 		SettingsAboutHandler(),
 	)

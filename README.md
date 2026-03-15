@@ -1,4 +1,4 @@
-# seer-cli
+# seerr-cli
 
 A command-line interface for the [Seer](https://github.com/seerr/app) media request management API. Built with Go and [Cobra](https://github.com/spf13/cobra).
 
@@ -7,21 +7,21 @@ A command-line interface for the [Seer](https://github.com/seerr/app) media requ
 ### Quick Install (Linux / macOS)
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/electather/seer-cli/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/electather/seerr-cli/main/install.sh | sh
 ```
 
 Installs the latest stable release to `/usr/local/bin` (uses `sudo` if needed, falls back to `~/.local/bin`). Supports `amd64` and `arm64`.
 
 ### Manual
 
-Download the archive for your platform from the [Releases](https://github.com/electather/seer-cli/releases) page, extract it, and move the binary to your `PATH`.
+Download the archive for your platform from the [Releases](https://github.com/electather/seerr-cli/releases) page, extract it, and move the binary to your `PATH`.
 
 ### Build from Source
 
 ```sh
-git clone https://github.com/electather/seer-cli.git
-cd seer-cli
-go build -o seer-cli .
+git clone https://github.com/electather/seerr-cli.git
+cd seerr-cli
+go build -o seerr-cli .
 ```
 
 ### Docker
@@ -29,7 +29,7 @@ go build -o seer-cli .
 A container image is published to the GitHub Container Registry on every release:
 
 ```sh
-docker pull ghcr.io/electather/seer-cli:latest
+docker pull ghcr.io/electather/seerr-cli:latest
 ```
 
 The image defaults to running the MCP HTTP server on port `8811`. Pass configuration via environment variables:
@@ -40,7 +40,7 @@ docker run -d \
   -e SEER_SERVER=https://your-seer-instance.com \
   -e SEER_API_KEY=your-api-key \
   -e SEER_MCP_AUTH_TOKEN=mysecrettoken \
-  ghcr.io/electather/seer-cli:latest
+  ghcr.io/electather/seerr-cli:latest
 ```
 
 To run CLI commands instead, override the default arguments:
@@ -49,7 +49,7 @@ To run CLI commands instead, override the default arguments:
 docker run --rm \
   -e SEER_SERVER=https://your-seer-instance.com \
   -e SEER_API_KEY=your-api-key \
-  ghcr.io/electather/seer-cli:latest \
+  ghcr.io/electather/seerr-cli:latest \
   status system
 ```
 
@@ -58,10 +58,10 @@ docker run --rm \
 Set your server URL and API key once:
 
 ```sh
-seer-cli config set --server https://your-seer-instance.com --api-key YOUR_KEY
+seerr-cli config set --server https://your-seer-instance.com --api-key YOUR_KEY
 ```
 
-Configuration is stored in `~/.seer-cli.yaml`. You can also use environment variables:
+Configuration is stored in `~/.seerr-cli.yaml`. You can also use environment variables:
 
 ```sh
 export SEER_SERVER=https://your-seer-instance.com
@@ -71,25 +71,25 @@ export SEER_API_KEY=YOUR_KEY
 Or pass them as flags on any command:
 
 ```sh
-seer-cli --server https://your-seer-instance.com --api-key YOUR_KEY <command>
+seerr-cli --server https://your-seer-instance.com --api-key YOUR_KEY <command>
 ```
 
 View your current configuration:
 
 ```sh
-seer-cli config show
+seerr-cli config show
 ```
 
 ## Global Flags
 
 All commands support these flags:
 
-| Flag | Short | Description |
-|------|-------|-------------|
-| `--server` | `-s` | Seer server URL |
-| `--api-key` | `-k` | Seer API key |
-| `--verbose` | `-v` | Show request URLs and HTTP status codes |
-| `--config` | | Path to config file (default: `~/.seer-cli.yaml`) |
+| Flag        | Short | Description                                        |
+| ----------- | ----- | -------------------------------------------------- |
+| `--server`  | `-s`  | Seerr server URL                                   |
+| `--api-key` | `-k`  | Seerr API key                                      |
+| `--verbose` | `-v`  | Show request URLs and HTTP status codes            |
+| `--config`  |       | Path to config file (default: `~/.seerr-cli.yaml`) |
 
 ## Commands
 
@@ -99,58 +99,58 @@ Search across movies, TV shows, and people.
 
 ```sh
 # Multi-search (movies, TV, people)
-seer-cli search multi -q "The Matrix"
-seer-cli search multi -q "Christopher Nolan" --page 2
+seerr-cli search multi -q "The Matrix"
+seerr-cli search multi -q "Christopher Nolan" --page 2
 
 # Search TMDB keywords
-seer-cli search keyword -q "sci-fi"
+seerr-cli search keyword -q "sci-fi"
 
 # Search production companies
-seer-cli search company -q "Warner Bros."
+seerr-cli search company -q "Warner Bros."
 
 # Trending content
-seer-cli search trending
-seer-cli search trending --time-window week
+seerr-cli search trending
+seerr-cli search trending --time-window week
 
 # Discover movies by genre, studio, or sort order
-seer-cli search movies --genre 18
-seer-cli search movies --studio 1
-seer-cli search movies --sort-by primary_release_date.desc
+seerr-cli search movies --genre 18
+seerr-cli search movies --studio 1
+seerr-cli search movies --sort-by primary_release_date.desc
 
 # Discover TV shows by genre or network
-seer-cli search tv --genre 18
-seer-cli search tv --network 1
+seerr-cli search tv --genre 18
+seerr-cli search tv --network 1
 ```
 
 ### Movies
 
 ```sh
 # Get movie details by TMDB ID
-seer-cli movies get <tmdb-id>
+seerr-cli movies get <tmdb-id>
 
 # Get movie ratings
-seer-cli movies ratings <tmdb-id>
-seer-cli movies ratings-combined <tmdb-id>
+seerr-cli movies ratings <tmdb-id>
+seerr-cli movies ratings-combined <tmdb-id>
 
 # Get movie recommendations
-seer-cli movies recommendations <tmdb-id>
+seerr-cli movies recommendations <tmdb-id>
 ```
 
 ### TV Shows
 
 ```sh
 # Get TV show details
-seer-cli tv get <tmdb-id>
+seerr-cli tv get <tmdb-id>
 
 # Get ratings and recommendations
-seer-cli tv ratings <tmdb-id>
-seer-cli tv recommendations <tmdb-id>
+seerr-cli tv ratings <tmdb-id>
+seerr-cli tv recommendations <tmdb-id>
 
 # Get similar shows
-seer-cli tv similar <tmdb-id>
+seerr-cli tv similar <tmdb-id>
 
 # Get season details
-seer-cli tv season <tmdb-id> <season-number>
+seerr-cli tv season <tmdb-id> <season-number>
 ```
 
 ### Requests
@@ -159,100 +159,100 @@ Manage media requests (the core of Seer).
 
 ```sh
 # Create a new request
-seer-cli request create <media-type> <tmdb-id>
+seerr-cli request create <media-type> <tmdb-id>
 
 # List request counts
-seer-cli request count
+seerr-cli request count
 
 # Approve or decline requests
-seer-cli request approve <request-id>
-seer-cli request decline <request-id>
+seerr-cli request approve <request-id>
+seerr-cli request decline <request-id>
 
 # Delete a request
-seer-cli request delete <request-id>
+seerr-cli request delete <request-id>
 ```
 
 ### Media
 
 ```sh
 # List all media
-seer-cli media list
+seerr-cli media list
 
 # Check media status
-seer-cli media status <media-id>
+seerr-cli media status <media-id>
 
 # Delete media or specific files
-seer-cli media delete <media-id>
-seer-cli media delete-file <media-id>
+seerr-cli media delete <media-id>
+seerr-cli media delete-file <media-id>
 ```
 
 ### Issues
 
 ```sh
 # Create an issue for a media item
-seer-cli issue create <media-id>
+seerr-cli issue create <media-id>
 
 # Get issue count
-seer-cli issue count
+seerr-cli issue count
 
 # Add a comment
-seer-cli issue comment <issue-id>
+seerr-cli issue comment <issue-id>
 
 # Delete an issue or comment
-seer-cli issue delete <issue-id>
-seer-cli issue delete-comment <comment-id>
+seerr-cli issue delete <issue-id>
+seerr-cli issue delete-comment <comment-id>
 ```
 
 ### Users
 
 ```sh
 # Get user details
-seer-cli users get <user-id>
+seerr-cli users get <user-id>
 
 # Create a new user
-seer-cli users create
+seerr-cli users create
 
 # Import users (e.g., from Plex)
-seer-cli users import
+seerr-cli users import
 
 # Bulk update users
-seer-cli users bulk-update
+seerr-cli users bulk-update
 
 # Delete a user
-seer-cli users delete <user-id>
+seerr-cli users delete <user-id>
 ```
 
 ### Watchlist
 
 ```sh
 # Add to watchlist
-seer-cli watchlist add <media-type> <tmdb-id>
+seerr-cli watchlist add <media-type> <tmdb-id>
 
 # Remove from watchlist
-seer-cli watchlist delete <media-type> <tmdb-id>
+seerr-cli watchlist delete <media-type> <tmdb-id>
 ```
 
 ### Blocklist
 
 ```sh
 # List blocklist entries
-seer-cli blocklist list
+seerr-cli blocklist list
 
 # Get a specific entry
-seer-cli blocklist get <id>
+seerr-cli blocklist get <id>
 
 # Add to blocklist
-seer-cli blocklist add <tmdb-id>
+seerr-cli blocklist add <tmdb-id>
 
 # Remove from blocklist
-seer-cli blocklist delete <id>
+seerr-cli blocklist delete <id>
 ```
 
 ### Collections
 
 ```sh
 # Get collection details
-seer-cli collection get <collection-id>
+seerr-cli collection get <collection-id>
 ```
 
 ### Services
@@ -260,18 +260,18 @@ seer-cli collection get <collection-id>
 Check connected Radarr and Sonarr instances.
 
 ```sh
-seer-cli service radarr
-seer-cli service sonarr
+seerr-cli service radarr
+seerr-cli service sonarr
 ```
 
 ### Person
 
 ```sh
 # Get person details
-seer-cli person get <person-id>
+seerr-cli person get <person-id>
 
 # Get combined credits
-seer-cli person combined-credits <person-id>
+seerr-cli person combined-credits <person-id>
 ```
 
 ### TMDB Data
@@ -280,58 +280,58 @@ Access TMDB metadata directly.
 
 ```sh
 # List genres
-seer-cli tmdb genres-movie
-seer-cli tmdb genres-tv
+seerr-cli tmdb genres-movie
+seerr-cli tmdb genres-tv
 
 # List languages
-seer-cli tmdb languages
+seerr-cli tmdb languages
 
 # Get network details
-seer-cli tmdb network <network-id>
+seerr-cli tmdb network <network-id>
 
 # Get movie backdrops
-seer-cli tmdb backdrops <tmdb-id>
+seerr-cli tmdb backdrops <tmdb-id>
 ```
 
 ### Override Rules
 
 ```sh
 # List override rules
-seer-cli overriderule list
+seerr-cli overriderule list
 
 # Create, update, or delete rules
-seer-cli overriderule create
-seer-cli overriderule update <rule-id>
-seer-cli overriderule delete <rule-id>
+seerr-cli overriderule create
+seerr-cli overriderule update <rule-id>
+seerr-cli overriderule delete <rule-id>
 ```
 
 ### Other
 
 ```sh
 # Get certification lists
-seer-cli other certifications-movie
-seer-cli other certifications-tv
+seerr-cli other certifications-movie
+seerr-cli other certifications-tv
 
 # Get keyword details
-seer-cli other keyword <keyword-id>
+seerr-cli other keyword <keyword-id>
 
 # Get watch provider regions
-seer-cli other watchprovider-regions
+seerr-cli other watchprovider-regions
 ```
 
 ### System Status
 
 ```sh
 # Get system status
-seer-cli status system
+seerr-cli status system
 
 # Get app data path
-seer-cli status appdata
+seerr-cli status appdata
 ```
 
 ## MCP Server
 
-`seer-cli` includes a built-in [Model Context Protocol](https://modelcontextprotocol.io) server that exposes the Seer API as tools for AI agents.
+`seerr-cli` includes a built-in [Model Context Protocol](https://modelcontextprotocol.io) server that exposes the Seerr API as tools for AI agents.
 
 ### Claude Desktop (stdio)
 
@@ -341,7 +341,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 {
   "mcpServers": {
     "seer": {
-      "command": "/usr/local/bin/seer-cli",
+      "command": "/usr/local/bin/seerr-cli",
       "args": ["mcp", "serve"],
       "env": {
         "SEER_SERVER": "https://your-seer-instance.com",
@@ -352,7 +352,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 }
 ```
 
-Restart Claude Desktop. The Seer tools will appear automatically.
+Restart Claude Desktop. The Seerr tools will appear automatically.
 
 ### HTTP transport (other MCP clients)
 
@@ -360,16 +360,16 @@ For clients that support HTTP MCP with Bearer token authentication:
 
 ```sh
 # Start with a Bearer token
-seer-cli mcp serve --transport http --addr :8811 --auth-token mysecrettoken
+seerr-cli mcp serve --transport http --addr :8811 --auth-token mysecrettoken
 
 # With TLS
-seer-cli mcp serve --transport http --addr :8811 \
+seerr-cli mcp serve --transport http --addr :8811 \
   --auth-token mysecrettoken \
   --tls-cert /path/to/cert.pem \
   --tls-key /path/to/key.pem
 
 # Without authentication (insecure — local use only)
-seer-cli mcp serve --transport http --addr :8811 --no-auth
+seerr-cli mcp serve --transport http --addr :8811 --no-auth
 ```
 
 The MCP endpoint will be `http://localhost:8811/mcp`. Configure your client with `Authorization: Bearer mysecrettoken`.
@@ -380,13 +380,13 @@ Some MCP clients (e.g. claude.ai remote MCP integration) do not support custom `
 
 ```sh
 # Endpoint becomes http://localhost:8811/abc123/mcp — no auth header needed
-seer-cli mcp serve --transport http --addr :8811 --route-token abc123 --no-auth
+seerr-cli mcp serve --transport http --addr :8811 --route-token abc123 --no-auth
 
 # Add --cors for browser-based clients (e.g. claude.ai)
-seer-cli mcp serve --transport http --addr :8811 --route-token abc123 --no-auth --cors
+seerr-cli mcp serve --transport http --addr :8811 --route-token abc123 --no-auth --cors
 
 # Combine with Bearer auth for defense in depth
-seer-cli mcp serve --transport http --addr :8811 --route-token abc123 --auth-token mysecrettoken
+seerr-cli mcp serve --transport http --addr :8811 --route-token abc123 --auth-token mysecrettoken
 ```
 
 > **Note:** A secret path is weaker than a proper Bearer token since it may appear in proxy logs. For production use, combine it with TLS.
@@ -397,16 +397,16 @@ seer-cli mcp serve --transport http --addr :8811 --route-token abc123 --auth-tok
 
 All `mcp serve` flags can be set via environment variables, which is especially useful for Docker deployments:
 
-| Flag | Environment variable | Default |
-|------|---------------------|---------|
-| `--transport` | `SEER_MCP_TRANSPORT` | `stdio` |
-| `--addr` | `SEER_MCP_ADDR` | `:8811` |
-| `--auth-token` | `SEER_MCP_AUTH_TOKEN` | — |
-| `--no-auth` | `SEER_MCP_NO_AUTH` | `false` |
-| `--route-token` | `SEER_MCP_ROUTE_TOKEN` | — |
-| `--cors` | `SEER_MCP_CORS` | `false` |
-| `--tls-cert` | `SEER_MCP_TLS_CERT` | — |
-| `--tls-key` | `SEER_MCP_TLS_KEY` | — |
+| Flag            | Environment variable   | Default |
+| --------------- | ---------------------- | ------- |
+| `--transport`   | `SEER_MCP_TRANSPORT`   | `stdio` |
+| `--addr`        | `SEER_MCP_ADDR`        | `:8811` |
+| `--auth-token`  | `SEER_MCP_AUTH_TOKEN`  | —       |
+| `--no-auth`     | `SEER_MCP_NO_AUTH`     | `false` |
+| `--route-token` | `SEER_MCP_ROUTE_TOKEN` | —       |
+| `--cors`        | `SEER_MCP_CORS`        | `false` |
+| `--tls-cert`    | `SEER_MCP_TLS_CERT`    | —       |
+| `--tls-key`     | `SEER_MCP_TLS_KEY`     | —       |
 
 ### Docker (HTTP transport)
 
@@ -420,10 +420,11 @@ docker run -d \
   -e SEER_SERVER=https://your-seer-instance.com \
   -e SEER_API_KEY=your-api-key \
   -e SEER_MCP_AUTH_TOKEN=mysecrettoken \
-  ghcr.io/electather/seer-cli:latest
+  ghcr.io/electather/seerr-cli:latest
 ```
 
 Configure your MCP client with:
+
 - **URL:** `http://localhost:8811/mcp`
 - **Authorization:** `Bearer mysecrettoken`
 
@@ -438,10 +439,11 @@ docker run -d \
   -e SEER_MCP_ROUTE_TOKEN=abc123 \
   -e SEER_MCP_NO_AUTH=true \
   -e SEER_MCP_CORS=true \
-  ghcr.io/electather/seer-cli:latest
+  ghcr.io/electather/seerr-cli:latest
 ```
 
 Configure your MCP client with:
+
 - **URL:** `http://localhost:8811/abc123/mcp`
 
 To bind to a different port or address, pass `--addr` explicitly:
@@ -452,36 +454,36 @@ docker run -d \
   -e SEER_SERVER=https://your-seer-instance.com \
   -e SEER_API_KEY=your-api-key \
   -e SEER_MCP_AUTH_TOKEN=mysecrettoken \
-  ghcr.io/electather/seer-cli:latest \
+  ghcr.io/electather/seerr-cli:latest \
   mcp serve --transport http --addr :9000
 ```
 
 ### Available tools (43)
 
-| Category | Tools |
-|---|---|
-| Search & Discovery | `search_multi`, `search_discover_movies`, `search_discover_tv`, `search_trending` |
-| Movies | `movies_get`, `movies_recommendations`, `movies_similar`, `movies_ratings` |
-| TV Shows | `tv_get`, `tv_season`, `tv_recommendations`, `tv_similar`, `tv_ratings` |
-| Requests | `request_list`, `request_get`, `request_create`, `request_approve`, `request_decline`, `request_delete`, `request_count` |
-| Media | `media_list`, `media_status_update` |
-| Issues | `issue_list`, `issue_get`, `issue_create`, `issue_status_update`, `issue_count` |
-| Users | `users_list`, `users_get`, `users_quota` |
-| People | `person_get`, `person_credits` |
-| Collections | `collection_get` |
-| Services | `service_radarr_list`, `service_sonarr_list` |
-| Settings | `settings_about`, `settings_jobs_list`, `settings_jobs_run` |
-| Watchlist | `watchlist_add`, `watchlist_remove` |
-| Blocklist | `blocklist_list`, `blocklist_add`, `blocklist_remove` |
-| System | `status_system` |
+| Category           | Tools                                                                                                                    |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Search & Discovery | `search_multi`, `search_discover_movies`, `search_discover_tv`, `search_trending`                                        |
+| Movies             | `movies_get`, `movies_recommendations`, `movies_similar`, `movies_ratings`                                               |
+| TV Shows           | `tv_get`, `tv_season`, `tv_recommendations`, `tv_similar`, `tv_ratings`                                                  |
+| Requests           | `request_list`, `request_get`, `request_create`, `request_approve`, `request_decline`, `request_delete`, `request_count` |
+| Media              | `media_list`, `media_status_update`                                                                                      |
+| Issues             | `issue_list`, `issue_get`, `issue_create`, `issue_status_update`, `issue_count`                                          |
+| Users              | `users_list`, `users_get`, `users_quota`                                                                                 |
+| People             | `person_get`, `person_credits`                                                                                           |
+| Collections        | `collection_get`                                                                                                         |
+| Services           | `service_radarr_list`, `service_sonarr_list`                                                                             |
+| Settings           | `settings_about`, `settings_jobs_list`, `settings_jobs_run`                                                              |
+| Watchlist          | `watchlist_add`, `watchlist_remove`                                                                                      |
+| Blocklist          | `blocklist_list`, `blocklist_add`, `blocklist_remove`                                                                    |
+| System             | `status_system`                                                                                                          |
 
 ## Supported Platforms
 
-| OS | Architecture |
-|----|-------------|
-| Linux | amd64, arm64 |
-| macOS | amd64, arm64 |
-| Windows | amd64 |
+| OS      | Architecture |
+| ------- | ------------ |
+| Linux   | amd64, arm64 |
+| macOS   | amd64, arm64 |
+| Windows | amd64        |
 
 ## License
 

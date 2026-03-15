@@ -8,10 +8,11 @@ import (
 	"os"
 	"testing"
 
+	"seerr-cli/cmd"
+	"seerr-cli/cmd/collection"
+
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
-	"seer-cli/cmd"
-	"seer-cli/cmd/collection"
 )
 
 func TestCollectionCommands(t *testing.T) {

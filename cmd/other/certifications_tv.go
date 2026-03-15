@@ -7,7 +7,7 @@ import (
 var certificationsTvCmd = &cobra.Command{
 	Use:     "certifications-tv",
 	Short:   "List TV certifications from TMDB",
-	Example: `  seer-cli other certifications-tv`,
+	Example: `  seerr-cli other certifications-tv`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 		res, r, err := apiClient.OtherAPI.CertificationsTvGet(ctx).Execute()

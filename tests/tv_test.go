@@ -7,10 +7,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"seerr-cli/cmd"
+	"seerr-cli/cmd/tv"
+
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
-	"seer-cli/cmd"
-	"seer-cli/cmd/tv"
 )
 
 func TestTvCommands(t *testing.T) {

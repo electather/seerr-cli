@@ -7,7 +7,7 @@ import (
 var watchproviderRegionsCmd = &cobra.Command{
 	Use:     "watchprovider-regions",
 	Short:   "List all available watch provider regions",
-	Example: `  seer-cli other watchprovider-regions`,
+	Example: `  seerr-cli other watchprovider-regions`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 		res, r, err := apiClient.OtherAPI.WatchprovidersRegionsGet(ctx).Execute()

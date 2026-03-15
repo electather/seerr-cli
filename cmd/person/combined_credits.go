@@ -11,10 +11,10 @@ var combinedCreditsCmd = &cobra.Command{
 	Short: "Get combined movie and TV credits for a person",
 	Args:  cobra.ExactArgs(1),
 	Example: `  # Get credits for Brad Pitt (ID 287)
-  seer-cli person combined-credits 287
+  seerr-cli person combined-credits 287
 
   # Get credits in Spanish
-  seer-cli person combined-credits 287 --language es`,
+  seerr-cli person combined-credits 287 --language es`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

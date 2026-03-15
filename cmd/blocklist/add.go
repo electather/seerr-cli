@@ -1,14 +1,15 @@
 package blocklist
 
 import (
+	api "seerr-cli/pkg/api"
+
 	"github.com/spf13/cobra"
-	api "seer-cli/pkg/api"
 )
 
 var addCmd = &cobra.Command{
 	Use:     "add",
 	Short:   "Add media to the blocklist",
-	Example: `  seer-cli blocklist add --tmdb-id 12345`,
+	Example: `  seerr-cli blocklist add --tmdb-id 12345`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

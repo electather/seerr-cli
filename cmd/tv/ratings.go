@@ -11,7 +11,7 @@ var ratingsCmd = &cobra.Command{
 	Short: "Get TV show ratings",
 	Args:  cobra.ExactArgs(1),
 	Example: `  # Get ratings for Breaking Bad (ID 1396)
-  seer-cli tv ratings 1396`,
+  seerr-cli tv ratings 1396`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

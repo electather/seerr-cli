@@ -6,9 +6,10 @@ import (
 	"fmt"
 	"strings"
 
+	api "seerr-cli/pkg/api"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	api "seer-cli/pkg/api"
 )
 
 var statusAppdataCmd = &cobra.Command{

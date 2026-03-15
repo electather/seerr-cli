@@ -9,9 +9,10 @@ import (
 	"strings"
 	"testing"
 
+	"seerr-cli/cmd"
+	"seerr-cli/cmd/request"
+
 	"github.com/spf13/viper"
-	"seer-cli/cmd"
-	"seer-cli/cmd/request"
 )
 
 func TestRequest(t *testing.T) {

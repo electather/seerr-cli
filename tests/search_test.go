@@ -7,10 +7,11 @@ import (
 	"testing"
 
 	"bytes"
+	"seerr-cli/cmd"
+	"seerr-cli/cmd/search"
+
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
-	"seer-cli/cmd"
-	"seer-cli/cmd/search"
 )
 
 func TestSearchCommands(t *testing.T) {

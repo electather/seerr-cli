@@ -21,7 +21,7 @@ body:
       label: Steps to reproduce
       description: Exact commands or steps that trigger the bug.
       placeholder: |
-        1. Run `seer-cli ...`
+        1. Run `seerr-cli ...`
         2. See error
     validations:
       required: true
@@ -45,8 +45,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: seer-cli version
-      description: Run `seer-cli --version` and paste the output.
+      label: seerr-cli version
+      description: Run `seerr-cli --version` and paste the output.
       placeholder: v0.x.y
     validations:
       required: true
@@ -68,4 +68,4 @@ body:
     id: context
     attributes:
       label: Additional context
-      description: Config file (redact secrets), Seer version, relevant logs, etc.
+      description: Config file (redact secrets), Seerr version, relevant logs, etc.

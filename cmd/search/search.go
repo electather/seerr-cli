@@ -7,9 +7,10 @@ import (
 	"net/http"
 	"strings"
 
+	api "seerr-cli/pkg/api"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	api "seer-cli/pkg/api"
 )
 
 // encodingRoundTripper is a custom RoundTripper that replaces '+' with '%20' in query parameters.

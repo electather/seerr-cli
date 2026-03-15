@@ -8,24 +8,24 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"seer-cli/cmd/blocklist"
-	"seer-cli/cmd/collection"
-	"seer-cli/cmd/config"
-	"seer-cli/cmd/issue"
-	"seer-cli/cmd/mcp"
-	"seer-cli/cmd/media"
-	"seer-cli/cmd/movies"
-	"seer-cli/cmd/other"
-	"seer-cli/cmd/overriderule"
-	"seer-cli/cmd/person"
-	"seer-cli/cmd/request"
-	"seer-cli/cmd/search"
-	"seer-cli/cmd/service"
-	"seer-cli/cmd/status"
-	"seer-cli/cmd/tmdb"
-	"seer-cli/cmd/tv"
-	"seer-cli/cmd/users"
-	"seer-cli/cmd/watchlist"
+	"seerr-cli/cmd/blocklist"
+	"seerr-cli/cmd/collection"
+	"seerr-cli/cmd/config"
+	"seerr-cli/cmd/issue"
+	"seerr-cli/cmd/mcp"
+	"seerr-cli/cmd/media"
+	"seerr-cli/cmd/movies"
+	"seerr-cli/cmd/other"
+	"seerr-cli/cmd/overriderule"
+	"seerr-cli/cmd/person"
+	"seerr-cli/cmd/request"
+	"seerr-cli/cmd/search"
+	"seerr-cli/cmd/service"
+	"seerr-cli/cmd/status"
+	"seerr-cli/cmd/tmdb"
+	"seerr-cli/cmd/tv"
+	"seerr-cli/cmd/users"
+	"seerr-cli/cmd/watchlist"
 )
 
 var (
@@ -49,9 +49,9 @@ func SetVersionInfo(version, commit, date string) {
 }
 
 var RootCmd = &cobra.Command{
-	Use:   "seer-cli",
-	Short: "A CLI to interact with the Seer API",
-	Long:  `A command line interface to call endpoints defined in the Seer OpenAPI specification.`,
+	Use:   "seerr-cli",
+	Short: "A CLI to interact with the Seerr API",
+	Long:  `A command line interface to call endpoints defined in the Seerr OpenAPI specification.`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		if cmd.Root() != cmd && (cmd.Name() == "config" || cmd.Parent().Name() == "config" || cmd.Name() == "help" || cmd.Name() == "completion" || cmd.Parent().Name() == "completion" || cmd.Name() == "mcp" || cmd.Parent().Name() == "mcp") {
 			return nil
@@ -76,9 +76,9 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.seer-cli.yaml)")
-	RootCmd.PersistentFlags().StringVarP(&server, "server", "s", "", "Seer server URL (e.g., https://seer.example.com). The /api/v1 prefix is added automatically if not provided.")
-	RootCmd.PersistentFlags().StringVarP(&apiKey, "api-key", "k", "", "Seer API Key")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.seerr-cli.yaml)")
+	RootCmd.PersistentFlags().StringVarP(&server, "server", "s", "", "Seerr server URL (e.g., https://seer.example.com). The /api/v1 prefix is added automatically if not provided.")
+	RootCmd.PersistentFlags().StringVarP(&apiKey, "api-key", "k", "", "Seerr API Key")
 	RootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output")
 
 	viper.BindPFlag("seer.server", RootCmd.PersistentFlags().Lookup("server"))
@@ -114,7 +114,7 @@ func initConfig() {
 
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
-		viper.SetConfigName(".seer-cli")
+		viper.SetConfigName(".seerr-cli")
 	}
 
 	viper.SetEnvPrefix("SEER")
@@ -122,7 +122,7 @@ func initConfig() {
 	// env vars like "SEER_MCP_TRANSPORT".
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_"))
 	viper.AutomaticEnv()
-	// AutomaticEnv with the SEER prefix would construct "SEER_SEER_SERVER" for
+	// AutomaticEnv with the SEERR prefix would construct "SEER_SEER_SERVER" for
 	// the "seer.server" key, so we bind those explicitly instead.
 	viper.BindEnv("seer.server", "SEER_SERVER")
 	viper.BindEnv("seer.api_key", "SEER_API_KEY")

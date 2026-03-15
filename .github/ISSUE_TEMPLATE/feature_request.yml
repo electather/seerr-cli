@@ -22,7 +22,7 @@ body:
       label: Proposed solution
       description: Describe the feature. Include the command/flag syntax if relevant.
       placeholder: |
-        Add a `seer-cli movies watch` command that...
+        Add a `seerr-cli movies watch` command that...
     validations:
       required: true
 
@@ -36,4 +36,4 @@ body:
     id: context
     attributes:
       label: Additional context
-      description: Links to Seer API docs, related issues, screenshots, etc.
+      description: Links to Seerr API docs, related issues, screenshots, etc.

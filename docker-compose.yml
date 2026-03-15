@@ -1,12 +1,12 @@
 services:
-  seer-cli:
+  seerr-cli:
     build: .
-    # image: ghcr.io/electather/seer-cli:latest  # use pre-built image once published
+    # image: ghcr.io/electather/seerr-cli:latest  # use pre-built image once published
     environment:
       # --- Core ---
-      # URL of your Seer instance. The /api/v1 prefix is appended automatically.
+      # URL of your Seerr instance. The /api/v1 prefix is appended automatically.
       SEER_SERVER: http://seer:5055
-      # Seer API key for authenticating against the Seer API.
+      # Seerr API key for authenticating against the Seerr API.
       SEER_API_KEY: ${SEER_API_KEY}
       # Set to any non-empty value to enable verbose startup and request logging.
       # SEER_VERBOSE: "false"
@@ -31,7 +31,7 @@ services:
 
       # --- MCP multi-tenant mode (HTTP transport) ---
       # When "true", the endpoint becomes /{seer-api-token}/mcp and the path
-      # segment is used as the per-user Seer API key. Requires HTTP transport.
+      # segment is used as the per-user Seerr API key. Requires HTTP transport.
       # SEER_MCP_MULTI_TENANT: "false"
 
       # --- MCP TLS (HTTP transport) ---

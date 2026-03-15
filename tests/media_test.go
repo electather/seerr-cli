@@ -7,10 +7,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"seerr-cli/cmd"
+	"seerr-cli/cmd/media"
+
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
-	"seer-cli/cmd"
-	"seer-cli/cmd/media"
 )
 
 func TestMediaCommands(t *testing.T) {

@@ -15,16 +15,16 @@ RUN go work sync && go mod download
 COPY . .
 
 # Build static binary
-RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /seer-cli .
+RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /seerr-cli .
 
 # Stage 2: Final image
 FROM alpine:3.21
 
 RUN apk add --no-cache ca-certificates
 
-COPY --from=builder /seer-cli /usr/local/bin/seer-cli
+COPY --from=builder /seerr-cli /usr/local/bin/seerr-cli
 
 EXPOSE 8811
 
-ENTRYPOINT ["seer-cli"]
+ENTRYPOINT ["seerr-cli"]
 CMD ["mcp", "serve", "--transport", "http"]

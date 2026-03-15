@@ -1,6 +1,6 @@
 package main
 
-import "seer-cli/cmd"
+import "seerr-cli/cmd"
 
 var (
 	version = "dev"

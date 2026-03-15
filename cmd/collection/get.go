@@ -10,8 +10,8 @@ var getCmd = &cobra.Command{
 	Use:   "get <collectionId>",
 	Short: "Get collection details",
 	Args:  cobra.ExactArgs(1),
-	Example: `  seer-cli collection get 537982
-  seer-cli collection get 537982 --language en`,
+	Example: `  seerr-cli collection get 537982
+  seerr-cli collection get 537982 --language en`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

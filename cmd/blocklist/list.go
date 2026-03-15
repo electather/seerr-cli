@@ -8,10 +8,10 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List blocklisted items",
 	Example: `  # List all blocklisted items
-  seer-cli blocklist list
+  seerr-cli blocklist list
 
   # Filter and paginate
-  seer-cli blocklist list --filter all --take 25 --skip 0`,
+  seerr-cli blocklist list --filter all --take 25 --skip 0`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 

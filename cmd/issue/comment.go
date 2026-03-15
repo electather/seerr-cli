@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
+	api "seerr-cli/pkg/api"
+
 	"github.com/spf13/cobra"
-	api "seer-cli/pkg/api"
 )
 
 var commentCmd = &cobra.Command{

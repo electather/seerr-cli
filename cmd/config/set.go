@@ -7,26 +7,27 @@ import (
 	"path/filepath"
 	"strings"
 
+	"seerr-cli/cmd/mcp"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"gopkg.in/yaml.v3"
-	"seer-cli/cmd/mcp"
 )
 
-const schemaComment = "# yaml-language-server: $schema=https://raw.githubusercontent.com/electather/seer-cli/main/seer-cli.schema.json\n"
+const schemaComment = "# yaml-language-server: $schema=https://raw.githubusercontent.com/electather/seerr-cli/main/seerr-cli.schema.json\n"
 
 var configSetCmd = &cobra.Command{
 	Use:   "set",
 	Short: "Persist configuration to the config file",
-	Long: `Save configuration to the CLI config file (~/.seer-cli.yaml by default).
+	Long: `Save configuration to the CLI config file (~/.seerr-cli.yaml by default).
 
-Accepts the global --server and --api-key flags for Seer instance settings,
+Accepts the global --server and --api-key flags for Seerr instance settings,
 and all MCP server flags (same as 'mcp serve') for MCP settings.`,
-	Example: `  # Set Seer instance
-  seer-cli config set --server https://seer.example.com --api-key mykey
+	Example: `  # Set Seerr instance
+  seerr-cli config set --server https://seer.example.com --api-key mykey
 
-  # Set Seer instance and configure the MCP server for HTTP transport
-  seer-cli config set --server https://seer.example.com --api-key mykey \
+  # Set Seerr instance and configure the MCP server for HTTP transport
+  seerr-cli config set --server https://seer.example.com --api-key mykey \
     --transport http --auth-token mysecret`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		configPath := viper.ConfigFileUsed()
@@ -35,7 +36,7 @@ and all MCP server flags (same as 'mcp serve') for MCP settings.`,
 			if err != nil {
 				return err
 			}
-			configPath = filepath.Join(home, ".seer-cli.yaml")
+			configPath = filepath.Join(home, ".seerr-cli.yaml")
 			viper.SetConfigFile(configPath)
 		}
 

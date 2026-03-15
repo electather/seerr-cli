@@ -8,13 +8,13 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List media items",
 	Example: `  # List all media
-  seer-cli media list
+  seerr-cli media list
 
   # List available media, sorted by date added
-  seer-cli media list --filter available --sort added
+  seerr-cli media list --filter available --sort added
 
   # Paginate results
-  seer-cli media list --take 10 --skip 20`,
+  seerr-cli media list --take 10 --skip 20`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 
