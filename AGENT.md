@@ -47,7 +47,7 @@ Run the MCP HTTP server in a container next to your Seerr instance:
 ```bash
 # With Bearer token auth
 docker run --rm \
-  -e SEER_SERVER=http://your-seer-instance:5055 \
+  -e SEER_SERVER=http://your-seerr-instance:5055 \
   -e SEER_API_KEY=your-api-key \
   -e SEER_MCP_AUTH_TOKEN=your-secret-token \
   -p 8811:8811 \
@@ -60,7 +60,7 @@ For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a s
 
 ```bash
 docker run --rm \
-  -e SEER_SERVER=http://your-seer-instance:5055 \
+  -e SEER_SERVER=http://your-seerr-instance:5055 \
   -e SEER_API_KEY=your-api-key \
   -e SEER_MCP_ROUTE_TOKEN=your-secret-path \
   -e SEER_MCP_NO_AUTH=true \
@@ -89,7 +89,7 @@ Override the default CMD to run any CLI command:
 
 ```bash
 docker run --rm \
-  -e SEER_SERVER=http://your-seer-instance:5055 \
+  -e SEER_SERVER=http://your-seerr-instance:5055 \
   -e SEER_API_KEY=your-api-key \
   ghcr.io/electather/seerr-cli:latest \
   status system
@@ -98,7 +98,7 @@ docker run --rm \
 ## Setup
 
 ```bash
-seerr-cli config set --server https://your-seer-instance.com --api-key YOUR_KEY
+seerr-cli config set --server https://your-seerr-instance.com --api-key YOUR_KEY
 seerr-cli config show   # verify
 ```
 
@@ -331,7 +331,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
       "command": "/usr/local/bin/seerr-cli",
       "args": ["mcp", "serve"],
       "env": {
-        "SEER_SERVER": "https://your-seer-instance.com",
+        "SEER_SERVER": "https://your-seerr-instance.com",
         "SEER_API_KEY": "your-api-key"
       }
     }

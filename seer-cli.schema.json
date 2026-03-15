@@ -74,7 +74,7 @@
           "default": false
         },
         "multi_tenant": {
-          "description": "Route /{seer-api-token}/mcp so each user supplies their own API key in the URL.",
+          "description": "Route /{seerr-api-token}/mcp so each user supplies their own API key in the URL.",
           "type": "boolean",
           "default": false
         },

@@ -79,7 +79,7 @@ var ServeFlags = []FlagDef{
 		ViperKey: "mcp.multi_tenant",
 		Default:  "false",
 		IsBool:   true,
-		Usage:    "Route /{seer-api-token}/mcp for per-user API keys (HTTP transport only)",
+		Usage:    "Route /{seerr-api-token}/mcp for per-user API keys (HTTP transport only)",
 	},
 	{
 		Name:     "log-file",

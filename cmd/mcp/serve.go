@@ -75,7 +75,7 @@ func runServe(_ *cobra.Command, args []string) error {
 		return fmt.Errorf("--multi-tenant requires --transport http")
 	}
 
-	s := server.NewMCPServer("seer-mcp", "1.0.0")
+	s := server.NewMCPServer("seerr-mcp", "1.0.0")
 
 	registerStatusTools(s)
 	registerSearchTools(s)
@@ -115,7 +115,7 @@ func runServe(_ *cobra.Command, args []string) error {
 		}
 		mcpPath := "/mcp"
 		if multiTenant {
-			mcpPath = "/{seer-api-token}/mcp"
+			mcpPath = "/{seerr-api-token}/mcp"
 		} else if routeToken != "" {
 			mcpPath = "/" + routeToken + "/mcp"
 		}

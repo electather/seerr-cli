@@ -30,7 +30,7 @@ services:
       # SEER_MCP_ROUTE_TOKEN: ""
 
       # --- MCP multi-tenant mode (HTTP transport) ---
-      # When "true", the endpoint becomes /{seer-api-token}/mcp and the path
+      # When "true", the endpoint becomes /{seerr-api-token}/mcp and the path
       # segment is used as the per-user Seerr API key. Requires HTTP transport.
       # SEER_MCP_MULTI_TENANT: "false"
 
