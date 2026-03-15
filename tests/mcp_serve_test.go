@@ -227,6 +227,28 @@ func TestMCPUsersListHandler(t *testing.T) {
 	assert.Contains(t, text, `"results"`)
 }
 
+func TestMCPUsersUpdateHandler(t *testing.T) {
+	ts, cleanup := newMCPTestServer(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPut && strings.HasPrefix(r.URL.Path, "/api/v1/user/") {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte(`{"id":1,"displayName":"newname","email":"new@example.com"}`))
+			return
+		}
+		w.WriteHeader(http.StatusNotFound)
+	})
+	defer cleanup()
+	_ = ts
+
+	handler := cmdmcp.UsersUpdateHandler()
+
+	result := callTool(t, handler, map[string]any{"userId": float64(1), "username": "newname"})
+	text := resultText(t, result)
+
+	assert.Contains(t, text, `"id"`)
+	assert.Contains(t, text, `"displayName"`)
+}
+
 func TestMCPServiceRadarrListHandler(t *testing.T) {
 	ts, cleanup := newMCPTestServer(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/api/v1/service/radarr" {

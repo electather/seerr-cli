@@ -6,6 +6,7 @@ import (
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
+	api "seer-cli/pkg/api"
 )
 
 func registerUsersTools(s *server.MCPServer) {
@@ -32,6 +33,17 @@ func registerUsersTools(s *server.MCPServer) {
 			mcp.WithNumber("userId", mcp.Required(), mcp.Description("User ID")),
 		),
 		UsersQuotaHandler(),
+	)
+
+	s.AddTool(
+		mcp.NewTool("users_update",
+			mcp.WithDescription("Update a user's information by user ID"),
+			mcp.WithNumber("userId", mcp.Required(), mcp.Description("User ID")),
+			mcp.WithString("email", mcp.Description("New email address")),
+			mcp.WithString("username", mcp.Description("New username")),
+			mcp.WithNumber("permissions", mcp.Description("Permission bitmask")),
+		),
+		UsersUpdateHandler(),
 	)
 }
 
@@ -67,6 +79,36 @@ func UsersGetHandler() server.ToolHandlerFunc {
 		res, _, err := client.UsersAPI.UserUserIdGet(callCtx, float32(userId)).Execute()
 		if err != nil {
 			return apiToolError("UserUserIdGet failed", err)
+		}
+		b, err := json.Marshal(res)
+		if err != nil {
+			return nil, err
+		}
+		return mcp.NewToolResultText(string(b)), nil
+	}
+}
+
+func UsersUpdateHandler() server.ToolHandlerFunc {
+	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		userId, err := req.RequireFloat("userId")
+		if err != nil {
+			return nil, err
+		}
+		body := api.UserUpdatePayload{}
+		if v := req.GetString("email", ""); v != "" {
+			body.SetEmail(v)
+		}
+		if v := req.GetString("username", ""); v != "" {
+			body.SetUsername(v)
+		}
+		if v := req.GetFloat("permissions", -1); v >= 0 {
+			f := float32(v)
+			body.SetPermissions(f)
+		}
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.UsersAPI.UserUserIdPut(callCtx, float32(userId)).UserUpdatePayload(body).Execute()
+		if err != nil {
+			return apiToolError("UserUserIdPut failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {

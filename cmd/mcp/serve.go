@@ -110,7 +110,7 @@ func runServe(_ *cobra.Command, args []string) error {
 			seerServer := viper.GetString("server")
 			fmt.Fprintf(os.Stderr, "seer-mcp: transport=stdio\n")
 			fmt.Fprintf(os.Stderr, "seer-mcp: seer API → %s\n", seerServer)
-			fmt.Fprintf(os.Stderr, "seer-mcp: tools registered: 43\n")
+			fmt.Fprintf(os.Stderr, "seer-mcp: tools registered: 44\n")
 			fmt.Fprintf(os.Stderr, "seer-mcp: waiting for MCP client on stdin…\n")
 		} else {
 			fmt.Fprintf(os.Stderr, "seer-mcp: ready (stdio) — waiting for MCP client on stdin\n")
@@ -152,7 +152,7 @@ func runServe(_ *cobra.Command, args []string) error {
 			fmt.Fprintf(os.Stderr, "  Auth token: %v\n", authToken != "")
 			fmt.Fprintf(os.Stderr, "  Route token: %v\n", routeToken != "")
 			fmt.Fprintf(os.Stderr, "  CORS: %v\n", cors)
-			fmt.Fprintf(os.Stderr, "  Tools registered: 43\n")
+			fmt.Fprintf(os.Stderr, "  Tools registered: 44\n")
 			fmt.Fprintf(os.Stderr, "  Multi-tenant: %v\n", multiTenant)
 		}
 
