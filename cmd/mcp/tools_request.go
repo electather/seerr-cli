@@ -14,6 +14,9 @@ func registerRequestTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("request_list",
 			mcp.WithDescription("List media requests"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("take", mcp.Description("Number of results to return")),
 			mcp.WithNumber("skip", mcp.Description("Number of results to skip")),
 			mcp.WithString("filter", mcp.Description("Filter by status (all, approved, available, pending, processing, unavailable, failed)")),
@@ -25,6 +28,9 @@ func registerRequestTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("request_get",
 			mcp.WithDescription("Get a specific media request by ID"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithString("requestId", mcp.Required(), mcp.Description("Request ID")),
 		),
 		RequestGetHandler(),
@@ -33,6 +39,9 @@ func registerRequestTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("request_create",
 			mcp.WithDescription("Create a new media request"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(false),
 			mcp.WithString("mediaType", mcp.Required(), mcp.Description("Media type: movie or tv")),
 			mcp.WithNumber("mediaId", mcp.Required(), mcp.Description("TMDB media ID")),
 			mcp.WithBoolean("is4k", mcp.Description("Request 4K version")),
@@ -43,6 +52,9 @@ func registerRequestTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("request_approve",
 			mcp.WithDescription("Approve a media request"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(false),
 			mcp.WithString("requestId", mcp.Required(), mcp.Description("Request ID")),
 		),
 		RequestApproveHandler(),
@@ -51,6 +63,9 @@ func registerRequestTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("request_decline",
 			mcp.WithDescription("Decline a media request"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(false),
 			mcp.WithString("requestId", mcp.Required(), mcp.Description("Request ID")),
 		),
 		RequestDeclineHandler(),
@@ -59,6 +74,9 @@ func registerRequestTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("request_delete",
 			mcp.WithDescription("Delete a media request"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(false),
 			mcp.WithString("requestId", mcp.Required(), mcp.Description("Request ID")),
 		),
 		RequestDeleteHandler(),
@@ -66,6 +84,9 @@ func registerRequestTools(s *server.MCPServer) {
 
 	s.AddTool(
 		mcp.NewTool("request_count",
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithDescription("Get request counts by status"),
 		),
 		RequestCountHandler(),

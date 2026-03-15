@@ -14,6 +14,9 @@ func registerIssueTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("issue_list",
 			mcp.WithDescription("List issues"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("take", mcp.Description("Number of results to return")),
 			mcp.WithNumber("skip", mcp.Description("Number of results to skip")),
 		),
@@ -23,6 +26,9 @@ func registerIssueTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("issue_get",
 			mcp.WithDescription("Get a specific issue by ID"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("issueId", mcp.Required(), mcp.Description("Issue ID")),
 		),
 		IssueGetHandler(),
@@ -31,6 +37,9 @@ func registerIssueTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("issue_create",
 			mcp.WithDescription("Create a new issue"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(false),
 			mcp.WithNumber("issueType", mcp.Required(), mcp.Description("Issue type (1=Video, 2=Audio, 3=Subtitle, 4=Other)")),
 			mcp.WithString("message", mcp.Required(), mcp.Description("Issue message")),
 			mcp.WithNumber("mediaId", mcp.Required(), mcp.Description("Media ID")),
@@ -41,8 +50,11 @@ func registerIssueTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("issue_status_update",
 			mcp.WithDescription("Update the status of an issue"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(false),
 			mcp.WithString("issueId", mcp.Required(), mcp.Description("Issue ID")),
-			mcp.WithString("status", mcp.Required(), mcp.Description("New status (open, resolved)")),
+			mcp.WithString("status", mcp.Required(), mcp.Enum("open", "resolved")),
 		),
 		IssueStatusUpdateHandler(),
 	)
@@ -50,6 +62,9 @@ func registerIssueTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("issue_count",
 			mcp.WithDescription("Get issue counts by status"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 		),
 		IssueCountHandler(),
 	)

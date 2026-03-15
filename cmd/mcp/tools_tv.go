@@ -12,6 +12,9 @@ func registerTVTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("tv_get",
 			mcp.WithDescription("Get TV show details by TMDB ID"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
 		),
 		TVGetHandler(),
@@ -22,6 +25,9 @@ func registerTVTools(s *server.MCPServer) {
 			mcp.WithDescription("Get season details for a TV show"),
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
 			mcp.WithNumber("seasonNumber", mcp.Required(), mcp.Description("Season number")),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 		),
 		TVSeasonHandler(),
 	)
@@ -31,6 +37,9 @@ func registerTVTools(s *server.MCPServer) {
 			mcp.WithDescription("Get TV show recommendations for a given show"),
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
 			mcp.WithNumber("page", mcp.Description("Page number")),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 		),
 		TVRecommendationsHandler(),
 	)
@@ -40,6 +49,9 @@ func registerTVTools(s *server.MCPServer) {
 			mcp.WithDescription("Get similar TV shows for a given show"),
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
 			mcp.WithNumber("page", mcp.Description("Page number")),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 		),
 		TVSimilarHandler(),
 	)
@@ -48,6 +60,9 @@ func registerTVTools(s *server.MCPServer) {
 		mcp.NewTool("tv_ratings",
 			mcp.WithDescription("Get ratings for a given TV show"),
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 		),
 		TVRatingsHandler(),
 	)

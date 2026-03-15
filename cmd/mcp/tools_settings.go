@@ -12,6 +12,9 @@ func registerSettingsTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("settings_about",
 			mcp.WithDescription("Get Seerr system information and settings"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 		),
 		SettingsAboutHandler(),
 	)
@@ -19,6 +22,9 @@ func registerSettingsTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("settings_jobs_list",
 			mcp.WithDescription("List all scheduled jobs"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 		),
 		SettingsJobsListHandler(),
 	)
@@ -27,6 +33,9 @@ func registerSettingsTools(s *server.MCPServer) {
 		mcp.NewTool("settings_jobs_run",
 			mcp.WithDescription("Trigger a scheduled job to run immediately"),
 			mcp.WithString("jobId", mcp.Required(), mcp.Description("Job ID")),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(false),
 		),
 		SettingsJobsRunHandler(),
 	)

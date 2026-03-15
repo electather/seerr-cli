@@ -12,6 +12,9 @@ func registerServiceTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("service_radarr_list",
 			mcp.WithDescription("List configured Radarr instances"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 		),
 		ServiceRadarrListHandler(),
 	)
@@ -19,6 +22,9 @@ func registerServiceTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("service_sonarr_list",
 			mcp.WithDescription("List configured Sonarr instances"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 		),
 		ServiceSonarrListHandler(),
 	)

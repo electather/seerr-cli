@@ -12,6 +12,9 @@ func registerCollectionTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("collection_get",
 			mcp.WithDescription("Get collection details by TMDB collection ID"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("collectionId", mcp.Required(), mcp.Description("TMDB collection ID")),
 		),
 		CollectionGetHandler(),

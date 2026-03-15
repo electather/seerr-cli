@@ -12,6 +12,9 @@ func registerPersonTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("person_get",
 			mcp.WithDescription("Get person details by TMDB ID"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("personId", mcp.Required(), mcp.Description("TMDB person ID")),
 		),
 		PersonGetHandler(),
@@ -20,6 +23,9 @@ func registerPersonTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("person_credits",
 			mcp.WithDescription("Get combined credits for a person"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("personId", mcp.Required(), mcp.Description("TMDB person ID")),
 		),
 		PersonCreditsHandler(),

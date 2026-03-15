@@ -14,8 +14,11 @@ func registerBlocklistTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("blocklist_list",
 			mcp.WithDescription("List all blocklisted media items"),
-			mcp.WithNumber("take", mcp.Description("Number of results to return")),
-			mcp.WithNumber("skip", mcp.Description("Number of results to skip")),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
+			mcp.WithNumber("take", mcp.Description("Number of results to return"), mcp.Min(0), mcp.Max(100)),
+			mcp.WithNumber("skip", mcp.Description("Number of results to skip"), mcp.Min(0)),
 		),
 		BlocklistListHandler(),
 	)
@@ -23,6 +26,9 @@ func registerBlocklistTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("blocklist_add",
 			mcp.WithDescription("Add a media item to the blocklist"),
+			mcp.WithDestructiveHintAnnotation(true),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("tmdbId", mcp.Required(), mcp.Description("TMDB media ID")),
 			mcp.WithString("title", mcp.Description("Media title")),
 		),
@@ -32,6 +38,9 @@ func registerBlocklistTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("blocklist_remove",
 			mcp.WithDescription("Remove a media item from the blocklist"),
+			mcp.WithDestructiveHintAnnotation(true),
+			mcp.WithReadOnlyHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithString("tmdbId", mcp.Required(), mcp.Description("TMDB media ID")),
 		),
 		BlocklistRemoveHandler(),

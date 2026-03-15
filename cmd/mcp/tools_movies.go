@@ -12,6 +12,9 @@ func registerMoviesTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("movies_get",
 			mcp.WithDescription("Get movie details by TMDB ID"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("movieId", mcp.Required(), mcp.Description("TMDB movie ID")),
 		),
 		MoviesGetHandler(),
@@ -20,6 +23,9 @@ func registerMoviesTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("movies_recommendations",
 			mcp.WithDescription("Get movie recommendations for a given movie"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("movieId", mcp.Required(), mcp.Description("TMDB movie ID")),
 			mcp.WithNumber("page", mcp.Description("Page number")),
 		),
@@ -29,6 +35,9 @@ func registerMoviesTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("movies_similar",
 			mcp.WithDescription("Get similar movies for a given movie"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("movieId", mcp.Required(), mcp.Description("TMDB movie ID")),
 			mcp.WithNumber("page", mcp.Description("Page number")),
 		),
@@ -38,6 +47,9 @@ func registerMoviesTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("movies_ratings",
 			mcp.WithDescription("Get ratings for a given movie"),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithIdempotentHintAnnotation(true),
 			mcp.WithNumber("movieId", mcp.Required(), mcp.Description("TMDB movie ID")),
 		),
 		MoviesRatingsHandler(),
