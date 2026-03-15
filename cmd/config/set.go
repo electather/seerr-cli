@@ -82,7 +82,7 @@ func writeStructuredConfig(path string) error {
 
 	if seerNode := buildSeerNode(); seerNode != nil {
 		root.Content = append(root.Content,
-			scalarNode("seer"),
+			scalarNode("seerr"),
 			seerNode,
 		)
 	}

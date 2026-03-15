@@ -6,7 +6,7 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "seer": {
+    "seerr": {
       "description": "Seerr instance connection settings.",
       "type": "object",
       "additionalProperties": false,
