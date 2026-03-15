@@ -16,6 +16,9 @@ env:
   - name: SEER_API_KEY
     description: API key for authenticating with the Seer server
     required: true
+  - name: SEER_MCP_AUTH_TOKEN
+    description: Bearer token for authenticating MCP HTTP transport clients (required when running the HTTP server; omit for stdio transport)
+    required: false
 ---
 
 # seer-cli

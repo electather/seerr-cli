@@ -20,6 +20,7 @@ permissions:
 
 env:
   GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/seer-cli
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   release:
@@ -112,7 +113,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
-          version: latest
+          version: "~> v2"
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
