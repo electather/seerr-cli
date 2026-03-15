@@ -1,8 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Question or discussion
-    url: https://github.com/electather/seerr-cli/discussions
-    about: Ask questions or share ideas in Discussions rather than opening an issue.
   - name: Seerr (upstream) issues
-    url: https://github.com/seerr/app/issues
+    url: https://github.com/seerr-team/seerr/issues
     about: Bugs in the Seerr web app itself belong in the upstream repo.
