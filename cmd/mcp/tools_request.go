@@ -3,14 +3,13 @@ package mcp
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 	api "seer-cli/pkg/api"
 )
 
-func registerRequestTools(s *server.MCPServer, client *api.APIClient, ctx context.Context) {
+func registerRequestTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("request_list",
 			mcp.WithDescription("List media requests"),
@@ -19,7 +18,7 @@ func registerRequestTools(s *server.MCPServer, client *api.APIClient, ctx contex
 			mcp.WithString("filter", mcp.Description("Filter by status (all, approved, available, pending, processing, unavailable, failed)")),
 			mcp.WithString("sort", mcp.Description("Sort field")),
 		),
-		RequestListHandler(client, ctx),
+		RequestListHandler(),
 	)
 
 	s.AddTool(
@@ -27,7 +26,7 @@ func registerRequestTools(s *server.MCPServer, client *api.APIClient, ctx contex
 			mcp.WithDescription("Get a specific media request by ID"),
 			mcp.WithString("requestId", mcp.Required(), mcp.Description("Request ID")),
 		),
-		RequestGetHandler(client, ctx),
+		RequestGetHandler(),
 	)
 
 	s.AddTool(
@@ -37,7 +36,7 @@ func registerRequestTools(s *server.MCPServer, client *api.APIClient, ctx contex
 			mcp.WithNumber("mediaId", mcp.Required(), mcp.Description("TMDB media ID")),
 			mcp.WithBoolean("is4k", mcp.Description("Request 4K version")),
 		),
-		RequestCreateHandler(client, ctx),
+		RequestCreateHandler(),
 	)
 
 	s.AddTool(
@@ -45,7 +44,7 @@ func registerRequestTools(s *server.MCPServer, client *api.APIClient, ctx contex
 			mcp.WithDescription("Approve a media request"),
 			mcp.WithString("requestId", mcp.Required(), mcp.Description("Request ID")),
 		),
-		RequestApproveHandler(client, ctx),
+		RequestApproveHandler(),
 	)
 
 	s.AddTool(
@@ -53,7 +52,7 @@ func registerRequestTools(s *server.MCPServer, client *api.APIClient, ctx contex
 			mcp.WithDescription("Decline a media request"),
 			mcp.WithString("requestId", mcp.Required(), mcp.Description("Request ID")),
 		),
-		RequestDeclineHandler(client, ctx),
+		RequestDeclineHandler(),
 	)
 
 	s.AddTool(
@@ -61,20 +60,21 @@ func registerRequestTools(s *server.MCPServer, client *api.APIClient, ctx contex
 			mcp.WithDescription("Delete a media request"),
 			mcp.WithString("requestId", mcp.Required(), mcp.Description("Request ID")),
 		),
-		RequestDeleteHandler(client, ctx),
+		RequestDeleteHandler(),
 	)
 
 	s.AddTool(
 		mcp.NewTool("request_count",
 			mcp.WithDescription("Get request counts by status"),
 		),
-		RequestCountHandler(client, ctx),
+		RequestCountHandler(),
 	)
 }
 
-func RequestListHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func RequestListHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		r := client.RequestAPI.RequestGet(ctx)
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		r := client.RequestAPI.RequestGet(callCtx)
 		if take := req.GetFloat("take", 0); take > 0 {
 			r = r.Take(float32(take))
 		}
@@ -89,7 +89,7 @@ func RequestListHandler(client *api.APIClient, ctx context.Context) server.ToolH
 		}
 		res, _, err := r.Execute()
 		if err != nil {
-			return nil, fmt.Errorf("RequestGet failed: %w", err)
+			return apiToolError("RequestGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -99,15 +99,16 @@ func RequestListHandler(client *api.APIClient, ctx context.Context) server.ToolH
 	}
 }
 
-func RequestGetHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func RequestGetHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		requestId, err := req.RequireString("requestId")
 		if err != nil {
 			return nil, err
 		}
-		res, _, err := client.RequestAPI.RequestRequestIdGet(ctx, requestId).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.RequestAPI.RequestRequestIdGet(callCtx, requestId).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("RequestRequestIdGet failed: %w", err)
+			return apiToolError("RequestRequestIdGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -117,7 +118,7 @@ func RequestGetHandler(client *api.APIClient, ctx context.Context) server.ToolHa
 	}
 }
 
-func RequestCreateHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func RequestCreateHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		mediaType, err := req.RequireString("mediaType")
 		if err != nil {
@@ -131,9 +132,10 @@ func RequestCreateHandler(client *api.APIClient, ctx context.Context) server.Too
 		if is4k := req.GetBool("is4k", false); is4k {
 			body.Is4k = &is4k
 		}
-		res, _, err := client.RequestAPI.RequestPost(ctx).RequestPostRequest(*body).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.RequestAPI.RequestPost(callCtx).RequestPostRequest(*body).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("RequestPost failed: %w", err)
+			return apiToolError("RequestPost failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -143,15 +145,16 @@ func RequestCreateHandler(client *api.APIClient, ctx context.Context) server.Too
 	}
 }
 
-func RequestApproveHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func RequestApproveHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		requestId, err := req.RequireString("requestId")
 		if err != nil {
 			return nil, err
 		}
-		res, _, err := client.RequestAPI.RequestRequestIdStatusPost(ctx, requestId, "approve").Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.RequestAPI.RequestRequestIdStatusPost(callCtx, requestId, "approve").Execute()
 		if err != nil {
-			return nil, fmt.Errorf("RequestRequestIdStatusPost(approve) failed: %w", err)
+			return apiToolError("RequestRequestIdStatusPost(approve) failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -161,15 +164,16 @@ func RequestApproveHandler(client *api.APIClient, ctx context.Context) server.To
 	}
 }
 
-func RequestDeclineHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func RequestDeclineHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		requestId, err := req.RequireString("requestId")
 		if err != nil {
 			return nil, err
 		}
-		res, _, err := client.RequestAPI.RequestRequestIdStatusPost(ctx, requestId, "decline").Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.RequestAPI.RequestRequestIdStatusPost(callCtx, requestId, "decline").Execute()
 		if err != nil {
-			return nil, fmt.Errorf("RequestRequestIdStatusPost(decline) failed: %w", err)
+			return apiToolError("RequestRequestIdStatusPost(decline) failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -179,25 +183,27 @@ func RequestDeclineHandler(client *api.APIClient, ctx context.Context) server.To
 	}
 }
 
-func RequestDeleteHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func RequestDeleteHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		requestId, err := req.RequireString("requestId")
 		if err != nil {
 			return nil, err
 		}
-		_, err = client.RequestAPI.RequestRequestIdDelete(ctx, requestId).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		_, err = client.RequestAPI.RequestRequestIdDelete(callCtx, requestId).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("RequestRequestIdDelete failed: %w", err)
+			return apiToolError("RequestRequestIdDelete failed", err)
 		}
 		return mcp.NewToolResultText(`{"status":"ok"}`), nil
 	}
 }
 
-func RequestCountHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func RequestCountHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		res, _, err := client.RequestAPI.RequestCountGet(ctx).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.RequestAPI.RequestCountGet(callCtx).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("RequestCountGet failed: %w", err)
+			return apiToolError("RequestCountGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {

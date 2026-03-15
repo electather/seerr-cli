@@ -3,14 +3,13 @@ package mcp
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 	api "seer-cli/pkg/api"
 )
 
-func registerWatchlistTools(s *server.MCPServer, client *api.APIClient, ctx context.Context) {
+func registerWatchlistTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("watchlist_add",
 			mcp.WithDescription("Add a media item to the watchlist"),
@@ -18,7 +17,7 @@ func registerWatchlistTools(s *server.MCPServer, client *api.APIClient, ctx cont
 			mcp.WithString("title", mcp.Required(), mcp.Description("Media title")),
 			mcp.WithString("mediaType", mcp.Required(), mcp.Description("Media type: movie or tv")),
 		),
-		WatchlistAddHandler(client, ctx),
+		WatchlistAddHandler(),
 	)
 
 	s.AddTool(
@@ -26,11 +25,11 @@ func registerWatchlistTools(s *server.MCPServer, client *api.APIClient, ctx cont
 			mcp.WithDescription("Remove a media item from the watchlist"),
 			mcp.WithString("tmdbId", mcp.Required(), mcp.Description("TMDB media ID")),
 		),
-		WatchlistRemoveHandler(client, ctx),
+		WatchlistRemoveHandler(),
 	)
 }
 
-func WatchlistAddHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func WatchlistAddHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		tmdbId, err := req.RequireFloat("tmdbId")
 		if err != nil {
@@ -50,9 +49,10 @@ func WatchlistAddHandler(client *api.APIClient, ctx context.Context) server.Tool
 			Title:  &title,
 			Type:   &mediaType,
 		}
-		res, _, err := client.WatchlistAPI.WatchlistPost(ctx).Watchlist(body).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.WatchlistAPI.WatchlistPost(callCtx).Watchlist(body).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("WatchlistPost failed: %w", err)
+			return apiToolError("WatchlistPost failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -62,15 +62,16 @@ func WatchlistAddHandler(client *api.APIClient, ctx context.Context) server.Tool
 	}
 }
 
-func WatchlistRemoveHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func WatchlistRemoveHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		tmdbId, err := req.RequireString("tmdbId")
 		if err != nil {
 			return nil, err
 		}
-		_, err = client.WatchlistAPI.WatchlistTmdbIdDelete(ctx, tmdbId).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		_, err = client.WatchlistAPI.WatchlistTmdbIdDelete(callCtx, tmdbId).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("WatchlistTmdbIdDelete failed: %w", err)
+			return apiToolError("WatchlistTmdbIdDelete failed", err)
 		}
 		return mcp.NewToolResultText(`{"status":"ok"}`), nil
 	}

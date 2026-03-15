@@ -54,8 +54,7 @@ func TestMCPStatusSystemHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.StatusSystemHandler(client, ctx)
+	handler := cmdmcp.StatusSystemHandler()
 
 	result := callTool(t, handler, nil)
 	text := resultText(t, result)
@@ -77,8 +76,7 @@ func TestMCPSearchMultiHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.SearchMultiHandler(client, ctx)
+	handler := cmdmcp.SearchMultiHandler()
 
 	result := callTool(t, handler, map[string]any{"query": "batman"})
 	text := resultText(t, result)
@@ -93,8 +91,7 @@ func TestMCPSearchMultiHandlerMissingQuery(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.SearchMultiHandler(client, ctx)
+	handler := cmdmcp.SearchMultiHandler()
 
 	req := mcp.CallToolRequest{}
 	req.Params.Arguments = map[string]any{}
@@ -115,8 +112,7 @@ func TestMCPRequestListHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.RequestListHandler(client, ctx)
+	handler := cmdmcp.RequestListHandler()
 
 	result := callTool(t, handler, nil)
 	text := resultText(t, result)
@@ -137,8 +133,7 @@ func TestMCPRequestCountHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.RequestCountHandler(client, ctx)
+	handler := cmdmcp.RequestCountHandler()
 
 	result := callTool(t, handler, nil)
 	text := resultText(t, result)
@@ -159,8 +154,7 @@ func TestMCPMoviesGetHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.MoviesGetHandler(client, ctx)
+	handler := cmdmcp.MoviesGetHandler()
 
 	result := callTool(t, handler, map[string]any{"movieId": float64(550)})
 	text := resultText(t, result)
@@ -182,8 +176,7 @@ func TestMCPTVGetHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.TVGetHandler(client, ctx)
+	handler := cmdmcp.TVGetHandler()
 
 	result := callTool(t, handler, map[string]any{"tvId": float64(1399)})
 	text := resultText(t, result)
@@ -205,8 +198,7 @@ func TestMCPIssueCountHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.IssueCountHandler(client, ctx)
+	handler := cmdmcp.IssueCountHandler()
 
 	result := callTool(t, handler, nil)
 	text := resultText(t, result)
@@ -227,13 +219,34 @@ func TestMCPUsersListHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.UsersListHandler(client, ctx)
+	handler := cmdmcp.UsersListHandler()
 
 	result := callTool(t, handler, nil)
 	text := resultText(t, result)
 
 	assert.Contains(t, text, `"results"`)
+}
+
+func TestMCPUsersUpdateHandler(t *testing.T) {
+	ts, cleanup := newMCPTestServer(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPut && strings.HasPrefix(r.URL.Path, "/api/v1/user/") {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte(`{"id":1,"displayName":"newname","email":"new@example.com"}`))
+			return
+		}
+		w.WriteHeader(http.StatusNotFound)
+	})
+	defer cleanup()
+	_ = ts
+
+	handler := cmdmcp.UsersUpdateHandler()
+
+	result := callTool(t, handler, map[string]any{"userId": float64(1), "username": "newname"})
+	text := resultText(t, result)
+
+	assert.Contains(t, text, `"id"`)
+	assert.Contains(t, text, `"displayName"`)
 }
 
 func TestMCPServiceRadarrListHandler(t *testing.T) {
@@ -249,8 +262,7 @@ func TestMCPServiceRadarrListHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.ServiceRadarrListHandler(client, ctx)
+	handler := cmdmcp.ServiceRadarrListHandler()
 
 	result := callTool(t, handler, nil)
 	text := resultText(t, result)
@@ -276,8 +288,7 @@ func TestMCPSettingsAboutHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.SettingsAboutHandler(client, ctx)
+	handler := cmdmcp.SettingsAboutHandler()
 
 	result := callTool(t, handler, nil)
 	text := resultText(t, result)
@@ -298,11 +309,75 @@ func TestMCPBlocklistListHandler(t *testing.T) {
 	defer cleanup()
 	_ = ts
 
-	client, ctx := cmdmcp.NewAPIClientForTest()
-	handler := cmdmcp.BlocklistListHandler(client, ctx)
+	handler := cmdmcp.BlocklistListHandler()
 
 	result := callTool(t, handler, nil)
 	text := resultText(t, result)
 
 	assert.Contains(t, text, `"results"`)
+}
+
+// --- Multi-tenancy tests ---
+
+func TestTenantRoutingExtractsToken(t *testing.T) {
+	var capturedPath string
+	var capturedKey string
+
+	inner := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		capturedPath = r.URL.Path
+		capturedKey, _ = r.Context().Value(cmdmcp.APIKeyContextKey).(string)
+		w.WriteHeader(http.StatusOK)
+	})
+
+	handler := cmdmcp.TenantRoutingHandler(inner)
+
+	req := httptest.NewRequest(http.MethodGet, "/mytoken/mcp", nil)
+	rec := httptest.NewRecorder()
+	handler.ServeHTTP(rec, req)
+
+	assert.Equal(t, http.StatusOK, rec.Code)
+	assert.Equal(t, "/mcp", capturedPath)
+	assert.Equal(t, "mytoken", capturedKey)
+}
+
+func TestTenantRoutingRejects404(t *testing.T) {
+	inner := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+	handler := cmdmcp.TenantRoutingHandler(inner)
+
+	for _, path := range []string{"/mcp", "/", "/nopath"} {
+		req := httptest.NewRequest(http.MethodGet, path, nil)
+		rec := httptest.NewRecorder()
+		handler.ServeHTTP(rec, req)
+		assert.Equal(t, http.StatusNotFound, rec.Code, "path %q should return 404", path)
+	}
+}
+
+func TestMultiTenantAPIKeyPropagation(t *testing.T) {
+	var receivedAPIKey string
+
+	ts, cleanup := newMCPTestServer(func(w http.ResponseWriter, r *http.Request) {
+		receivedAPIKey = r.Header.Get("X-Api-Key")
+		if r.URL.Path == "/api/v1/status" {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte(`{"version":"1.0.0"}`))
+			return
+		}
+		w.WriteHeader(http.StatusNotFound)
+	})
+	defer cleanup()
+	_ = ts
+
+	handler := cmdmcp.StatusSystemHandler()
+
+	ctx := context.WithValue(context.Background(), cmdmcp.APIKeyContextKey, "tenant-api-key")
+	req := mcp.CallToolRequest{}
+	req.Params.Arguments = nil
+	result, err := handler(ctx, req)
+
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	assert.Equal(t, "tenant-api-key", receivedAPIKey)
 }

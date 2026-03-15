@@ -3,26 +3,24 @@ package mcp
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	api "seer-cli/pkg/api"
 )
 
-func registerSettingsTools(s *server.MCPServer, client *api.APIClient, ctx context.Context) {
+func registerSettingsTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("settings_about",
 			mcp.WithDescription("Get Seer system information and settings"),
 		),
-		SettingsAboutHandler(client, ctx),
+		SettingsAboutHandler(),
 	)
 
 	s.AddTool(
 		mcp.NewTool("settings_jobs_list",
 			mcp.WithDescription("List all scheduled jobs"),
 		),
-		SettingsJobsListHandler(client, ctx),
+		SettingsJobsListHandler(),
 	)
 
 	s.AddTool(
@@ -30,15 +28,16 @@ func registerSettingsTools(s *server.MCPServer, client *api.APIClient, ctx conte
 			mcp.WithDescription("Trigger a scheduled job to run immediately"),
 			mcp.WithString("jobId", mcp.Required(), mcp.Description("Job ID")),
 		),
-		SettingsJobsRunHandler(client, ctx),
+		SettingsJobsRunHandler(),
 	)
 }
 
-func SettingsAboutHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func SettingsAboutHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		res, _, err := client.SettingsAPI.SettingsAboutGet(ctx).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.SettingsAPI.SettingsAboutGet(callCtx).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("SettingsAboutGet failed: %w", err)
+			return apiToolError("SettingsAboutGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -48,11 +47,12 @@ func SettingsAboutHandler(client *api.APIClient, ctx context.Context) server.Too
 	}
 }
 
-func SettingsJobsListHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func SettingsJobsListHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		res, _, err := client.SettingsAPI.SettingsJobsGet(ctx).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.SettingsAPI.SettingsJobsGet(callCtx).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("SettingsJobsGet failed: %w", err)
+			return apiToolError("SettingsJobsGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -62,15 +62,16 @@ func SettingsJobsListHandler(client *api.APIClient, ctx context.Context) server.
 	}
 }
 
-func SettingsJobsRunHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func SettingsJobsRunHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		jobId, err := req.RequireString("jobId")
 		if err != nil {
 			return nil, err
 		}
-		res, _, err := client.SettingsAPI.SettingsJobsJobIdRunPost(ctx, jobId).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.SettingsAPI.SettingsJobsJobIdRunPost(callCtx, jobId).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("SettingsJobsJobIdRunPost failed: %w", err)
+			return apiToolError("SettingsJobsJobIdRunPost failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {

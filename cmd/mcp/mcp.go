@@ -2,8 +2,10 @@ package mcp
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
+	mcplib "github.com/mark3labs/mcp-go/mcp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	api "seer-cli/pkg/api"
@@ -11,6 +13,18 @@ import (
 
 // OverrideServerURL is used by tests to redirect API calls to a mock server.
 var OverrideServerURL string
+
+type contextKey string
+
+const apiKeyCtxKey contextKey = "seerApiKey"
+
+// APIKeyContextKey is exported for tests to inject a key directly.
+const APIKeyContextKey = apiKeyCtxKey
+
+func apiKeyFromContext(ctx context.Context) string {
+	v, _ := ctx.Value(apiKeyCtxKey).(string)
+	return v
+}
 
 var Cmd = &cobra.Command{
 	Use:   "mcp",
@@ -23,25 +37,46 @@ var Cmd = &cobra.Command{
   seer-cli mcp serve --transport http --auth-token mysecret`,
 }
 
-func newAPIClient() (*api.APIClient, context.Context) {
+// newAPIClientWithKey builds a client using apiKey, falling back to Viper when empty.
+func newAPIClientWithKey(apiKey string) *api.APIClient {
 	configuration := api.NewConfiguration()
 	serverURL := viper.GetString("server")
 	if !strings.HasSuffix(serverURL, "/api/v1") {
 		serverURL = strings.TrimSuffix(serverURL, "/") + "/api/v1"
 	}
 	configuration.Servers = api.ServerConfigurations{{URL: serverURL, Description: "Configured Server"}}
-	if key := viper.GetString("api_key"); key != "" {
+	key := apiKey
+	if key == "" {
+		key = viper.GetString("api_key")
+	}
+	if key != "" {
 		configuration.AddDefaultHeader("X-Api-Key", key)
 	}
 	if OverrideServerURL != "" {
 		configuration.Servers = api.ServerConfigurations{{URL: OverrideServerURL, Description: "Mock Server"}}
 	}
-	return api.NewAPIClient(configuration), context.Background()
+	return api.NewAPIClient(configuration)
+}
+
+func newAPIClient() (*api.APIClient, context.Context) {
+	return newAPIClientWithKey(""), context.Background()
 }
 
 // NewAPIClientForTest is an exported alias used by tests.
 func NewAPIClientForTest() (*api.APIClient, context.Context) {
 	return newAPIClient()
+}
+
+// apiToolError converts a Seer API error into a visible MCP tool result error.
+// Using mcp.NewToolResultError (IsError=true) instead of returning a Go error
+// makes the actual Seer error message visible in the MCP client (e.g. Claude)
+// rather than the generic "Error occurred during tool execution" wrapper.
+func apiToolError(label string, err error) (*mcplib.CallToolResult, error) {
+	msg := fmt.Sprintf("%s: %v", label, err)
+	if e, ok := err.(*api.GenericOpenAPIError); ok && len(e.Body()) > 0 {
+		msg = fmt.Sprintf("%s: %s (HTTP %v)", label, e.Body(), err)
+	}
+	return mcplib.NewToolResultError(msg), nil
 }
 
 func init() {

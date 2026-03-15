@@ -3,27 +3,26 @@ package mcp
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	api "seer-cli/pkg/api"
 )
 
-func registerStatusTools(s *server.MCPServer, client *api.APIClient, ctx context.Context) {
+func registerStatusTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("status_system",
 			mcp.WithDescription("Get the system status of the Seer API"),
 		),
-		StatusSystemHandler(client, ctx),
+		StatusSystemHandler(),
 	)
 }
 
-func StatusSystemHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func StatusSystemHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		res, _, err := client.PublicAPI.StatusGet(ctx).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.PublicAPI.StatusGet(callCtx).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("StatusGet failed: %w", err)
+			return apiToolError("StatusGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {

@@ -73,7 +73,7 @@ components:
           example: 1
         ratingKey:
           type: string
-        type:
+        mediaType:
           type: string
         title:
           type: string

@@ -22,7 +22,7 @@ type Watchlist struct {
 	Id *int32 `json:"id,omitempty"`
 	TmdbId *float32 `json:"tmdbId,omitempty"`
 	RatingKey *string `json:"ratingKey,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Type *string `json:"mediaType,omitempty"`
 	Title *string `json:"title,omitempty"`
 	Media *MediaInfo `json:"media,omitempty"`
 	CreatedAt *string `json:"createdAt,omitempty"`
@@ -355,7 +355,7 @@ func (o Watchlist) ToMap() (map[string]interface{}, error) {
 		toSerialize["ratingKey"] = o.RatingKey
 	}
 	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
+		toSerialize["mediaType"] = o.Type
 	}
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title

@@ -3,20 +3,18 @@ package mcp
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	api "seer-cli/pkg/api"
 )
 
-func registerTVTools(s *server.MCPServer, client *api.APIClient, ctx context.Context) {
+func registerTVTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("tv_get",
 			mcp.WithDescription("Get TV show details by TMDB ID"),
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
 		),
-		TVGetHandler(client, ctx),
+		TVGetHandler(),
 	)
 
 	s.AddTool(
@@ -25,7 +23,7 @@ func registerTVTools(s *server.MCPServer, client *api.APIClient, ctx context.Con
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
 			mcp.WithNumber("seasonNumber", mcp.Required(), mcp.Description("Season number")),
 		),
-		TVSeasonHandler(client, ctx),
+		TVSeasonHandler(),
 	)
 
 	s.AddTool(
@@ -34,7 +32,7 @@ func registerTVTools(s *server.MCPServer, client *api.APIClient, ctx context.Con
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
 			mcp.WithNumber("page", mcp.Description("Page number")),
 		),
-		TVRecommendationsHandler(client, ctx),
+		TVRecommendationsHandler(),
 	)
 
 	s.AddTool(
@@ -43,7 +41,7 @@ func registerTVTools(s *server.MCPServer, client *api.APIClient, ctx context.Con
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
 			mcp.WithNumber("page", mcp.Description("Page number")),
 		),
-		TVSimilarHandler(client, ctx),
+		TVSimilarHandler(),
 	)
 
 	s.AddTool(
@@ -51,19 +49,20 @@ func registerTVTools(s *server.MCPServer, client *api.APIClient, ctx context.Con
 			mcp.WithDescription("Get ratings for a given TV show"),
 			mcp.WithNumber("tvId", mcp.Required(), mcp.Description("TMDB TV show ID")),
 		),
-		TVRatingsHandler(client, ctx),
+		TVRatingsHandler(),
 	)
 }
 
-func TVGetHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func TVGetHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		tvId, err := req.RequireFloat("tvId")
 		if err != nil {
 			return nil, err
 		}
-		res, _, err := client.TvAPI.TvTvIdGet(ctx, float32(tvId)).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.TvAPI.TvTvIdGet(callCtx, float32(tvId)).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("TvTvIdGet failed: %w", err)
+			return apiToolError("TvTvIdGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -73,7 +72,7 @@ func TVGetHandler(client *api.APIClient, ctx context.Context) server.ToolHandler
 	}
 }
 
-func TVSeasonHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func TVSeasonHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		tvId, err := req.RequireFloat("tvId")
 		if err != nil {
@@ -83,9 +82,10 @@ func TVSeasonHandler(client *api.APIClient, ctx context.Context) server.ToolHand
 		if err != nil {
 			return nil, err
 		}
-		res, _, err := client.TvAPI.TvTvIdSeasonSeasonNumberGet(ctx, float32(tvId), float32(seasonNumber)).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.TvAPI.TvTvIdSeasonSeasonNumberGet(callCtx, float32(tvId), float32(seasonNumber)).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("TvTvIdSeasonSeasonNumberGet failed: %w", err)
+			return apiToolError("TvTvIdSeasonSeasonNumberGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -95,19 +95,20 @@ func TVSeasonHandler(client *api.APIClient, ctx context.Context) server.ToolHand
 	}
 }
 
-func TVRecommendationsHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func TVRecommendationsHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		tvId, err := req.RequireFloat("tvId")
 		if err != nil {
 			return nil, err
 		}
-		r := client.TvAPI.TvTvIdRecommendationsGet(ctx, float32(tvId))
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		r := client.TvAPI.TvTvIdRecommendationsGet(callCtx, float32(tvId))
 		if page := req.GetFloat("page", 0); page > 0 {
 			r = r.Page(float32(page))
 		}
 		res, _, err := r.Execute()
 		if err != nil {
-			return nil, fmt.Errorf("TvTvIdRecommendationsGet failed: %w", err)
+			return apiToolError("TvTvIdRecommendationsGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -117,19 +118,20 @@ func TVRecommendationsHandler(client *api.APIClient, ctx context.Context) server
 	}
 }
 
-func TVSimilarHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func TVSimilarHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		tvId, err := req.RequireFloat("tvId")
 		if err != nil {
 			return nil, err
 		}
-		r := client.TvAPI.TvTvIdSimilarGet(ctx, float32(tvId))
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		r := client.TvAPI.TvTvIdSimilarGet(callCtx, float32(tvId))
 		if page := req.GetFloat("page", 0); page > 0 {
 			r = r.Page(float32(page))
 		}
 		res, _, err := r.Execute()
 		if err != nil {
-			return nil, fmt.Errorf("TvTvIdSimilarGet failed: %w", err)
+			return apiToolError("TvTvIdSimilarGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -139,15 +141,16 @@ func TVSimilarHandler(client *api.APIClient, ctx context.Context) server.ToolHan
 	}
 }
 
-func TVRatingsHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func TVRatingsHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		tvId, err := req.RequireFloat("tvId")
 		if err != nil {
 			return nil, err
 		}
-		res, _, err := client.TvAPI.TvTvIdRatingsGet(ctx, float32(tvId)).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.TvAPI.TvTvIdRatingsGet(callCtx, float32(tvId)).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("TvTvIdRatingsGet failed: %w", err)
+			return apiToolError("TvTvIdRatingsGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {

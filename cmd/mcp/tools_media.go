@@ -3,14 +3,12 @@ package mcp
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	api "seer-cli/pkg/api"
 )
 
-func registerMediaTools(s *server.MCPServer, client *api.APIClient, ctx context.Context) {
+func registerMediaTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("media_list",
 			mcp.WithDescription("List media items"),
@@ -19,7 +17,7 @@ func registerMediaTools(s *server.MCPServer, client *api.APIClient, ctx context.
 			mcp.WithString("filter", mcp.Description("Filter by status")),
 			mcp.WithString("sort", mcp.Description("Sort field")),
 		),
-		MediaListHandler(client, ctx),
+		MediaListHandler(),
 	)
 
 	s.AddTool(
@@ -28,13 +26,14 @@ func registerMediaTools(s *server.MCPServer, client *api.APIClient, ctx context.
 			mcp.WithString("mediaId", mcp.Required(), mcp.Description("Media ID")),
 			mcp.WithString("status", mcp.Required(), mcp.Description("New status (available, partial, processing, pending, unknown)")),
 		),
-		MediaStatusUpdateHandler(client, ctx),
+		MediaStatusUpdateHandler(),
 	)
 }
 
-func MediaListHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func MediaListHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		r := client.MediaAPI.MediaGet(ctx)
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		r := client.MediaAPI.MediaGet(callCtx)
 		if take := req.GetFloat("take", 0); take > 0 {
 			r = r.Take(float32(take))
 		}
@@ -49,7 +48,7 @@ func MediaListHandler(client *api.APIClient, ctx context.Context) server.ToolHan
 		}
 		res, _, err := r.Execute()
 		if err != nil {
-			return nil, fmt.Errorf("MediaGet failed: %w", err)
+			return apiToolError("MediaGet failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
@@ -59,7 +58,7 @@ func MediaListHandler(client *api.APIClient, ctx context.Context) server.ToolHan
 	}
 }
 
-func MediaStatusUpdateHandler(client *api.APIClient, ctx context.Context) server.ToolHandlerFunc {
+func MediaStatusUpdateHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		mediaId, err := req.RequireString("mediaId")
 		if err != nil {
@@ -69,9 +68,10 @@ func MediaStatusUpdateHandler(client *api.APIClient, ctx context.Context) server
 		if err != nil {
 			return nil, err
 		}
-		res, _, err := client.MediaAPI.MediaMediaIdStatusPost(ctx, mediaId, status).Execute()
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.MediaAPI.MediaMediaIdStatusPost(callCtx, mediaId, status).Execute()
 		if err != nil {
-			return nil, fmt.Errorf("MediaMediaIdStatusPost failed: %w", err)
+			return apiToolError("MediaMediaIdStatusPost failed", err)
 		}
 		b, err := json.Marshal(res)
 		if err != nil {
