@@ -27,6 +27,7 @@ func registerMediaTools(s *server.MCPServer) {
 					"Supports pagination via take/skip. "+
 					"Each result includes statusLabel and status4kLabel string fields alongside the numeric status codes.",
 			),
+			mcp.WithReadOnlyHintAnnotation(true),
 			mcp.WithNumber("take", mcp.Description("Max number of results to return per page (omit for all).")),
 			mcp.WithNumber("skip", mcp.Description("Number of results to skip, for pagination.")),
 			mcp.WithString("filter",
