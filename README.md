@@ -359,7 +359,7 @@ Restart Claude Desktop. The Seer tools will appear automatically.
 For clients that support HTTP MCP with Bearer token authentication:
 
 ```sh
-# Start with a secret token
+# Start with a Bearer token
 seer-cli mcp serve --transport http --addr :8811 --auth-token mysecrettoken
 
 # With TLS
@@ -374,13 +374,46 @@ seer-cli mcp serve --transport http --addr :8811 --no-auth
 
 The MCP endpoint will be `http://localhost:8811/mcp`. Configure your client with `Authorization: Bearer mysecrettoken`.
 
-> **Note:** The HTTP transport uses Bearer token auth. It does not implement OAuth 2.0, so it is not compatible with clients that require OAuth (e.g. claude.ai remote MCP). Use stdio for Claude Desktop.
+#### Secret path prefix (for clients that cannot send custom headers)
+
+Some MCP clients (e.g. claude.ai remote MCP integration) do not support custom `Authorization` headers. Use `--route-token` to embed a secret in the URL path instead:
+
+```sh
+# Endpoint becomes http://localhost:8811/abc123/mcp — no auth header needed
+seer-cli mcp serve --transport http --addr :8811 --route-token abc123 --no-auth
+
+# Add --cors for browser-based clients (e.g. claude.ai)
+seer-cli mcp serve --transport http --addr :8811 --route-token abc123 --no-auth --cors
+
+# Combine with Bearer auth for defense in depth
+seer-cli mcp serve --transport http --addr :8811 --route-token abc123 --auth-token mysecrettoken
+```
+
+> **Note:** A secret path is weaker than a proper Bearer token since it may appear in proxy logs. For production use, combine it with TLS.
+
+> **Note:** The HTTP transport does not implement OAuth 2.0 and is not compatible with clients that require OAuth. Use stdio for Claude Desktop.
+
+#### Environment variables
+
+All `mcp serve` flags can be set via environment variables, which is especially useful for Docker deployments:
+
+| Flag | Environment variable | Default |
+|------|---------------------|---------|
+| `--transport` | `SEER_MCP_TRANSPORT` | `stdio` |
+| `--addr` | `SEER_MCP_ADDR` | `:8811` |
+| `--auth-token` | `SEER_MCP_AUTH_TOKEN` | — |
+| `--no-auth` | `SEER_MCP_NO_AUTH` | `false` |
+| `--route-token` | `SEER_MCP_ROUTE_TOKEN` | — |
+| `--cors` | `SEER_MCP_CORS` | `false` |
+| `--tls-cert` | `SEER_MCP_TLS_CERT` | — |
+| `--tls-key` | `SEER_MCP_TLS_KEY` | — |
 
 ### Docker (HTTP transport)
 
 The published container image runs the MCP HTTP server by default. This is the recommended way to self-host the MCP server:
 
 ```sh
+# With Bearer token auth
 docker run -d \
   --name seer-mcp \
   -p 8811:8811 \
@@ -393,6 +426,23 @@ docker run -d \
 Configure your MCP client with:
 - **URL:** `http://localhost:8811/mcp`
 - **Authorization:** `Bearer mysecrettoken`
+
+For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a secret path prefix instead:
+
+```sh
+docker run -d \
+  --name seer-mcp \
+  -p 8811:8811 \
+  -e SEER_SERVER=https://your-seer-instance.com \
+  -e SEER_API_KEY=your-api-key \
+  -e SEER_MCP_ROUTE_TOKEN=abc123 \
+  -e SEER_MCP_NO_AUTH=true \
+  -e SEER_MCP_CORS=true \
+  ghcr.io/electather/seer-cli:latest
+```
+
+Configure your MCP client with:
+- **URL:** `http://localhost:8811/abc123/mcp`
 
 To bind to a different port or address, pass `--addr` explicitly:
 

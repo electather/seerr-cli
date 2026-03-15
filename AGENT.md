@@ -45,6 +45,7 @@ Supports Linux and macOS (amd64 / arm64).
 Run the MCP HTTP server in a container next to your Seer instance:
 
 ```bash
+# With Bearer token auth
 docker run --rm \
   -e SEER_SERVER=http://your-seer-instance:5055 \
   -e SEER_API_KEY=your-api-key \
@@ -55,7 +56,22 @@ docker run --rm \
 
 MCP endpoint: `http://localhost:8811/mcp` — set `Authorization: Bearer your-secret-token` in your MCP client.
 
-`SEER_MCP_AUTH_TOKEN` is required for HTTP transport. Omitting it will produce an error unless you also pass `--no-auth` (insecure).
+For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a secret path prefix:
+
+```bash
+docker run --rm \
+  -e SEER_SERVER=http://your-seer-instance:5055 \
+  -e SEER_API_KEY=your-api-key \
+  -e SEER_MCP_ROUTE_TOKEN=your-secret-path \
+  -e SEER_MCP_NO_AUTH=true \
+  -e SEER_MCP_CORS=true \
+  -p 8811:8811 \
+  ghcr.io/electather/seer-cli:latest
+```
+
+MCP endpoint: `http://localhost:8811/your-secret-path/mcp` — no auth header required.
+
+At least one of `SEER_MCP_AUTH_TOKEN`, `SEER_MCP_ROUTE_TOKEN`, or `SEER_MCP_NO_AUTH=true` must be set for HTTP transport.
 
 ### docker-compose deployment
 
@@ -332,6 +348,35 @@ seer-cli mcp serve --transport http --addr :8811 --auth-token mysecrettoken
 ```
 
 Endpoint: `http://localhost:8811/mcp` — set `Authorization: Bearer mysecrettoken` in your client.
+
+For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a secret path prefix via `--route-token` (or `SEER_MCP_ROUTE_TOKEN`):
+
+```bash
+# Add --cors if connecting from a browser-based client (e.g. claude.ai)
+seer-cli mcp serve --transport http --addr :8811 --route-token abc123 --no-auth --cors
+# Endpoint becomes: http://localhost:8811/abc123/mcp
+```
+
+Both methods can be combined for defense in depth:
+
+```bash
+seer-cli mcp serve --transport http --route-token abc123 --auth-token mysecrettoken
+```
+
+All flags are configurable via environment variables:
+
+| Flag | Environment variable | Default |
+|------|---------------------|---------|
+| `--transport` | `SEER_MCP_TRANSPORT` | `stdio` |
+| `--addr` | `SEER_MCP_ADDR` | `:8811` |
+| `--auth-token` | `SEER_MCP_AUTH_TOKEN` | — |
+| `--no-auth` | `SEER_MCP_NO_AUTH` | `false` |
+| `--route-token` | `SEER_MCP_ROUTE_TOKEN` | — |
+| `--cors` | `SEER_MCP_CORS` | `false` |
+| `--tls-cert` | `SEER_MCP_TLS_CERT` | — |
+| `--tls-key` | `SEER_MCP_TLS_KEY` | — |
+
+> Pass `--cors` (or `SEER_MCP_CORS=true`) to enable CORS headers for browser-based clients (e.g. claude.ai). Disabled by default.
 
 > The HTTP transport does not implement OAuth 2.0. Use stdio for Claude Desktop.
 

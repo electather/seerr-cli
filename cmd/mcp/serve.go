@@ -25,32 +25,53 @@ var serveCmd = &cobra.Command{
   # Start over HTTPS with TLS
   seer-cli mcp serve --transport http --auth-token mysecret --tls-cert /path/to/cert.pem --tls-key /path/to/key.pem
 
+  # Start over HTTP with a secret path prefix (for clients that cannot send custom headers)
+  seer-cli mcp serve --transport http --route-token abc123 --no-auth
+  # MCP endpoint becomes: http://localhost:8811/abc123/mcp
+
+  # Enable CORS for browser-based clients (e.g. claude.ai)
+  seer-cli mcp serve --transport http --route-token abc123 --no-auth --cors
+
+  # Combine both auth methods for defense in depth
+  seer-cli mcp serve --transport http --route-token abc123 --auth-token mysecret
+
   # Start over HTTP without auth (insecure, not recommended)
   seer-cli mcp serve --transport http --no-auth`,
 	RunE: runServe,
 }
 
 func init() {
-	serveCmd.Flags().String("transport", "stdio", "Transport protocol: stdio or http")
-	serveCmd.Flags().String("addr", ":8811", "HTTP bind address (http transport only)")
-	serveCmd.Flags().String("auth-token", "", "Bearer token required for HTTP transport")
-	serveCmd.Flags().Bool("no-auth", false, "Disable authentication (insecure — must be explicit)")
-	serveCmd.Flags().String("tls-cert", "", "Path to TLS certificate file")
-	serveCmd.Flags().String("tls-key", "", "Path to TLS private key file")
+	serveCmd.Flags().String("transport", "stdio", "Transport protocol: stdio or http (env: SEER_MCP_TRANSPORT)")
+	serveCmd.Flags().String("addr", ":8811", "HTTP bind address (http transport only) (env: SEER_MCP_ADDR)")
+	serveCmd.Flags().String("auth-token", "", "Bearer token required for HTTP transport (env: SEER_MCP_AUTH_TOKEN)")
+	serveCmd.Flags().Bool("no-auth", false, "Disable authentication (insecure — must be explicit) (env: SEER_MCP_NO_AUTH)")
+	serveCmd.Flags().String("route-token", "", "Secret path prefix for the MCP endpoint (e.g. 'abc123' → /abc123/mcp). Useful for clients that cannot send custom headers (env: SEER_MCP_ROUTE_TOKEN)")
+	serveCmd.Flags().String("tls-cert", "", "Path to TLS certificate file (env: SEER_MCP_TLS_CERT)")
+	serveCmd.Flags().String("tls-key", "", "Path to TLS private key file (env: SEER_MCP_TLS_KEY)")
+	serveCmd.Flags().Bool("cors", false, "Enable CORS headers (required for browser-based clients such as claude.ai) (env: SEER_MCP_CORS)")
+	viper.BindPFlag("mcp_transport", serveCmd.Flags().Lookup("transport"))
+	viper.BindPFlag("mcp_addr", serveCmd.Flags().Lookup("addr"))
 	viper.BindPFlag("mcp_auth_token", serveCmd.Flags().Lookup("auth-token"))
+	viper.BindPFlag("mcp_no_auth", serveCmd.Flags().Lookup("no-auth"))
+	viper.BindPFlag("mcp_route_token", serveCmd.Flags().Lookup("route-token"))
+	viper.BindPFlag("mcp_tls_cert", serveCmd.Flags().Lookup("tls-cert"))
+	viper.BindPFlag("mcp_tls_key", serveCmd.Flags().Lookup("tls-key"))
+	viper.BindPFlag("mcp_cors", serveCmd.Flags().Lookup("cors"))
 	Cmd.AddCommand(serveCmd)
 }
 
-func runServe(cmd *cobra.Command, args []string) error {
-	transport, _ := cmd.Flags().GetString("transport")
-	addr, _ := cmd.Flags().GetString("addr")
+func runServe(_ *cobra.Command, args []string) error {
+	transport := viper.GetString("mcp_transport")
+	addr := viper.GetString("mcp_addr")
 	authToken := viper.GetString("mcp_auth_token")
-	noAuth, _ := cmd.Flags().GetBool("no-auth")
-	tlsCert, _ := cmd.Flags().GetString("tls-cert")
-	tlsKey, _ := cmd.Flags().GetString("tls-key")
+	routeToken := viper.GetString("mcp_route_token")
+	noAuth := viper.GetBool("mcp_no_auth")
+	tlsCert := viper.GetString("mcp_tls_cert")
+	tlsKey := viper.GetString("mcp_tls_key")
+	cors := viper.GetBool("mcp_cors")
 
-	if transport == "http" && authToken == "" && !noAuth {
-		return fmt.Errorf("HTTP transport requires --auth-token or --no-auth (insecure) to be set explicitly")
+	if transport == "http" && authToken == "" && routeToken == "" && !noAuth {
+		return fmt.Errorf("HTTP transport requires --auth-token, --route-token, or --no-auth (insecure) to be set explicitly")
 	}
 
 	verbose := viper.GetBool("verbose")
@@ -95,7 +116,11 @@ func runServe(cmd *cobra.Command, args []string) error {
 		if strings.HasPrefix(host, ":") {
 			host = "localhost" + host
 		}
-		endpoint := fmt.Sprintf("%s://%s/mcp", scheme, host)
+		mcpPath := "/mcp"
+		if routeToken != "" {
+			mcpPath = "/" + routeToken + "/mcp"
+		}
+		endpoint := fmt.Sprintf("%s://%s%s", scheme, host, mcpPath)
 
 		fmt.Fprintf(os.Stderr, "seer-mcp: listening on %s\n", endpoint)
 		fmt.Fprintf(os.Stderr, "\nConfigure your MCP client:\n")
@@ -103,7 +128,7 @@ func runServe(cmd *cobra.Command, args []string) error {
 		if authToken != "" {
 			fmt.Fprintf(os.Stderr, "  Authorization: Bearer %s\n", authToken)
 		} else {
-			fmt.Fprintf(os.Stderr, "  Authorization: none (--no-auth)\n")
+			fmt.Fprintf(os.Stderr, "  Authorization: none\n")
 		}
 
 		if verbose {
@@ -112,16 +137,32 @@ func runServe(cmd *cobra.Command, args []string) error {
 			fmt.Fprintf(os.Stderr, "  Seer API → %s\n", seerServer)
 			fmt.Fprintf(os.Stderr, "  Bind addr: %s\n", addr)
 			fmt.Fprintf(os.Stderr, "  TLS: %v\n", tlsCert != "")
-			fmt.Fprintf(os.Stderr, "  Auth: %v\n", authToken != "")
+			fmt.Fprintf(os.Stderr, "  Auth token: %v\n", authToken != "")
+			fmt.Fprintf(os.Stderr, "  Route token: %v\n", routeToken != "")
+			fmt.Fprintf(os.Stderr, "  CORS: %v\n", cors)
 			fmt.Fprintf(os.Stderr, "  Tools registered: 43\n")
 		}
 
 		fmt.Fprintf(os.Stderr, "\n")
 
 		httpHandler := server.NewStreamableHTTPServer(s)
-		var handler http.Handler = httpHandler
+		var handler http.Handler
+		if routeToken != "" {
+			// Strip the route-token prefix so mcp-go still sees /mcp, /mcp/sse, etc.
+			prefix := "/" + routeToken
+			mux := http.NewServeMux()
+			mux.Handle(prefix+"/", http.StripPrefix(prefix, httpHandler))
+			handler = mux
+		} else {
+			handler = httpHandler
+		}
 		if authToken != "" {
-			handler = bearerAuthMiddleware(authToken, httpHandler)
+			handler = bearerAuthMiddleware(authToken, handler)
+		}
+		// CORS must be outermost so browser preflight OPTIONS requests are never
+		// blocked by auth middleware.
+		if cors {
+			handler = corsMiddleware(handler)
 		}
 		srv := &http.Server{
 			Addr:    addr,
@@ -134,6 +175,20 @@ func runServe(cmd *cobra.Command, args []string) error {
 	default:
 		return fmt.Errorf("unknown transport %q: must be stdio or http", transport)
 	}
+}
+
+func corsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, Mcp-Session-Id, Accept")
+		w.Header().Set("Access-Control-Expose-Headers", "Mcp-Session-Id")
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
 }
 
 func bearerAuthMiddleware(token string, next http.Handler) http.Handler {
