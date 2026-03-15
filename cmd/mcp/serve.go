@@ -99,6 +99,9 @@ func runServe(_ *cobra.Command, args []string) error {
 	registerSettingsTools(s)
 	registerWatchlistTools(s)
 	registerBlocklistTools(s)
+	registerAuthTools(s)
+	registerResources(s)
+	registerPrompts(s)
 
 	seerServer := viper.GetString("seerr.server")
 
@@ -107,7 +110,7 @@ func runServe(_ *cobra.Command, args []string) error {
 		mcpLog.Info("starting MCP server",
 			"transport", "stdio",
 			"seerr_api", seerServer,
-			"tools", 44,
+			"tools", 46, "resources", 9, "prompts", 6,
 		)
 		mcpLog.Debug("stdio transport ready, waiting for MCP client on stdin")
 		return server.ServeStdio(s)
@@ -133,7 +136,7 @@ func runServe(_ *cobra.Command, args []string) error {
 			"transport", "http",
 			"endpoint", endpoint,
 			"seerr_api", seerServer,
-			"tools", 44,
+			"tools", 46, "resources", 9, "prompts", 6,
 			"tls", tlsCert != "",
 			"auth_token", authToken != "",
 			"route_token", routeToken != "",

@@ -70,6 +70,14 @@ func registerRequestTools(s *server.MCPServer) {
 		),
 		RequestCountHandler(),
 	)
+
+	s.AddTool(
+		mcp.NewTool("request_retry",
+			mcp.WithDescription("Retry a failed media request download"),
+			mcp.WithString("requestId", mcp.Required(), mcp.Description("Request ID")),
+		),
+		RequestRetryHandler(),
+	)
 }
 
 func RequestListHandler() server.ToolHandlerFunc {
@@ -196,6 +204,25 @@ func RequestDeleteHandler() server.ToolHandlerFunc {
 			return apiToolError("RequestRequestIdDelete failed", err)
 		}
 		return mcp.NewToolResultText(`{"status":"ok"}`), nil
+	}
+}
+
+func RequestRetryHandler() server.ToolHandlerFunc {
+	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		requestId, err := req.RequireString("requestId")
+		if err != nil {
+			return nil, err
+		}
+		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		res, _, err := client.RequestAPI.RequestRequestIdRetryPost(callCtx, requestId).Execute()
+		if err != nil {
+			return apiToolError("RequestRequestIdRetryPost failed", err)
+		}
+		b, err := json.Marshal(res)
+		if err != nil {
+			return nil, err
+		}
+		return mcp.NewToolResultText(string(b)), nil
 	}
 }
 
