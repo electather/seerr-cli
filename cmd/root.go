@@ -57,7 +57,7 @@ var RootCmd = &cobra.Command{
 			return nil
 		}
 		if viper.GetString("seerr.server") == "" {
-			return fmt.Errorf("server URL is required. Set it via --server flag, SEER_SERVER env var, or in the config file")
+			return fmt.Errorf("server URL is required. Set it via --server flag, SEERR_SERVER env var, or in the config file")
 		}
 		return nil
 	},
@@ -119,13 +119,13 @@ func initConfig() {
 
 	viper.SetEnvPrefix("SEER")
 	// Replace dots and hyphens so nested keys like "mcp.transport" map to
-	// env vars like "SEER_MCP_TRANSPORT".
+	// env vars like "SEERR_MCP_TRANSPORT".
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_"))
 	viper.AutomaticEnv()
-	// AutomaticEnv with the SEERR prefix would construct "SEER_SEER_SERVER" for
+	// AutomaticEnv with the SEERR prefix would construct "SEERR_SEERR_SERVER" for
 	// the "seerr.server" key, so we bind those explicitly instead.
-	viper.BindEnv("seerr.server", "SEER_SERVER")
-	viper.BindEnv("seerr.api_key", "SEER_API_KEY")
+	viper.BindEnv("seerr.server", "SEERR_SERVER")
+	viper.BindEnv("seerr.api_key", "SEERR_API_KEY")
 
 	if err := viper.ReadInConfig(); err == nil {
 		if viper.GetBool("verbose") {

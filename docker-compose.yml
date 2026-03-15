@@ -5,45 +5,45 @@ services:
     environment:
       # --- Core ---
       # URL of your Seerr instance. The /api/v1 prefix is appended automatically.
-      SEER_SERVER: http://seer:5055
+      SEERR_SERVER: http://seer:5055
       # Seerr API key for authenticating against the Seerr API.
-      SEER_API_KEY: ${SEER_API_KEY}
+      SEERR_API_KEY: ${SEERR_API_KEY}
       # Set to any non-empty value to enable verbose startup and request logging.
-      # SEER_VERBOSE: "false"
+      # SEERR_VERBOSE: "false"
 
       # --- MCP transport ---
       # Transport protocol: "stdio" (default, for Claude Desktop) or "http".
-      SEER_MCP_TRANSPORT: http
+      SEERR_MCP_TRANSPORT: http
       # Bind address for the HTTP transport (host:port or :port).
-      SEER_MCP_ADDR: ":8811"
+      SEERR_MCP_ADDR: ":8811"
 
       # --- MCP authentication (HTTP transport) ---
       # Bearer token that clients must supply in the Authorization header.
-      # Required unless SEER_MCP_NO_AUTH or SEER_MCP_ROUTE_TOKEN is set.
-      SEER_MCP_AUTH_TOKEN: ${SEER_MCP_AUTH_TOKEN}
+      # Required unless SEERR_MCP_NO_AUTH or SEERR_MCP_ROUTE_TOKEN is set.
+      SEERR_MCP_AUTH_TOKEN: ${SEERR_MCP_AUTH_TOKEN}
       # Set to "true" to disable all authentication (insecure — not recommended).
-      # SEER_MCP_NO_AUTH: "false"
+      # SEERR_MCP_NO_AUTH: "false"
       # Secret path prefix added to the MCP endpoint URL
       # (e.g. "abc123" → /abc123/mcp). Useful for clients that cannot send
-      # custom headers. Can be combined with SEER_MCP_AUTH_TOKEN for defense in
+      # custom headers. Can be combined with SEERR_MCP_AUTH_TOKEN for defense in
       # depth.
-      # SEER_MCP_ROUTE_TOKEN: ""
+      # SEERR_MCP_ROUTE_TOKEN: ""
 
       # --- MCP multi-tenant mode (HTTP transport) ---
       # When "true", the endpoint becomes /{seerr-api-token}/mcp and the path
       # segment is used as the per-user Seerr API key. Requires HTTP transport.
-      # SEER_MCP_MULTI_TENANT: "false"
+      # SEERR_MCP_MULTI_TENANT: "false"
 
       # --- MCP TLS (HTTP transport) ---
       # Paths to a TLS certificate and private key. When both are set the server
       # listens over HTTPS instead of HTTP.
-      # SEER_MCP_TLS_CERT: ""
-      # SEER_MCP_TLS_KEY: ""
+      # SEERR_MCP_TLS_CERT: ""
+      # SEERR_MCP_TLS_KEY: ""
 
       # --- MCP CORS (HTTP transport) ---
       # Set to "true" to add CORS headers. Required for browser-based clients
       # such as claude.ai.
-      # SEER_MCP_CORS: "false"
+      # SEERR_MCP_CORS: "false"
 
     ports:
       - "8811:8811"

@@ -26,8 +26,8 @@ func TestStatusSystemCommand(t *testing.T) {
 	defer server.Close()
 
 	apiutil.OverrideServerURL = server.URL
-	os.Setenv("SEER_SERVER", server.URL)
-	defer os.Unsetenv("SEER_SERVER")
+	os.Setenv("SEERR_SERVER", server.URL)
+	defer os.Unsetenv("SEERR_SERVER")
 
 	t.Run("System Status Command Execution", func(t *testing.T) {
 		b := new(bytes.Buffer)

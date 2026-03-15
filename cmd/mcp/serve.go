@@ -106,7 +106,7 @@ func runServe(_ *cobra.Command, args []string) error {
 	case "stdio":
 		mcpLog.Info("starting MCP server",
 			"transport", "stdio",
-			"seer_api", seerServer,
+			"seerr_api", seerServer,
 			"tools", 44,
 		)
 		mcpLog.Debug("stdio transport ready, waiting for MCP client on stdin")
@@ -132,7 +132,7 @@ func runServe(_ *cobra.Command, args []string) error {
 		mcpLog.Info("starting MCP server",
 			"transport", "http",
 			"endpoint", endpoint,
-			"seer_api", seerServer,
+			"seerr_api", seerServer,
 			"tools", 44,
 			"tls", tlsCert != "",
 			"auth_token", authToken != "",

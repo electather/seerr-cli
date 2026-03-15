@@ -81,7 +81,7 @@ Global flags (`--server`, `--api-key`, `--verbose`) are bound to Viper keys `ser
 ### Testing Conventions
 
 - Mock HTTP with `httptest.NewServer()` — no live network calls.
-- Set `<group>.OverrideServerURL = ts.URL` and `os.Setenv("SEER_SERVER", ts.URL)`, clean up with `defer`.
+- Set `<group>.OverrideServerURL = ts.URL` and `os.Setenv("SEERR_SERVER", ts.URL)`, clean up with `defer`.
 - Capture output with `cmd.RootCmd.SetOut(&buf)`, then call `cmd.RootCmd.Execute()`.
 - **Do not assert on verbose/log output strings** — only assert on functional data (JSON fields, exit behavior).
 

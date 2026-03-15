@@ -37,9 +37,9 @@ The image defaults to running the MCP HTTP server on port `8811`. Pass configura
 ```sh
 docker run -d \
   -p 8811:8811 \
-  -e SEER_SERVER=https://your-seerr-instance.com \
-  -e SEER_API_KEY=your-api-key \
-  -e SEER_MCP_AUTH_TOKEN=mysecrettoken \
+  -e SEERR_SERVER=https://your-seerr-instance.com \
+  -e SEERR_API_KEY=your-api-key \
+  -e SEERR_MCP_AUTH_TOKEN=mysecrettoken \
   ghcr.io/electather/seerr-cli:latest
 ```
 
@@ -47,8 +47,8 @@ To run CLI commands instead, override the default arguments:
 
 ```sh
 docker run --rm \
-  -e SEER_SERVER=https://your-seerr-instance.com \
-  -e SEER_API_KEY=your-api-key \
+  -e SEERR_SERVER=https://your-seerr-instance.com \
+  -e SEERR_API_KEY=your-api-key \
   ghcr.io/electather/seerr-cli:latest \
   status system
 ```
@@ -64,8 +64,8 @@ seerr-cli config set --server https://your-seerr-instance.com --api-key YOUR_KEY
 Configuration is stored in `~/.seerr-cli.yaml`. You can also use environment variables:
 
 ```sh
-export SEER_SERVER=https://your-seerr-instance.com
-export SEER_API_KEY=YOUR_KEY
+export SEERR_SERVER=https://your-seerr-instance.com
+export SEERR_API_KEY=YOUR_KEY
 ```
 
 Or pass them as flags on any command:
@@ -344,8 +344,8 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
       "command": "/usr/local/bin/seerr-cli",
       "args": ["mcp", "serve"],
       "env": {
-        "SEER_SERVER": "https://your-seerr-instance.com",
-        "SEER_API_KEY": "your-api-key"
+        "SEERR_SERVER": "https://your-seerr-instance.com",
+        "SEERR_API_KEY": "your-api-key"
       }
     }
   }
@@ -397,16 +397,16 @@ seerr-cli mcp serve --transport http --addr :8811 --route-token abc123 --auth-to
 
 All `mcp serve` flags can be set via environment variables, which is especially useful for Docker deployments:
 
-| Flag            | Environment variable   | Default |
-| --------------- | ---------------------- | ------- |
-| `--transport`   | `SEER_MCP_TRANSPORT`   | `stdio` |
-| `--addr`        | `SEER_MCP_ADDR`        | `:8811` |
-| `--auth-token`  | `SEER_MCP_AUTH_TOKEN`  | —       |
-| `--no-auth`     | `SEER_MCP_NO_AUTH`     | `false` |
-| `--route-token` | `SEER_MCP_ROUTE_TOKEN` | —       |
-| `--cors`        | `SEER_MCP_CORS`        | `false` |
-| `--tls-cert`    | `SEER_MCP_TLS_CERT`    | —       |
-| `--tls-key`     | `SEER_MCP_TLS_KEY`     | —       |
+| Flag            | Environment variable    | Default |
+| --------------- | ----------------------- | ------- |
+| `--transport`   | `SEERR_MCP_TRANSPORT`   | `stdio` |
+| `--addr`        | `SEERR_MCP_ADDR`        | `:8811` |
+| `--auth-token`  | `SEERR_MCP_AUTH_TOKEN`  | —       |
+| `--no-auth`     | `SEERR_MCP_NO_AUTH`     | `false` |
+| `--route-token` | `SEERR_MCP_ROUTE_TOKEN` | —       |
+| `--cors`        | `SEERR_MCP_CORS`        | `false` |
+| `--tls-cert`    | `SEERR_MCP_TLS_CERT`    | —       |
+| `--tls-key`     | `SEERR_MCP_TLS_KEY`     | —       |
 
 ### Docker (HTTP transport)
 
@@ -417,9 +417,9 @@ The published container image runs the MCP HTTP server by default. This is the r
 docker run -d \
   --name seerr-mcp \
   -p 8811:8811 \
-  -e SEER_SERVER=https://your-seerr-instance.com \
-  -e SEER_API_KEY=your-api-key \
-  -e SEER_MCP_AUTH_TOKEN=mysecrettoken \
+  -e SEERR_SERVER=https://your-seerr-instance.com \
+  -e SEERR_API_KEY=your-api-key \
+  -e SEERR_MCP_AUTH_TOKEN=mysecrettoken \
   ghcr.io/electather/seerr-cli:latest
 ```
 
@@ -434,11 +434,11 @@ For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a s
 docker run -d \
   --name seerr-mcp \
   -p 8811:8811 \
-  -e SEER_SERVER=https://your-seerr-instance.com \
-  -e SEER_API_KEY=your-api-key \
-  -e SEER_MCP_ROUTE_TOKEN=abc123 \
-  -e SEER_MCP_NO_AUTH=true \
-  -e SEER_MCP_CORS=true \
+  -e SEERR_SERVER=https://your-seerr-instance.com \
+  -e SEERR_API_KEY=your-api-key \
+  -e SEERR_MCP_ROUTE_TOKEN=abc123 \
+  -e SEERR_MCP_NO_AUTH=true \
+  -e SEERR_MCP_CORS=true \
   ghcr.io/electather/seerr-cli:latest
 ```
 
@@ -451,9 +451,9 @@ To bind to a different port or address, pass `--addr` explicitly:
 ```sh
 docker run -d \
   -p 9000:9000 \
-  -e SEER_SERVER=https://your-seerr-instance.com \
-  -e SEER_API_KEY=your-api-key \
-  -e SEER_MCP_AUTH_TOKEN=mysecrettoken \
+  -e SEERR_SERVER=https://your-seerr-instance.com \
+  -e SEERR_API_KEY=your-api-key \
+  -e SEERR_MCP_AUTH_TOKEN=mysecrettoken \
   ghcr.io/electather/seerr-cli:latest \
   mcp serve --transport http --addr :9000
 ```

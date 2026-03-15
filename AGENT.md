@@ -10,13 +10,13 @@ metadata:
   author: electather
   repo: https://github.com/electather/seerr-cli
 env:
-  - name: SEER_SERVER
+  - name: SEERR_SERVER
     description: Full URL of your Seerr instance (e.g. https://seerr.example.com)
     required: true
-  - name: SEER_API_KEY
+  - name: SEERR_API_KEY
     description: API key for authenticating with the Seerr server
     required: true
-  - name: SEER_MCP_AUTH_TOKEN
+  - name: SEERR_MCP_AUTH_TOKEN
     description: Bearer token for authenticating MCP HTTP transport clients (required when running the HTTP server; omit for stdio transport)
     required: false
 ---
@@ -47,9 +47,9 @@ Run the MCP HTTP server in a container next to your Seerr instance:
 ```bash
 # With Bearer token auth
 docker run --rm \
-  -e SEER_SERVER=http://your-seerr-instance:5055 \
-  -e SEER_API_KEY=your-api-key \
-  -e SEER_MCP_AUTH_TOKEN=your-secret-token \
+  -e SEERR_SERVER=http://your-seerr-instance:5055 \
+  -e SEERR_API_KEY=your-api-key \
+  -e SEERR_MCP_AUTH_TOKEN=your-secret-token \
   -p 8811:8811 \
   ghcr.io/electather/seerr-cli:latest
 ```
@@ -60,28 +60,28 @@ For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a s
 
 ```bash
 docker run --rm \
-  -e SEER_SERVER=http://your-seerr-instance:5055 \
-  -e SEER_API_KEY=your-api-key \
-  -e SEER_MCP_ROUTE_TOKEN=your-secret-path \
-  -e SEER_MCP_NO_AUTH=true \
-  -e SEER_MCP_CORS=true \
+  -e SEERR_SERVER=http://your-seerr-instance:5055 \
+  -e SEERR_API_KEY=your-api-key \
+  -e SEERR_MCP_ROUTE_TOKEN=your-secret-path \
+  -e SEERR_MCP_NO_AUTH=true \
+  -e SEERR_MCP_CORS=true \
   -p 8811:8811 \
   ghcr.io/electather/seerr-cli:latest
 ```
 
 MCP endpoint: `http://localhost:8811/your-secret-path/mcp` — no auth header required.
 
-At least one of `SEER_MCP_AUTH_TOKEN`, `SEER_MCP_ROUTE_TOKEN`, or `SEER_MCP_NO_AUTH=true` must be set for HTTP transport.
+At least one of `SEERR_MCP_AUTH_TOKEN`, `SEERR_MCP_ROUTE_TOKEN`, or `SEERR_MCP_NO_AUTH=true` must be set for HTTP transport.
 
 ### docker-compose deployment
 
 Use the included `docker-compose.yml` to deploy alongside Seer:
 
 ```bash
-SEER_API_KEY=xxx SEER_MCP_AUTH_TOKEN=secret docker compose up -d
+SEERR_API_KEY=xxx SEERR_MCP_AUTH_TOKEN=secret docker compose up -d
 ```
 
-The default `SEER_SERVER` in the compose file points to `http://seer:5055` (the Seerr service name). Override it if your Seerr instance is elsewhere.
+The default `SEERR_SERVER` in the compose file points to `http://seer:5055` (the Seerr service name). Override it if your Seerr instance is elsewhere.
 
 ### Running CLI commands via Docker
 
@@ -89,8 +89,8 @@ Override the default CMD to run any CLI command:
 
 ```bash
 docker run --rm \
-  -e SEER_SERVER=http://your-seerr-instance:5055 \
-  -e SEER_API_KEY=your-api-key \
+  -e SEERR_SERVER=http://your-seerr-instance:5055 \
+  -e SEERR_API_KEY=your-api-key \
   ghcr.io/electather/seerr-cli:latest \
   status system
 ```
@@ -102,7 +102,7 @@ seerr-cli config set --server https://your-seerr-instance.com --api-key YOUR_KEY
 seerr-cli config show   # verify
 ```
 
-Environment variables also work: `SEER_SERVER`, `SEER_API_KEY`.
+Environment variables also work: `SEERR_SERVER`, `SEERR_API_KEY`.
 
 ## Global Flags
 
@@ -331,8 +331,8 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
       "command": "/usr/local/bin/seerr-cli",
       "args": ["mcp", "serve"],
       "env": {
-        "SEER_SERVER": "https://your-seerr-instance.com",
-        "SEER_API_KEY": "your-api-key"
+        "SEERR_SERVER": "https://your-seerr-instance.com",
+        "SEERR_API_KEY": "your-api-key"
       }
     }
   }
@@ -349,7 +349,7 @@ seerr-cli mcp serve --transport http --addr :8811 --auth-token mysecrettoken
 
 Endpoint: `http://localhost:8811/mcp` — set `Authorization: Bearer mysecrettoken` in your client.
 
-For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a secret path prefix via `--route-token` (or `SEER_MCP_ROUTE_TOKEN`):
+For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a secret path prefix via `--route-token` (or `SEERR_MCP_ROUTE_TOKEN`):
 
 ```bash
 # Add --cors if connecting from a browser-based client (e.g. claude.ai)
@@ -365,18 +365,18 @@ seerr-cli mcp serve --transport http --route-token abc123 --auth-token mysecrett
 
 All flags are configurable via environment variables:
 
-| Flag            | Environment variable   | Default |
-| --------------- | ---------------------- | ------- |
-| `--transport`   | `SEER_MCP_TRANSPORT`   | `stdio` |
-| `--addr`        | `SEER_MCP_ADDR`        | `:8811` |
-| `--auth-token`  | `SEER_MCP_AUTH_TOKEN`  | —       |
-| `--no-auth`     | `SEER_MCP_NO_AUTH`     | `false` |
-| `--route-token` | `SEER_MCP_ROUTE_TOKEN` | —       |
-| `--cors`        | `SEER_MCP_CORS`        | `false` |
-| `--tls-cert`    | `SEER_MCP_TLS_CERT`    | —       |
-| `--tls-key`     | `SEER_MCP_TLS_KEY`     | —       |
+| Flag            | Environment variable    | Default |
+| --------------- | ----------------------- | ------- |
+| `--transport`   | `SEERR_MCP_TRANSPORT`   | `stdio` |
+| `--addr`        | `SEERR_MCP_ADDR`        | `:8811` |
+| `--auth-token`  | `SEERR_MCP_AUTH_TOKEN`  | —       |
+| `--no-auth`     | `SEERR_MCP_NO_AUTH`     | `false` |
+| `--route-token` | `SEERR_MCP_ROUTE_TOKEN` | —       |
+| `--cors`        | `SEERR_MCP_CORS`        | `false` |
+| `--tls-cert`    | `SEERR_MCP_TLS_CERT`    | —       |
+| `--tls-key`     | `SEERR_MCP_TLS_KEY`     | —       |
 
-> Pass `--cors` (or `SEER_MCP_CORS=true`) to enable CORS headers for browser-based clients (e.g. claude.ai). Disabled by default.
+> Pass `--cors` (or `SEERR_MCP_CORS=true`) to enable CORS headers for browser-based clients (e.g. claude.ai). Disabled by default.
 
 > The HTTP transport does not implement OAuth 2.0. Use stdio for Claude Desktop.
 

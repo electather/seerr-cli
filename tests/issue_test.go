@@ -136,10 +136,10 @@ func TestIssueCommands(t *testing.T) {
 			defer server.Close()
 
 			apiutil.OverrideServerURL = server.URL + "/api/v1"
-			os.Setenv("SEER_SERVER", server.URL)
+			os.Setenv("SEERR_SERVER", server.URL)
 			defer func() {
 				apiutil.OverrideServerURL = ""
-				os.Unsetenv("SEER_SERVER")
+				os.Unsetenv("SEERR_SERVER")
 			}()
 
 			b := bytes.NewBufferString("")

@@ -88,7 +88,7 @@ func TestRequest(t *testing.T) {
 
 	apiutil.OverrideServerURL = ts.URL + "/api/v1"
 	viper.Set("seerr.server", ts.URL)
-	os.Setenv("SEER_SERVER", ts.URL)
+	os.Setenv("SEERR_SERVER", ts.URL)
 
 	tests := []struct {
 		name     string
