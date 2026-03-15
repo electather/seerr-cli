@@ -2,7 +2,7 @@ package mcp
 
 import (
 	"context"
-	"encoding/json"
+	api "seerr-cli/pkg/api"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
@@ -12,6 +12,11 @@ func registerStatusTools(s *server.MCPServer) {
 	s.AddTool(
 		mcp.NewTool("status_system",
 			mcp.WithDescription("Get the system status of the Seerr API"),
+			mcp.WithOpenWorldHintAnnotation(true),
+			mcp.WithReadOnlyHintAnnotation(true),
+			mcp.WithDestructiveHintAnnotation(false),
+			mcp.WithIdempotentHintAnnotation(true),
+			mcp.WithOutputSchema[api.StatusGet200Response](),
 		),
 		StatusSystemHandler(),
 	)
@@ -24,10 +29,6 @@ func StatusSystemHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return apiToolError("StatusGet failed", err)
 		}
-		b, err := json.Marshal(res)
-		if err != nil {
-			return nil, err
-		}
-		return mcp.NewToolResultText(string(b)), nil
+		return mcp.NewToolResultJSON(res)
 	}
 }

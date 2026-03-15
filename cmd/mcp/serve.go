@@ -12,6 +12,14 @@ import (
 	"github.com/spf13/viper"
 )
 
+var buildVersion = "dev"
+
+// SetVersionInfo injects the linker-set build version so the MCP server can
+// advertise the real application version to clients.
+func SetVersionInfo(version string) {
+	buildVersion = version
+}
+
 var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Start the MCP server",
@@ -75,7 +83,7 @@ func runServe(_ *cobra.Command, args []string) error {
 		return fmt.Errorf("--multi-tenant requires --transport http")
 	}
 
-	s := server.NewMCPServer("seerr-mcp", "1.0.0")
+	s := server.NewMCPServer("electather/seerr-cli", buildVersion)
 
 	registerStatusTools(s)
 	registerSearchTools(s)
