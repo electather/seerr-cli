@@ -17,16 +17,16 @@ var watchlistCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		userId, err := strconv.ParseFloat(args[0], 32)
+		userId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid userId: %w", err)
 		}
 
-		page, _ := cmd.Flags().GetFloat32("page")
+		page, _ := cmd.Flags().GetInt("page")
 
 		req := apiClient.UsersAPI.UserUserIdWatchlistGet(ctx, float32(userId))
 		if cmd.Flags().Changed("page") {
-			req = req.Page(page)
+			req = req.Page(float32(page))
 		}
 
 		res, r, err := req.Execute()
@@ -53,6 +53,6 @@ var watchlistCmd = &cobra.Command{
 }
 
 func init() {
-	watchlistCmd.Flags().Float32("page", 1, "Page number to retrieve")
+	watchlistCmd.Flags().Int("page", 1, "Page number to retrieve")
 	Cmd.AddCommand(watchlistCmd)
 }

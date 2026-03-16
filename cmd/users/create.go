@@ -18,7 +18,7 @@ var createCmd = &cobra.Command{
 
 		email, _ := cmd.Flags().GetString("email")
 		username, _ := cmd.Flags().GetString("username")
-		permissions, _ := cmd.Flags().GetFloat32("permissions")
+		permissions, _ := cmd.Flags().GetInt("permissions")
 
 		body := api.UserPostRequest{
 			Email: &email,
@@ -27,7 +27,8 @@ var createCmd = &cobra.Command{
 			body.Username = &username
 		}
 		if cmd.Flags().Changed("permissions") {
-			body.Permissions = &permissions
+			p := float32(permissions)
+			body.Permissions = &p
 		}
 
 		res, r, err := apiClient.UsersAPI.UserPost(ctx).UserPostRequest(body).Execute()
@@ -57,6 +58,6 @@ func init() {
 	createCmd.Flags().String("email", "", "Email address (required)")
 	createCmd.MarkFlagRequired("email")
 	createCmd.Flags().String("username", "", "Username")
-	createCmd.Flags().Float32("permissions", 0, "Initial permissions bitmask")
+	createCmd.Flags().Int("permissions", 0, "Initial permissions bitmask")
 	Cmd.AddCommand(createCmd)
 }

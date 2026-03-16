@@ -18,12 +18,12 @@ var createCmd = &cobra.Command{
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
 		mediaType, _ := cmd.Flags().GetString("media-type")
-		mediaId, _ := cmd.Flags().GetFloat32("media-id")
-		body := *api.NewRequestPostRequest(mediaType, mediaId)
+		mediaId, _ := cmd.Flags().GetInt("media-id")
+		body := *api.NewRequestPostRequest(mediaType, float32(mediaId))
 
 		if cmd.Flags().Changed("tvdb-id") {
-			v, _ := cmd.Flags().GetFloat32("tvdb-id")
-			body.SetTvdbId(v)
+			v, _ := cmd.Flags().GetInt("tvdb-id")
+			body.SetTvdbId(float32(v))
 		}
 		if cmd.Flags().Changed("seasons") {
 			v, _ := cmd.Flags().GetString("seasons")
@@ -33,7 +33,7 @@ var createCmd = &cobra.Command{
 				parts := strings.Split(v, ",")
 				nums := make([]float32, 0, len(parts))
 				for _, p := range parts {
-					n, err := strconv.ParseFloat(strings.TrimSpace(p), 32)
+					n, err := strconv.ParseInt(strings.TrimSpace(p), 10, 64)
 					if err != nil {
 						return fmt.Errorf("invalid season number %q: %w", p, err)
 					}
@@ -47,24 +47,24 @@ var createCmd = &cobra.Command{
 			body.SetIs4k(v)
 		}
 		if cmd.Flags().Changed("server-id") {
-			v, _ := cmd.Flags().GetFloat32("server-id")
-			body.SetServerId(v)
+			v, _ := cmd.Flags().GetInt("server-id")
+			body.SetServerId(float32(v))
 		}
 		if cmd.Flags().Changed("profile-id") {
-			v, _ := cmd.Flags().GetFloat32("profile-id")
-			body.SetProfileId(v)
+			v, _ := cmd.Flags().GetInt("profile-id")
+			body.SetProfileId(float32(v))
 		}
 		if cmd.Flags().Changed("root-folder") {
 			v, _ := cmd.Flags().GetString("root-folder")
 			body.SetRootFolder(v)
 		}
 		if cmd.Flags().Changed("language-profile-id") {
-			v, _ := cmd.Flags().GetFloat32("language-profile-id")
-			body.SetLanguageProfileId(v)
+			v, _ := cmd.Flags().GetInt("language-profile-id")
+			body.SetLanguageProfileId(float32(v))
 		}
 		if cmd.Flags().Changed("user-id") {
-			v, _ := cmd.Flags().GetFloat32("user-id")
-			body.SetUserId(v)
+			v, _ := cmd.Flags().GetInt("user-id")
+			body.SetUserId(float32(v))
 		}
 
 		res, r, err := apiClient.RequestAPI.RequestPost(ctx).RequestPostRequest(body).Execute()
@@ -75,15 +75,15 @@ var createCmd = &cobra.Command{
 func init() {
 	createCmd.Flags().String("media-type", "", "Media type: movie or tv (required)")
 	createCmd.MarkFlagRequired("media-type")
-	createCmd.Flags().Float32("media-id", 0, "The TMDB media ID (required)")
+	createCmd.Flags().Int("media-id", 0, "The TMDB media ID (required)")
 	createCmd.MarkFlagRequired("media-id")
-	createCmd.Flags().Float32("tvdb-id", 0, "TVDB ID")
+	createCmd.Flags().Int("tvdb-id", 0, "TVDB ID")
 	createCmd.Flags().String("seasons", "", `Seasons to request: "all" or comma-separated numbers (e.g. "1,2,3")`)
 	createCmd.Flags().Bool("is4k", false, "Request 4K version")
-	createCmd.Flags().Float32("server-id", 0, "Target server ID")
-	createCmd.Flags().Float32("profile-id", 0, "Quality profile ID")
+	createCmd.Flags().Int("server-id", 0, "Target server ID")
+	createCmd.Flags().Int("profile-id", 0, "Quality profile ID")
 	createCmd.Flags().String("root-folder", "", "Root folder path")
-	createCmd.Flags().Float32("language-profile-id", 0, "Language profile ID")
-	createCmd.Flags().Float32("user-id", 0, "User ID to create request as")
+	createCmd.Flags().Int("language-profile-id", 0, "Language profile ID")
+	createCmd.Flags().Int("user-id", 0, "User ID to create request as")
 	Cmd.AddCommand(createCmd)
 }

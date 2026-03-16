@@ -15,18 +15,18 @@ var listCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		take, _ := cmd.Flags().GetFloat32("take")
-		skip, _ := cmd.Flags().GetFloat32("skip")
+		take, _ := cmd.Flags().GetInt("take")
+		skip, _ := cmd.Flags().GetInt("skip")
 		sort, _ := cmd.Flags().GetString("sort")
 		query, _ := cmd.Flags().GetString("q")
 		includeIds, _ := cmd.Flags().GetString("include-ids")
 
 		req := apiClient.UsersAPI.UserGet(ctx)
 		if cmd.Flags().Changed("take") {
-			req = req.Take(take)
+			req = req.Take(float32(take))
 		}
 		if cmd.Flags().Changed("skip") {
-			req = req.Skip(skip)
+			req = req.Skip(float32(skip))
 		}
 		if cmd.Flags().Changed("sort") {
 			req = req.Sort(sort)
@@ -62,8 +62,8 @@ var listCmd = &cobra.Command{
 }
 
 func init() {
-	listCmd.Flags().Float32("take", 0, "Number of items to take")
-	listCmd.Flags().Float32("skip", 0, "Number of items to skip")
+	listCmd.Flags().Int("take", 0, "Number of items to take")
+	listCmd.Flags().Int("skip", 0, "Number of items to skip")
 	listCmd.Flags().String("sort", "id", "Field to sort by")
 	listCmd.Flags().String("q", "", "Search query")
 	listCmd.Flags().String("include-ids", "", "Comma-separated IDs to include")

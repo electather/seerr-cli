@@ -52,10 +52,10 @@ func UsersListHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		r := client.UsersAPI.UserGet(callCtx)
-		if take := req.GetFloat("take", 0); take > 0 {
+		if take := req.GetInt("take", 0); take > 0 {
 			r = r.Take(float32(take))
 		}
-		if skip := req.GetFloat("skip", 0); skip > 0 {
+		if skip := req.GetInt("skip", 0); skip > 0 {
 			r = r.Skip(float32(skip))
 		}
 		res, _, err := r.Execute()
@@ -72,7 +72,7 @@ func UsersListHandler() server.ToolHandlerFunc {
 
 func UsersGetHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		userId, err := req.RequireFloat("userId")
+		userId, err := req.RequireInt("userId")
 		if err != nil {
 			return nil, err
 		}
@@ -91,7 +91,7 @@ func UsersGetHandler() server.ToolHandlerFunc {
 
 func UsersUpdateHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		userId, err := req.RequireFloat("userId")
+		userId, err := req.RequireInt("userId")
 		if err != nil {
 			return nil, err
 		}
@@ -105,9 +105,8 @@ func UsersUpdateHandler() server.ToolHandlerFunc {
 			body.SetUsername(v)
 			changed = true
 		}
-		if v := req.GetFloat("permissions", -1); v >= 0 {
-			f := float32(v)
-			body.SetPermissions(f)
+		if v := req.GetInt("permissions", -1); v >= 0 {
+			body.SetPermissions(float32(v))
 			changed = true
 		}
 		if !changed {
@@ -128,7 +127,7 @@ func UsersUpdateHandler() server.ToolHandlerFunc {
 
 func UsersQuotaHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		userId, err := req.RequireFloat("userId")
+		userId, err := req.RequireInt("userId")
 		if err != nil {
 			return nil, err
 		}

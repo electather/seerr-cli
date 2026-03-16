@@ -22,7 +22,7 @@ var settingsGetCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
-		userId, err := strconv.ParseFloat(args[0], 32)
+		userId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid userId: %w", err)
 		}
@@ -56,7 +56,7 @@ var settingsUpdateCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
-		userId, err := strconv.ParseFloat(args[0], 32)
+		userId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid userId: %w", err)
 		}
@@ -92,20 +92,20 @@ var settingsUpdateCmd = &cobra.Command{
 			body.SetOriginalLanguage(v)
 		}
 		if cmd.Flags().Changed("movie-quota-limit") {
-			v, _ := cmd.Flags().GetFloat32("movie-quota-limit")
-			body.SetMovieQuotaLimit(v)
+			v, _ := cmd.Flags().GetInt("movie-quota-limit")
+			body.SetMovieQuotaLimit(float32(v))
 		}
 		if cmd.Flags().Changed("movie-quota-days") {
-			v, _ := cmd.Flags().GetFloat32("movie-quota-days")
-			body.SetMovieQuotaDays(v)
+			v, _ := cmd.Flags().GetInt("movie-quota-days")
+			body.SetMovieQuotaDays(float32(v))
 		}
 		if cmd.Flags().Changed("tv-quota-limit") {
-			v, _ := cmd.Flags().GetFloat32("tv-quota-limit")
-			body.SetTvQuotaLimit(v)
+			v, _ := cmd.Flags().GetInt("tv-quota-limit")
+			body.SetTvQuotaLimit(float32(v))
 		}
 		if cmd.Flags().Changed("tv-quota-days") {
-			v, _ := cmd.Flags().GetFloat32("tv-quota-days")
-			body.SetTvQuotaDays(v)
+			v, _ := cmd.Flags().GetInt("tv-quota-days")
+			body.SetTvQuotaDays(float32(v))
 		}
 		if cmd.Flags().Changed("watchlist-sync-movies") {
 			v, _ := cmd.Flags().GetBool("watchlist-sync-movies")
@@ -145,7 +145,7 @@ var settingsNotificationsGetCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
-		userId, err := strconv.ParseFloat(args[0], 32)
+		userId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid userId: %w", err)
 		}
@@ -179,7 +179,7 @@ var settingsNotificationsUpdateCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
-		userId, err := strconv.ParseFloat(args[0], 32)
+		userId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid userId: %w", err)
 		}
@@ -219,7 +219,7 @@ var settingsPermissionsGetCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
-		userId, err := strconv.ParseFloat(args[0], 32)
+		userId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid userId: %w", err)
 		}
@@ -253,14 +253,14 @@ var settingsPermissionsSetCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
-		userId, err := strconv.ParseFloat(args[0], 32)
+		userId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid userId: %w", err)
 		}
 
-		permissions, _ := cmd.Flags().GetFloat32("permissions")
+		permissions, _ := cmd.Flags().GetInt("permissions")
 		body := api.UserUserIdSettingsPermissionsPostRequest{
-			Permissions: permissions,
+			Permissions: float32(permissions),
 		}
 
 		res, r, err := apiClient.UsersAPI.UserUserIdSettingsPermissionsPost(ctx, float32(userId)).UserUserIdSettingsPermissionsPostRequest(body).Execute()
@@ -294,17 +294,17 @@ func init() {
 	settingsUpdateCmd.Flags().String("discover-region", "", "New discover region")
 	settingsUpdateCmd.Flags().String("streaming-region", "", "New streaming region")
 	settingsUpdateCmd.Flags().String("original-language", "", "New original language")
-	settingsUpdateCmd.Flags().Float32("movie-quota-limit", 0, "New movie quota limit")
-	settingsUpdateCmd.Flags().Float32("movie-quota-days", 0, "New movie quota days")
-	settingsUpdateCmd.Flags().Float32("tv-quota-limit", 0, "New TV quota limit")
-	settingsUpdateCmd.Flags().Float32("tv-quota-days", 0, "New TV quota days")
+	settingsUpdateCmd.Flags().Int("movie-quota-limit", 0, "New movie quota limit")
+	settingsUpdateCmd.Flags().Int("movie-quota-days", 0, "New movie quota days")
+	settingsUpdateCmd.Flags().Int("tv-quota-limit", 0, "New TV quota limit")
+	settingsUpdateCmd.Flags().Int("tv-quota-days", 0, "New TV quota days")
 	settingsUpdateCmd.Flags().Bool("watchlist-sync-movies", false, "Enable/disable movie watchlist sync")
 	settingsUpdateCmd.Flags().Bool("watchlist-sync-tv", false, "Enable/disable TV watchlist sync")
 
 	settingsNotificationsUpdateCmd.Flags().String("json", "", "Notification settings JSON (required)")
 	settingsNotificationsUpdateCmd.MarkFlagRequired("json")
 
-	settingsPermissionsSetCmd.Flags().Float32("permissions", 0, "Permissions bitmask (required)")
+	settingsPermissionsSetCmd.Flags().Int("permissions", 0, "Permissions bitmask (required)")
 	settingsPermissionsSetCmd.MarkFlagRequired("permissions")
 
 	settingsCmd.AddCommand(settingsGetCmd, settingsUpdateCmd, settingsNotificationsGetCmd, settingsNotificationsUpdateCmd, settingsPermissionsGetCmd, settingsPermissionsSetCmd)

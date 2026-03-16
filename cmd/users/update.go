@@ -18,14 +18,14 @@ var updateCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		userId, err := strconv.ParseFloat(args[0], 32)
+		userId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid userId: %w", err)
 		}
 
 		username, _ := cmd.Flags().GetString("username")
 		email, _ := cmd.Flags().GetString("email")
-		permissions, _ := cmd.Flags().GetFloat32("permissions")
+		permissions, _ := cmd.Flags().GetInt("permissions")
 
 		body := api.UserUpdatePayload{}
 		changed := false
@@ -38,7 +38,8 @@ var updateCmd = &cobra.Command{
 			changed = true
 		}
 		if cmd.Flags().Changed("permissions") {
-			body.Permissions = &permissions
+			p := float32(permissions)
+			body.Permissions = &p
 			changed = true
 		}
 		if !changed {
@@ -71,6 +72,6 @@ var updateCmd = &cobra.Command{
 func init() {
 	updateCmd.Flags().String("username", "", "New username")
 	updateCmd.Flags().String("email", "", "New email address")
-	updateCmd.Flags().Float32("permissions", 0, "New permissions bitmask")
+	updateCmd.Flags().Int("permissions", 0, "New permissions bitmask")
 	Cmd.AddCommand(updateCmd)
 }
