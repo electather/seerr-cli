@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"strings"
 
+	"seerr-cli/cmd/apiutil"
+
 	"github.com/mark3labs/mcp-go/server"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -72,6 +74,10 @@ func runServe(_ *cobra.Command, args []string) error {
 	logFormat := viper.GetString("mcp.log_format")
 
 	if err := initLogger(transport, logFile, logLevel, logFormat); err != nil {
+		return err
+	}
+
+	if err := ValidateServeConfig(); err != nil {
 		return err
 	}
 
@@ -183,6 +189,16 @@ func runServe(_ *cobra.Command, args []string) error {
 	default:
 		return fmt.Errorf("unknown transport %q: must be stdio or http", transport)
 	}
+}
+
+// ValidateServeConfig checks that the Seerr server URL is configured. It is
+// exported so that tests can verify the fail-fast behaviour without starting
+// the server.
+func ValidateServeConfig() error {
+	if apiutil.NormalizeServerURL(viper.GetString("seerr.server")) == "" {
+		return fmt.Errorf("seerr.server is not configured; set it with --server <url> or add seerr.server to ~/.seerr-cli.yaml")
+	}
+	return nil
 }
 
 // HealthCheckHandler responds to GET /health with a JSON status payload.

@@ -76,13 +76,23 @@ func RawGet(ctx context.Context, client *api.APIClient, path string, params url.
 	return body, nil
 }
 
+// NormalizeServerURL trims trailing slashes from raw and appends /api/v1 exactly
+// once. Returns an empty string when raw is blank or all slashes.
+func NormalizeServerURL(raw string) string {
+	s := strings.TrimRight(raw, "/")
+	if s == "" {
+		return ""
+	}
+	if !strings.HasSuffix(s, "/api/v1") {
+		s += "/api/v1"
+	}
+	return s
+}
+
 // NewAPIClientWithKeyAndTransport is the base constructor used by all other helpers.
 func NewAPIClientWithKeyAndTransport(apiKey string, transport http.RoundTripper) *api.APIClient {
 	configuration := api.NewConfiguration()
-	serverURL := viper.GetString("seerr.server")
-	if !strings.HasSuffix(serverURL, "/api/v1") {
-		serverURL = strings.TrimSuffix(serverURL, "/") + "/api/v1"
-	}
+	serverURL := NormalizeServerURL(viper.GetString("seerr.server"))
 	configuration.Servers = api.ServerConfigurations{{URL: serverURL, Description: "Configured Server"}}
 	key := apiKey
 	if key == "" {
