@@ -56,10 +56,6 @@
           "type": "boolean",
           "default": false
         },
-        "route_token": {
-          "description": "Secret path prefix for the MCP endpoint (e.g. 'abc123' → /abc123/mcp). Useful for clients that cannot send custom headers.",
-          "type": "string"
-        },
         "tls_cert": {
           "description": "Path to TLS certificate file (PEM). Required together with tls_key to enable HTTPS.",
           "type": "string"

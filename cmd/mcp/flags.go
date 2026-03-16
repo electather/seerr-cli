@@ -50,12 +50,6 @@ var ServeFlags = []FlagDef{
 		Usage:    "Disable authentication (insecure — must be explicit) (env: SEERR_MCP_NO_AUTH)",
 	},
 	{
-		Name:     "route-token",
-		ViperKey: "mcp.route_token",
-		Default:  "",
-		Usage:    "Secret path prefix for the MCP endpoint (e.g. 'abc123' → /abc123/mcp) (env: SEERR_MCP_ROUTE_TOKEN)",
-	},
-	{
 		Name:     "tls-cert",
 		ViperKey: "mcp.tls_cert",
 		Default:  "",

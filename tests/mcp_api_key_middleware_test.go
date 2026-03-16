@@ -102,11 +102,8 @@ func TestSeerrAPIKeyMiddleware_queryParam_sensitiveValueNotLogged(t *testing.T) 
 	assert.Contains(t, redacted, "page=1")
 }
 
-func TestMultiTenantRouteRemoved(t *testing.T) {
-	// After multi-tenant removal, path-based tenant routing must not exist.
-	// The TenantRoutingHandler export should be gone. This is verified by the
-	// compile-time absence of cmdmcp.TenantRoutingHandler.
-	// We cannot reference it here; instead we verify the query-param middleware
-	// is the only per-request API key mechanism exposed.
-	_ = cmdmcp.SeerrAPIKeyMiddleware // must compile
+func TestSeerrAPIKeyMiddlewareIsTheOnlyPerRequestKeyMechanism(t *testing.T) {
+	// SeerrAPIKeyMiddleware must compile and be the sole per-request API key
+	// injection mechanism — path-based routing has been removed.
+	_ = cmdmcp.SeerrAPIKeyMiddleware
 }

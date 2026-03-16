@@ -19,20 +19,14 @@ services:
 
       # --- MCP authentication (HTTP transport) ---
       # Bearer token that clients must supply in the Authorization header.
-      # Required unless SEERR_MCP_NO_AUTH or SEERR_MCP_ROUTE_TOKEN is set.
+      # Required unless SEERR_MCP_ALLOW_API_KEY_QUERY_PARAM or SEERR_MCP_NO_AUTH is set.
       SEERR_MCP_AUTH_TOKEN: ${SEERR_MCP_AUTH_TOKEN}
       # Set to "true" to disable all authentication (insecure — not recommended).
       # SEERR_MCP_NO_AUTH: "false"
-      # Secret path prefix added to the MCP endpoint URL
-      # (e.g. "abc123" → /abc123/mcp). Useful for clients that cannot send
-      # custom headers. Can be combined with SEERR_MCP_AUTH_TOKEN for defense in
-      # depth.
-      # SEERR_MCP_ROUTE_TOKEN: ""
-
-      # --- MCP multi-tenant mode (HTTP transport) ---
-      # When "true", the endpoint becomes /{seerr-api-token}/mcp and the path
-      # segment is used as the per-user Seerr API key. Requires HTTP transport.
-      # SEERR_MCP_MULTI_TENANT: "false"
+      # Accept the Seerr API key via the api_key query parameter in addition to
+      # the X-Api-Key header. Useful for clients that cannot send custom headers.
+      # Each request must supply the key; requests without a key are rejected.
+      # SEERR_MCP_ALLOW_API_KEY_QUERY_PARAM: "false"
 
       # --- MCP TLS (HTTP transport) ---
       # Paths to a TLS certificate and private key. When both are set the server

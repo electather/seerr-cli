@@ -87,23 +87,6 @@ func (r *statusRecorder) WriteHeader(code int) {
 	r.ResponseWriter.WriteHeader(code)
 }
 
-// SafeLogPath returns a redacted version of path that omits sensitive tokens.
-//
-// In route-token mode the raw token in the URL prefix is replaced with
-// {redacted}. Plain /mcp paths are returned unchanged.
-func SafeLogPath(path, routeToken string) string {
-	if routeToken != "" {
-		prefix := "/" + routeToken
-		if strings.HasPrefix(path, prefix+"/") {
-			return "/{redacted}" + path[len(prefix):]
-		}
-		if path == prefix {
-			return "/{redacted}"
-		}
-	}
-	return path
-}
-
 // SafeLogQuery returns a redacted version of a raw query string, replacing the
 // value of the api_key parameter with {redacted} to prevent credential leakage
 // in logs.
@@ -122,8 +105,7 @@ func SafeLogQuery(rawQuery string) string {
 }
 
 // httpLoggingMiddleware logs every HTTP request at Info level (Warn for 4xx/5xx).
-// routeToken is used to redact sensitive tokens from the logged path.
-func httpLoggingMiddleware(next http.Handler, routeToken string) http.Handler {
+func httpLoggingMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		rec := &statusRecorder{ResponseWriter: w, status: http.StatusOK}
@@ -132,7 +114,7 @@ func httpLoggingMiddleware(next http.Handler, routeToken string) http.Handler {
 
 		args := []any{
 			"method", r.Method,
-			"path", SafeLogPath(r.URL.Path, routeToken),
+			"path", r.URL.Path,
 			"remote_addr", r.RemoteAddr,
 			"status", rec.status,
 			"duration_ms", duration.Milliseconds(),

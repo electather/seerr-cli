@@ -33,29 +33,23 @@ env:
   - name: SEERR_MCP_AUTH_TOKEN
     description: >-
       Bearer token for MCP HTTP transport clients. When using HTTP transport,
-      at least one of SEERR_MCP_AUTH_TOKEN, SEERR_MCP_ROUTE_TOKEN, or
-      SEERR_MCP_NO_AUTH=true must be set. Not used for stdio transport.
-    required: false
-  - name: SEERR_MCP_ROUTE_TOKEN
-    description: >-
-      Secret path prefix that replaces Bearer auth for clients that cannot send
-      custom headers (e.g. claude.ai remote MCP). Endpoint becomes
-      http://<addr>/<token>/mcp.
+      at least one of SEERR_MCP_AUTH_TOKEN, SEERR_MCP_ALLOW_API_KEY_QUERY_PARAM,
+      or SEERR_MCP_NO_AUTH=true must be set. Not used for stdio transport.
     required: false
   - name: SEERR_MCP_NO_AUTH
     description: >-
-      Set to "true" to disable all MCP HTTP authentication. Requires
-      SEERR_MCP_ROUTE_TOKEN to be set or explicit acknowledgement that the
-      endpoint is access-controlled by other means.
+      Set to "true" to disable all MCP HTTP authentication. Only use in trusted
+      environments where the endpoint is access-controlled by other means.
+    required: false
+  - name: SEERR_MCP_ALLOW_API_KEY_QUERY_PARAM
+    description: >-
+      Set to "true" to accept the Seerr API key via the api_key query parameter
+      in addition to the X-Api-Key header. Useful for clients that cannot send
+      custom headers (e.g. claude.ai remote MCP). The MCP endpoint is always
+      /mcp; append ?api_key=<key> to authenticate. HTTP transport only.
     required: false
   - name: SEERR_MCP_CORS
     description: Set to "true" to enable CORS headers for browser-based MCP clients (e.g. claude.ai)
-    required: false
-  - name: SEERR_MCP_MULTI_TENANT
-    description: >-
-      Set to "true" to enable multi-tenant mode (HTTP transport only). The
-      endpoint becomes /{seerr-api-token}/mcp and the path segment is used as
-      the per-user Seerr API key instead of SEERR_API_KEY.
     required: false
   - name: SEERR_MCP_TLS_CERT
     description: Path to a TLS certificate file for HTTPS on the MCP HTTP server
@@ -109,22 +103,21 @@ docker run --rm \
 
 MCP endpoint: `http://localhost:8811/mcp` — set `Authorization: Bearer your-secret-token` in your MCP client.
 
-For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a secret path prefix:
+For clients that cannot send custom headers (e.g. claude.ai remote MCP), use query parameter transport:
 
 ```bash
 docker run --rm \
   -e SEERR_SERVER=http://your-seerr-instance:5055 \
   -e SEERR_API_KEY=your-api-key \
-  -e SEERR_MCP_ROUTE_TOKEN=your-secret-path \
-  -e SEERR_MCP_NO_AUTH=true \
+  -e SEERR_MCP_ALLOW_API_KEY_QUERY_PARAM=true \
   -e SEERR_MCP_CORS=true \
   -p 8811:8811 \
   ghcr.io/electather/seerr-cli:latest
 ```
 
-MCP endpoint: `http://localhost:8811/your-secret-path/mcp` — no auth header required.
+MCP endpoint: `http://localhost:8811/mcp?api_key=your-api-key` — no auth header required.
 
-At least one of `SEERR_MCP_AUTH_TOKEN`, `SEERR_MCP_ROUTE_TOKEN`, or `SEERR_MCP_NO_AUTH=true` must be set for HTTP transport.
+At least one of `SEERR_MCP_AUTH_TOKEN`, `SEERR_MCP_ALLOW_API_KEY_QUERY_PARAM`, or `SEERR_MCP_NO_AUTH=true` must be set for HTTP transport.
 
 ### docker-compose deployment
 
@@ -402,32 +395,26 @@ seerr-cli mcp serve --transport http --addr :8811 --auth-token mysecrettoken
 
 Endpoint: `http://localhost:8811/mcp` — set `Authorization: Bearer mysecrettoken` in your client.
 
-For clients that cannot send custom headers (e.g. claude.ai remote MCP), use a secret path prefix via `--route-token` (or `SEERR_MCP_ROUTE_TOKEN`):
+For clients that cannot send custom headers (e.g. claude.ai remote MCP), use `--allow-api-key-query-param` (or `SEERR_MCP_ALLOW_API_KEY_QUERY_PARAM`):
 
 ```bash
 # Add --cors if connecting from a browser-based client (e.g. claude.ai)
-seerr-cli mcp serve --transport http --addr :8811 --route-token abc123 --no-auth --cors
-# Endpoint becomes: http://localhost:8811/abc123/mcp
-```
-
-Both methods can be combined for defense in depth:
-
-```bash
-seerr-cli mcp serve --transport http --route-token abc123 --auth-token mysecrettoken
+seerr-cli mcp serve --transport http --addr :8811 --allow-api-key-query-param --cors
+# Endpoint: http://localhost:8811/mcp?api_key=YOUR_SEERR_API_KEY
 ```
 
 All flags are configurable via environment variables:
 
-| Flag            | Environment variable    | Default |
-| --------------- | ----------------------- | ------- |
-| `--transport`   | `SEERR_MCP_TRANSPORT`   | `stdio` |
-| `--addr`        | `SEERR_MCP_ADDR`        | `:8811` |
-| `--auth-token`  | `SEERR_MCP_AUTH_TOKEN`  | —       |
-| `--no-auth`     | `SEERR_MCP_NO_AUTH`     | `false` |
-| `--route-token` | `SEERR_MCP_ROUTE_TOKEN` | —       |
-| `--cors`        | `SEERR_MCP_CORS`        | `false` |
-| `--tls-cert`    | `SEERR_MCP_TLS_CERT`    | —       |
-| `--tls-key`     | `SEERR_MCP_TLS_KEY`     | —       |
+| Flag                          | Environment variable                  | Default |
+| ----------------------------- | ------------------------------------- | ------- |
+| `--transport`                 | `SEERR_MCP_TRANSPORT`                 | `stdio` |
+| `--addr`                      | `SEERR_MCP_ADDR`                      | `:8811` |
+| `--auth-token`                | `SEERR_MCP_AUTH_TOKEN`                | —       |
+| `--no-auth`                   | `SEERR_MCP_NO_AUTH`                   | `false` |
+| `--allow-api-key-query-param` | `SEERR_MCP_ALLOW_API_KEY_QUERY_PARAM` | `false` |
+| `--cors`                      | `SEERR_MCP_CORS`                      | `false` |
+| `--tls-cert`                  | `SEERR_MCP_TLS_CERT`                  | —       |
+| `--tls-key`                   | `SEERR_MCP_TLS_KEY`                   | —       |
 
 > Pass `--cors` (or `SEERR_MCP_CORS=true`) to enable CORS headers for browser-based clients (e.g. claude.ai). Disabled by default.
 

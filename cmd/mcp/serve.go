@@ -61,21 +61,14 @@ var serveCmd = &cobra.Command{
   # Start over HTTPS with TLS
   seerr-cli mcp serve --transport http --auth-token mysecret --tls-cert /path/to/cert.pem --tls-key /path/to/key.pem
 
-  # Start over HTTP with a secret path prefix (for clients that cannot send custom headers)
-  seerr-cli mcp serve --transport http --route-token abc123 --no-auth
-  # MCP endpoint becomes: http://localhost:8811/abc123/mcp
+  # Accept Seerr API key via X-Api-Key header or ?api_key= query parameter
+  seerr-cli mcp serve --transport http --allow-api-key-query-param
 
   # Enable CORS for browser-based clients (e.g. claude.ai)
-  seerr-cli mcp serve --transport http --route-token abc123 --no-auth --cors
-
-  # Combine both auth methods for defense in depth
-  seerr-cli mcp serve --transport http --route-token abc123 --auth-token mysecret
+  seerr-cli mcp serve --transport http --allow-api-key-query-param --cors
 
   # Start over HTTP without auth (insecure, not recommended)
-  seerr-cli mcp serve --transport http --no-auth
-
-  # Accept Seerr API key via ?api_key= query parameter (in addition to X-Api-Key header)
-  seerr-cli mcp serve --transport http --no-auth --allow-api-key-query-param`,
+  seerr-cli mcp serve --transport http --no-auth`,
 	RunE: runServe,
 }
 
@@ -89,7 +82,6 @@ func runServe(_ *cobra.Command, args []string) error {
 	transport := viper.GetString("mcp.transport")
 	addr := viper.GetString("mcp.addr")
 	authToken := viper.GetString("mcp.auth_token")
-	routeToken := viper.GetString("mcp.route_token")
 	noAuth := viper.GetBool("mcp.no_auth")
 	tlsCert := viper.GetString("mcp.tls_cert")
 	tlsKey := viper.GetString("mcp.tls_key")
@@ -107,8 +99,8 @@ func runServe(_ *cobra.Command, args []string) error {
 		return err
 	}
 
-	if transport == "http" && authToken == "" && routeToken == "" && !noAuth {
-		return fmt.Errorf("HTTP transport requires --auth-token, --route-token, or --no-auth (insecure) to be set explicitly")
+	if transport == "http" && authToken == "" && !allowAPIKeyQueryParam && !noAuth {
+		return fmt.Errorf("HTTP transport requires --auth-token, --allow-api-key-query-param, or --no-auth (insecure) to be set explicitly")
 	}
 
 	s := server.NewMCPServer("electather/seerr-cli", buildVersion)
@@ -152,11 +144,7 @@ func runServe(_ *cobra.Command, args []string) error {
 		if strings.HasPrefix(host, ":") {
 			host = "localhost" + host
 		}
-		mcpPath := "/mcp"
-		if routeToken != "" {
-			mcpPath = "/" + routeToken + "/mcp"
-		}
-		endpoint := fmt.Sprintf("%s://%s%s", scheme, host, mcpPath)
+		endpoint := fmt.Sprintf("%s://%s/mcp", scheme, host)
 
 		mcpLog.Info("starting MCP server",
 			"transport", "http",
@@ -165,25 +153,15 @@ func runServe(_ *cobra.Command, args []string) error {
 			"tools", 46, "resources", 9, "prompts", 6,
 			"tls", tlsCert != "",
 			"auth_token", authToken != "",
-			"route_token", routeToken != "",
 			"cors", cors,
 			"allow_api_key_query_param", allowAPIKeyQueryParam,
 		)
 
 		httpHandler := server.NewStreamableHTTPServer(s)
-		var handler http.Handler
-		if routeToken != "" {
-			// Strip the route-token prefix so mcp-go still sees /mcp, /mcp/sse, etc.
-			prefix := "/" + routeToken
-			mux := http.NewServeMux()
-			mux.Handle(prefix+"/", http.StripPrefix(prefix, httpHandler))
-			handler = mux
-		} else {
-			handler = httpHandler
-		}
+		handler := http.Handler(httpHandler)
 		// Per-request Seerr API key injection (header or optional query param).
 		handler = SeerrAPIKeyMiddleware(allowAPIKeyQueryParam, handler)
-		handler = httpLoggingMiddleware(handler, routeToken)
+		handler = httpLoggingMiddleware(handler)
 		if authToken != "" {
 			handler = bearerAuthMiddleware(authToken, handler)
 		}
