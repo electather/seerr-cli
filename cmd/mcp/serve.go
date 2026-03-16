@@ -161,6 +161,12 @@ func runServe(_ *cobra.Command, args []string) error {
 		if authToken != "" {
 			handler = bearerAuthMiddleware(authToken, handler)
 		}
+		// The health endpoint must be reachable without auth, so register it in
+		// a top-level mux that sits above the bearer-auth middleware.
+		topMux := http.NewServeMux()
+		topMux.HandleFunc("/health", HealthCheckHandler)
+		topMux.Handle("/", handler)
+		handler = topMux
 		// CORS must be outermost so browser preflight OPTIONS requests are never
 		// blocked by auth middleware.
 		if cors {
@@ -177,6 +183,14 @@ func runServe(_ *cobra.Command, args []string) error {
 	default:
 		return fmt.Errorf("unknown transport %q: must be stdio or http", transport)
 	}
+}
+
+// HealthCheckHandler responds to GET /health with a JSON status payload.
+// It is exported so that it can be tested directly from the tests package.
+func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, `{"status":"ok","version":%q}`, buildVersion)
 }
 
 func corsMiddleware(next http.Handler) http.Handler {

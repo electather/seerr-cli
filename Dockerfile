@@ -41,5 +41,9 @@ COPY --from=builder /seerr-cli /usr/local/bin/seerr-cli
 
 EXPOSE 8811
 
+# The /health endpoint is unauthenticated and available on the HTTP transport.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD wget -qO- http://localhost:8811/health || exit 1
+
 ENTRYPOINT ["seerr-cli"]
 CMD ["mcp", "serve", "--transport", "http"]
