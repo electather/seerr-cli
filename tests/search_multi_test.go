@@ -46,9 +46,10 @@ func TestSearchMultiMixedResults(t *testing.T) {
 	assert.NoError(t, err)
 
 	out := buf.String()
-	assert.Contains(t, out, `"mediaType":"movie"`)
-	assert.Contains(t, out, `"mediaType":"tv"`)
-	assert.Contains(t, out, `"mediaType":"person"`)
+	// Output is pretty-printed JSON; check for mediaType values as JSON strings.
+	assert.Contains(t, out, `"mediaType": "movie"`)
+	assert.Contains(t, out, `"mediaType": "tv"`)
+	assert.Contains(t, out, `"mediaType": "person"`)
 }
 
 // TestSearchMultiQueryEncoding verifies that spaces in the query are encoded

@@ -18,7 +18,10 @@ var getCmd = &cobra.Command{
   seerr-cli movies get 603
 
   # Get details in Spanish
-  seerr-cli movies get 603 --language es`,
+  seerr-cli movies get 603 --language es
+
+  # Output as YAML
+  seerr-cli movies get 603 --output yaml`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		movieId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
@@ -30,12 +33,21 @@ var getCmd = &cobra.Command{
 			language = ""
 		}
 
+		mode := apiutil.GetOutputMode(cmd)
 		res, r, err := seerrclient.New().MovieGet(int(movieId), language)
-		return apiutil.HandleResponse(cmd, r, err, res, viper.GetBool("verbose"), "MovieMovieIdGet")
+		if err != nil {
+			return apiutil.HandleResponse(cmd, r, err, res, viper.GetBool("verbose"), "MovieMovieIdGet")
+		}
+
+		if viper.GetBool("verbose") && r != nil {
+			cmd.Printf("HTTP Status: %s\n", r.Status)
+		}
+		return apiutil.PrintOutput(cmd, res, mode)
 	},
 }
 
 func init() {
 	getCmd.Flags().String("language", "en", "Language code")
+	apiutil.AddOutputFlag(getCmd)
 	Cmd.AddCommand(getCmd)
 }
