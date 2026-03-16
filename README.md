@@ -458,6 +458,62 @@ docker run -d \
   mcp serve --transport http --addr :9000
 ```
 
+### Claude web (claude.ai)
+
+Claude.ai connects to remote MCP servers over HTTPS. Since the browser cannot send custom `Authorization` headers to external MCP endpoints, the recommended approach is to embed a secret in the URL path using `--route-token` and expose the server via an HTTPS reverse proxy.
+
+#### 1. Start the MCP server
+
+```sh
+seerr-cli mcp serve \
+  --transport http \
+  --addr :8811 \
+  --route-token YOUR_SECRET_TOKEN \
+  --no-auth \
+  --cors
+```
+
+The MCP endpoint will be `http://localhost:8811/YOUR_SECRET_TOKEN/mcp`.
+
+#### 2. Expose via HTTPS with a reverse proxy
+
+The server must be reachable at a public HTTPS URL. Two common options:
+
+**Caddy** (automatic TLS via Let's Encrypt):
+
+```
+mcp.example.com {
+    reverse_proxy localhost:8811
+}
+```
+
+**nginx** (with an existing TLS certificate):
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name mcp.example.com;
+
+    ssl_certificate     /etc/letsencrypt/live/mcp.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/mcp.example.com/privkey.pem;
+
+    location / {
+        proxy_pass http://localhost:8811;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+#### 3. Add to claude.ai
+
+1. Go to **claude.ai → Settings → Integrations**.
+2. Click **Add integration**.
+3. Enter the MCP URL: `https://mcp.example.com/YOUR_SECRET_TOKEN/mcp`
+4. Save. The Seerr tools will appear in new conversations.
+
+> **Security note:** The route token is the only secret protecting this endpoint. Use a long random value (e.g. `openssl rand -hex 32`) and always serve over HTTPS.
+
 ### Available tools (43)
 
 | Category           | Tools                                                                                                                    |
