@@ -157,7 +157,7 @@ func runServe(_ *cobra.Command, args []string) error {
 		} else {
 			handler = httpHandler
 		}
-		handler = httpLoggingMiddleware(handler)
+		handler = httpLoggingMiddleware(handler, routeToken, multiTenant)
 		if authToken != "" {
 			handler = bearerAuthMiddleware(authToken, handler)
 		}

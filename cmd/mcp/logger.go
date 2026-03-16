@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -86,8 +87,35 @@ func (r *statusRecorder) WriteHeader(code int) {
 	r.ResponseWriter.WriteHeader(code)
 }
 
+// SafeLogPath returns a redacted version of path that omits sensitive tokens.
+//
+// In route-token mode the raw token in the URL prefix is replaced with
+// {redacted}. In multi-tenant mode the per-user API key that occupies the
+// first path segment is replaced with {tenant}. Plain /mcp paths are returned
+// unchanged.
+func SafeLogPath(path, routeToken string, multiTenant bool) string {
+	if routeToken != "" {
+		prefix := "/" + routeToken
+		if strings.HasPrefix(path, prefix+"/") {
+			return "/{redacted}" + path[len(prefix):]
+		}
+		if path == prefix {
+			return "/{redacted}"
+		}
+	}
+	if multiTenant {
+		trimmed := strings.TrimPrefix(path, "/")
+		idx := strings.Index(trimmed, "/")
+		if idx > 0 {
+			return "/{tenant}" + trimmed[idx:]
+		}
+	}
+	return path
+}
+
 // httpLoggingMiddleware logs every HTTP request at Info level (Warn for 4xx/5xx).
-func httpLoggingMiddleware(next http.Handler) http.Handler {
+// routeToken and multiTenant are used to redact sensitive tokens from the logged path.
+func httpLoggingMiddleware(next http.Handler, routeToken string, multiTenant bool) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		rec := &statusRecorder{ResponseWriter: w, status: http.StatusOK}
@@ -96,7 +124,7 @@ func httpLoggingMiddleware(next http.Handler) http.Handler {
 
 		args := []any{
 			"method", r.Method,
-			"path", r.URL.Path,
+			"path", SafeLogPath(r.URL.Path, routeToken, multiTenant),
 			"remote_addr", r.RemoteAddr,
 			"status", rec.status,
 			"duration_ms", duration.Milliseconds(),
