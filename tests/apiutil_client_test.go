@@ -1,11 +1,14 @@
 package tests
 
 import (
+	"net/http"
 	"testing"
+	"time"
 
 	"seerr-cli/cmd/apiutil"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestNormalizeServerURL(t *testing.T) {
@@ -55,4 +58,22 @@ func TestNormalizeServerURL(t *testing.T) {
 			assert.Equal(t, tc.want, apiutil.NormalizeServerURL(tc.input))
 		})
 	}
+}
+
+func TestDefaultHTTPClientHasTimeout(t *testing.T) {
+	// Verify the default HTTP client carries a 30 s timeout so requests cannot hang indefinitely.
+	client := apiutil.NewAPIClientWithKeyAndTransport("", nil)
+	cfg := client.GetConfig()
+	require.NotNil(t, cfg.HTTPClient)
+	assert.Equal(t, 30*time.Second, cfg.HTTPClient.Timeout)
+}
+
+func TestCustomTransportAlsoGetsTimeout(t *testing.T) {
+	// Verify a custom transport still gets wrapped in a client with the default timeout.
+	transport := &http.Transport{}
+	client := apiutil.NewAPIClientWithKeyAndTransport("", transport)
+	cfg := client.GetConfig()
+	require.NotNil(t, cfg.HTTPClient)
+	assert.Equal(t, 30*time.Second, cfg.HTTPClient.Timeout)
+	assert.Equal(t, transport, cfg.HTTPClient.Transport)
 }
