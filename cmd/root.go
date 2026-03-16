@@ -11,6 +11,8 @@ import (
 	"seerr-cli/cmd/blocklist"
 	"seerr-cli/cmd/collection"
 	"seerr-cli/cmd/config"
+	"seerr-cli/cmd/docs"
+	"seerr-cli/cmd/doctor"
 	"seerr-cli/cmd/issue"
 	"seerr-cli/cmd/mcp"
 	"seerr-cli/cmd/media"
@@ -53,7 +55,7 @@ var RootCmd = &cobra.Command{
 	Short: "A CLI to interact with the Seerr API",
 	Long:  `A command line interface to call endpoints defined in the Seerr OpenAPI specification.`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-		if cmd.Root() != cmd && (cmd.Name() == "config" || cmd.Parent().Name() == "config" || cmd.Name() == "help" || cmd.Name() == "completion" || cmd.Parent().Name() == "completion" || cmd.Name() == "mcp" || cmd.Parent().Name() == "mcp") {
+		if cmd.Root() != cmd && (cmd.Name() == "config" || cmd.Parent().Name() == "config" || cmd.Name() == "help" || cmd.Name() == "completion" || cmd.Parent().Name() == "completion" || cmd.Name() == "mcp" || cmd.Parent().Name() == "mcp" || cmd.Name() == "doctor" || cmd.Parent().Name() == "doctor" || cmd.Name() == "docs" || cmd.Parent().Name() == "docs") {
 			return nil
 		}
 		if viper.GetString("seerr.server") == "" {
@@ -86,6 +88,8 @@ func init() {
 	viper.BindPFlag("verbose", RootCmd.PersistentFlags().Lookup("verbose"))
 
 	RootCmd.AddCommand(config.Cmd)
+	RootCmd.AddCommand(doctor.Cmd)
+	RootCmd.AddCommand(docs.Cmd)
 	RootCmd.AddCommand(mcp.Cmd)
 	RootCmd.AddCommand(status.Cmd)
 	RootCmd.AddCommand(users.Cmd)

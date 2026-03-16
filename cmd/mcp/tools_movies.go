@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
+	"seerr-cli/internal/seerrclient"
+
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 )
@@ -73,8 +75,8 @@ func MoviesGetHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
-		res, _, err := client.MoviesAPI.MovieMovieIdGet(callCtx, float32(movieId)).Execute()
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
+		res, _, err := sc.MovieGetCtx(callCtx, movieId, "")
 		if err != nil {
 			return apiToolError("MovieMovieIdGet failed", err)
 		}
@@ -92,12 +94,9 @@ func MoviesRecommendationsHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
-		r := client.MoviesAPI.MovieMovieIdRecommendationsGet(callCtx, float32(movieId))
-		if page := req.GetInt("page", 0); page > 0 {
-			r = r.Page(float32(page))
-		}
-		res, _, err := r.Execute()
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
+		page := req.GetInt("page", 0)
+		res, _, err := sc.MovieRecommendations(movieId, page, "")
 		if err != nil {
 			return apiToolError("MovieMovieIdRecommendationsGet failed", err)
 		}
@@ -115,12 +114,9 @@ func MoviesSimilarHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
-		r := client.MoviesAPI.MovieMovieIdSimilarGet(callCtx, float32(movieId))
-		if page := req.GetInt("page", 0); page > 0 {
-			r = r.Page(float32(page))
-		}
-		res, _, err := r.Execute()
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
+		page := req.GetInt("page", 0)
+		res, _, err := sc.MovieSimilar(movieId, page, "")
 		if err != nil {
 			return apiToolError("MovieMovieIdSimilarGet failed", err)
 		}
@@ -138,8 +134,8 @@ func MoviesRatingsCombinedHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
-		res, _, err := client.MoviesAPI.MovieMovieIdRatingscombinedGet(callCtx, float32(movieId)).Execute()
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
+		res, _, err := sc.MovieRatingsCombined(movieId)
 		if err != nil {
 			return apiToolError("MovieMovieIdRatingscombinedGet failed", err)
 		}
@@ -157,8 +153,8 @@ func MoviesRatingsHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
-		res, _, err := client.MoviesAPI.MovieMovieIdRatingsGet(callCtx, float32(movieId)).Execute()
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
+		res, _, err := sc.MovieRatings(movieId)
 		if err != nil {
 			return apiToolError("MovieMovieIdRatingsGet failed", err)
 		}

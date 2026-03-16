@@ -4,8 +4,10 @@ import (
 	"strconv"
 
 	"seerr-cli/cmd/apiutil"
+	"seerr-cli/internal/seerrclient"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var recommendationsCmd = &cobra.Command{
@@ -18,26 +20,22 @@ var recommendationsCmd = &cobra.Command{
   # Get second page of recommendations
   seerr-cli movies recommendations 603 --page 2`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
-
 		movieId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return err
 		}
 
 		page, _ := cmd.Flags().GetInt("page")
+		if !cmd.Flags().Changed("page") {
+			page = 0
+		}
 		language, _ := cmd.Flags().GetString("language")
-
-		req := apiClient.MoviesAPI.MovieMovieIdRecommendationsGet(ctx, float32(movieId))
-		if cmd.Flags().Changed("page") {
-			req = req.Page(float32(page))
-		}
-		if cmd.Flags().Changed("language") {
-			req = req.Language(language)
+		if !cmd.Flags().Changed("language") {
+			language = ""
 		}
 
-		res, r, err := req.Execute()
-		return apiutil.HandleResponse(cmd, r, err, res, isVerbose, "MovieMovieIdRecommendationsGet")
+		res, r, err := seerrclient.New().MovieRecommendations(int(movieId), page, language)
+		return apiutil.HandleResponse(cmd, r, err, res, viper.GetBool("verbose"), "MovieMovieIdRecommendationsGet")
 	},
 }
 

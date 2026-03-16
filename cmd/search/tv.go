@@ -1,9 +1,15 @@
 package search
 
 import (
-	"seerr-cli/cmd/apiutil"
+	"encoding/json"
+	"fmt"
+	"net/url"
+	"strconv"
+
+	"seerr-cli/internal/seerrclient"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var tvCmd = &cobra.Command{
@@ -15,8 +21,6 @@ var tvCmd = &cobra.Command{
   # Discover TV shows on Netflix (Network ID 213)
   seerr-cli search tv --network 213`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		apiClient, ctx, isVerbose := newAPIClient()
-
 		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 		genre, _ := cmd.Flags().GetString("genre")
@@ -27,37 +31,54 @@ var tvCmd = &cobra.Command{
 		firstAirGte, _ := cmd.Flags().GetString("first-air-date-gte")
 		firstAirLte, _ := cmd.Flags().GetString("first-air-date-lte")
 
-		req := apiClient.SearchAPI.DiscoverTvGet(ctx)
+		params := url.Values{}
 		if cmd.Flags().Changed("page") {
-			req = req.Page(float32(page))
+			params.Set("page", strconv.Itoa(page))
 		}
 		if cmd.Flags().Changed("language") {
-			req = req.Language(language)
+			params.Set("language", language)
 		}
 		if cmd.Flags().Changed("genre") {
-			req = req.Genre(genre)
+			params.Set("genre", genre)
 		}
 		if cmd.Flags().Changed("network") {
-			req = req.Network(float32(network))
+			params.Set("network", strconv.Itoa(network))
 		}
 		if cmd.Flags().Changed("keywords") {
-			req = req.Keywords(keywords)
+			params.Set("keywords", keywords)
 		}
 		if cmd.Flags().Changed("exclude-keywords") {
-			req = req.ExcludeKeywords(excludeKeywords)
+			params.Set("excludeKeywords", excludeKeywords)
 		}
 		if cmd.Flags().Changed("sort-by") {
-			req = req.SortBy(sortBy)
+			params.Set("sortBy", sortBy)
 		}
 		if cmd.Flags().Changed("first-air-date-gte") {
-			req = req.FirstAirDateGte(firstAirGte)
+			params.Set("firstAirDateGte", firstAirGte)
 		}
 		if cmd.Flags().Changed("first-air-date-lte") {
-			req = req.FirstAirDateLte(firstAirLte)
+			params.Set("firstAirDateLte", firstAirLte)
 		}
 
-		res, r, err := req.Execute()
-		return apiutil.HandleResponse(cmd, r, err, res, isVerbose, "DiscoverTvGet")
+		b, err := seerrclient.New().DiscoverTV(params)
+		if err != nil {
+			return err
+		}
+
+		if viper.GetBool("verbose") {
+			cmd.Printf("GET /api/v1/discover/tv\n")
+		}
+
+		var out interface{}
+		if err := json.Unmarshal(b, &out); err != nil {
+			return fmt.Errorf("failed to parse response: %w", err)
+		}
+		formatted, err := json.MarshalIndent(out, "", "  ")
+		if err != nil {
+			return fmt.Errorf("failed to format response: %w", err)
+		}
+		cmd.Println(string(formatted))
+		return nil
 	},
 }
 
