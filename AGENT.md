@@ -9,15 +9,68 @@ description: >-
 metadata:
   author: electather
   repo: https://github.com/electather/seerr-cli
+  install: >-
+    Download the latest release archive from
+    https://github.com/electather/seerr-cli/releases/latest, verify the
+    SHA-256 checksum, and move the binary to a directory on PATH.
+    A Docker image is also available at ghcr.io/electather/seerr-cli.
+primary_credential: SEERR_API_KEY
 env:
+  # Core credentials — required for every command.
   - name: SEERR_SERVER
     description: Full URL of your Seerr instance (e.g. https://seerr.example.com)
     required: true
   - name: SEERR_API_KEY
-    description: API key for authenticating with the Seerr server
+    description: API key for authenticating with the Seerr server (primary credential)
     required: true
+  # MCP transport — only relevant when running `seerr-cli mcp serve`.
+  - name: SEERR_MCP_TRANSPORT
+    description: MCP server transport mode; "stdio" (default) or "http"
+    required: false
+  - name: SEERR_MCP_ADDR
+    description: Listen address for the MCP HTTP server (default ":8811")
+    required: false
   - name: SEERR_MCP_AUTH_TOKEN
-    description: Bearer token for authenticating MCP HTTP transport clients (required when running the HTTP server; omit for stdio transport)
+    description: >-
+      Bearer token for MCP HTTP transport clients. When using HTTP transport,
+      at least one of SEERR_MCP_AUTH_TOKEN, SEERR_MCP_ROUTE_TOKEN, or
+      SEERR_MCP_NO_AUTH=true must be set. Not used for stdio transport.
+    required: false
+  - name: SEERR_MCP_ROUTE_TOKEN
+    description: >-
+      Secret path prefix that replaces Bearer auth for clients that cannot send
+      custom headers (e.g. claude.ai remote MCP). Endpoint becomes
+      http://<addr>/<token>/mcp.
+    required: false
+  - name: SEERR_MCP_NO_AUTH
+    description: >-
+      Set to "true" to disable all MCP HTTP authentication. Requires
+      SEERR_MCP_ROUTE_TOKEN to be set or explicit acknowledgement that the
+      endpoint is access-controlled by other means.
+    required: false
+  - name: SEERR_MCP_CORS
+    description: Set to "true" to enable CORS headers for browser-based MCP clients (e.g. claude.ai)
+    required: false
+  - name: SEERR_MCP_MULTI_TENANT
+    description: >-
+      Set to "true" to enable multi-tenant mode (HTTP transport only). The
+      endpoint becomes /{seerr-api-token}/mcp and the path segment is used as
+      the per-user Seerr API key instead of SEERR_API_KEY.
+    required: false
+  - name: SEERR_MCP_TLS_CERT
+    description: Path to a TLS certificate file for HTTPS on the MCP HTTP server
+    required: false
+  - name: SEERR_MCP_TLS_KEY
+    description: Path to a TLS private-key file for HTTPS on the MCP HTTP server
+    required: false
+  - name: SEERR_MCP_LOG_FILE
+    description: Path to a log file; required for stdio transport to capture logs without polluting stdout
+    required: false
+  - name: SEERR_MCP_LOG_LEVEL
+    description: Log level for the MCP server; one of debug, info, warn, error (default "info")
+    required: false
+  - name: SEERR_MCP_LOG_FORMAT
+    description: Log output format for the MCP server; "text" (default) or "json"
     required: false
 ---
 
