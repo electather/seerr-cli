@@ -47,4 +47,11 @@ services:
 
     ports:
       - "8811:8811"
+    healthcheck:
+      # The /health endpoint is unauthenticated regardless of auth configuration.
+      test: ["CMD", "wget", "-qO-", "http://localhost:8811/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 5s
+      retries: 3
     restart: unless-stopped

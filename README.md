@@ -514,6 +514,32 @@ server {
 
 > **Security note:** The route token is the only secret protecting this endpoint. Use a long random value (e.g. `openssl rand -hex 32`) and always serve over HTTPS.
 
+#### Health check
+
+The HTTP server exposes an unauthenticated `GET /health` endpoint that returns a JSON status payload — no token required, even when `--auth-token` is set.
+
+```sh
+curl http://localhost:8811/health
+# {"status":"ok","version":"1.2.3"}
+```
+
+This is used by the `HEALTHCHECK` instruction in the published Docker image and by the `healthcheck:` block in `docker-compose.yml`. For a container on a non-default port, adjust the URL accordingly:
+
+```sh
+docker run -d \
+  --name seerr-mcp \
+  -p 8811:8811 \
+  --health-cmd "wget -qO- http://localhost:8811/health || exit 1" \
+  --health-interval 30s \
+  --health-timeout 5s \
+  --health-start-period 5s \
+  --health-retries 3 \
+  -e SEERR_SERVER=https://your-seerr-instance.com \
+  -e SEERR_API_KEY=your-api-key \
+  -e SEERR_MCP_AUTH_TOKEN=mysecrettoken \
+  ghcr.io/electather/seerr-cli:latest
+```
+
 ### Available tools (43)
 
 | Category           | Tools                                                                                                                    |
