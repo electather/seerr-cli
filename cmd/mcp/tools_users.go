@@ -96,15 +96,22 @@ func UsersUpdateHandler() server.ToolHandlerFunc {
 			return nil, err
 		}
 		body := api.UserUpdatePayload{}
+		changed := false
 		if v := req.GetString("email", ""); v != "" {
 			body.SetEmail(v)
+			changed = true
 		}
 		if v := req.GetString("username", ""); v != "" {
 			body.SetUsername(v)
+			changed = true
 		}
 		if v := req.GetFloat("permissions", -1); v >= 0 {
 			f := float32(v)
 			body.SetPermissions(f)
+			changed = true
+		}
+		if !changed {
+			return mcp.NewToolResultError("at least one field must be provided"), nil
 		}
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		res, _, err := client.UsersAPI.UserUserIdPut(callCtx, float32(userId)).UserUpdatePayload(body).Execute()

@@ -99,7 +99,7 @@ func TestRequest(t *testing.T) {
 		{"create", []string{"request", "create", "--media-type", "movie", "--media-id", "123"}, `"id": 2`},
 		{"count", []string{"request", "count"}, `"total": 5`},
 		{"get", []string{"request", "get", "1"}, `"id": 1`},
-		{"update", []string{"request", "update", "1", "--media-type", "movie"}, `"id": 1`},
+		{"update", []string{"request", "update", "1", "--media-type", "movie", "--user-id", "5"}, `"id": 1`},
 		{"delete", []string{"request", "delete", "1"}, `"status": "ok"`},
 		{"retry", []string{"request", "retry", "1"}, `"id": 1`},
 		{"approve", []string{"request", "approve", "1"}, `"status": 2`},

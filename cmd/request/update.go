@@ -21,6 +21,7 @@ var updateCmd = &cobra.Command{
 		mediaType, _ := cmd.Flags().GetString("media-type")
 		body := *api.NewRequestRequestIdPutRequest(mediaType)
 
+		changed := false
 		if cmd.Flags().Changed("seasons") {
 			v, _ := cmd.Flags().GetString("seasons")
 			parts := strings.Split(v, ",")
@@ -33,30 +34,40 @@ var updateCmd = &cobra.Command{
 				nums = append(nums, float32(n))
 			}
 			body.SetSeasons(nums)
+			changed = true
 		}
 		if cmd.Flags().Changed("is4k") {
 			v, _ := cmd.Flags().GetBool("is4k")
 			body.SetIs4k(v)
+			changed = true
 		}
 		if cmd.Flags().Changed("server-id") {
 			v, _ := cmd.Flags().GetFloat32("server-id")
 			body.SetServerId(v)
+			changed = true
 		}
 		if cmd.Flags().Changed("profile-id") {
 			v, _ := cmd.Flags().GetFloat32("profile-id")
 			body.SetProfileId(v)
+			changed = true
 		}
 		if cmd.Flags().Changed("root-folder") {
 			v, _ := cmd.Flags().GetString("root-folder")
 			body.SetRootFolder(v)
+			changed = true
 		}
 		if cmd.Flags().Changed("language-profile-id") {
 			v, _ := cmd.Flags().GetFloat32("language-profile-id")
 			body.SetLanguageProfileId(v)
+			changed = true
 		}
 		if cmd.Flags().Changed("user-id") {
 			v, _ := cmd.Flags().GetFloat32("user-id")
 			body.SetUserId(v)
+			changed = true
+		}
+		if !changed {
+			return fmt.Errorf("at least one field must be provided")
 		}
 
 		res, r, err := apiClient.RequestAPI.RequestRequestIdPut(ctx, args[0]).RequestRequestIdPutRequest(body).Execute()
