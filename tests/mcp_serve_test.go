@@ -416,8 +416,7 @@ func TestMCPBlocklistListHandler(t *testing.T) {
 
 func TestAPIKeyContextPropagation(t *testing.T) {
 	// Verify that an API key injected into the context is forwarded to the
-	// Seerr API as the X-Api-Key header, matching how SeerrAPIKeyMiddleware
-	// injects keys for downstream tool handlers.
+	// Seerr API as the X-Api-Key header by tool handlers.
 	var receivedAPIKey string
 
 	ts, cleanup := newMCPTestServer(func(w http.ResponseWriter, r *http.Request) {
