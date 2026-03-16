@@ -67,10 +67,9 @@ Follow this pattern (see `cmd/status/system.go` as the canonical example):
 1. **Look up** the endpoint in `open-api.yaml` and the corresponding service in `pkg/api/api_*.go`.
 2. **Write a failing test** in `tests/<group>_<action>_test.go` using `httptest.NewServer()`.
 3. **Implement** the command in `cmd/<group>/<action>.go`:
-   - Build `api.NewConfiguration()`, set `configuration.Servers` to `viper.GetString("server") + "/api/v1"`.
-   - Add `X-Api-Key` header via `configuration.AddDefaultHeader`.
-   - Call the appropriate `apiClient.<ServiceAPI>.<Method>(ctx).Execute()`.
-   - Print JSON with `cmd.Println(string(jsonRes))` — never use `fmt` (breaks test output capture).
+   - Use `seerrclient.New()` (from `internal/seerrclient`) to build the API client — never call `api.NewConfiguration()` directly.
+   - Call the appropriate method on the client (e.g. `MovieGet(id, lang)`) or `sc.Unwrap().<ServiceAPI>.<Method>` for endpoints without a typed wrapper.
+   - Print output via `apiutil.PrintOutput(cmd, res, mode)` or `apiutil.HandleResponse` — never use `fmt` (breaks test output capture).
    - Respect `viper.GetBool("verbose")` for progress/URL/status output.
 4. Register via `Cmd.AddCommand(...)` in the file's `init()`.
 
@@ -89,6 +88,12 @@ Global flags (`--server`, `--api-key`, `--verbose`) are bound to Viper keys `ser
 
 - **Normal mode**: Raw pretty-printed JSON only (piping to `jq` must work).
 - **Verbose mode**: Include progress messages, target URL, HTTP status code before the JSON.
+
+### Output Conventions
+
+Every command returning structured data must accept `--output`/`-o` with values `json` (default), `yaml`, `table`. Register the flag with `apiutil.AddOutputFlag(cmd)` in `init()` and read the mode with `apiutil.GetOutputMode(cmd)`. Commands returning deeply nested objects may fall back to YAML for `table` mode. Use `apiutil.PrintOutput(cmd, res, mode)` for typed structs and `apiutil.PrintRawOutput(cmd, data, mode)` for raw JSON bytes.
+
+**Note on test isolation**: Cobra flag values persist across `Execute()` calls in the same test process. Tests that set a non-default `--output` value must reset it in `t.Cleanup` using `resetOutputFlag([]string{"cmd", "sub"})` to avoid breaking subsequent tests that omit the flag.
 
 ### Claude Usage Rules
 

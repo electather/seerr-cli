@@ -1,6 +1,7 @@
 package search
 
 import (
+	"seerr-cli/cmd/apiutil"
 	"seerr-cli/internal/seerrclient"
 
 	"github.com/spf13/cobra"
@@ -14,7 +15,10 @@ var multiCmd = &cobra.Command{
   seerr-cli search multi -q "The Matrix"
 
   # Search for "Christopher Nolan" on the second page
-  seerr-cli search multi -q "Christopher Nolan" --page 2`,
+  seerr-cli search multi -q "Christopher Nolan" --page 2
+
+  # Output as a table
+  seerr-cli search multi -q "matrix" --output table`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		query, _ := cmd.Flags().GetString("query")
 		page, _ := cmd.Flags().GetInt("page")
@@ -36,8 +40,9 @@ var multiCmd = &cobra.Command{
 		if viper.GetBool("verbose") {
 			cmd.Printf("GET /api/v1/search\n")
 		}
-		cmd.Println(string(b))
-		return nil
+
+		mode := apiutil.GetOutputMode(cmd)
+		return apiutil.PrintRawOutput(cmd, b, mode)
 	},
 }
 
@@ -46,5 +51,6 @@ func init() {
 	multiCmd.MarkFlagRequired("query")
 	multiCmd.Flags().Int("page", 1, "Page number")
 	multiCmd.Flags().String("language", "en", "Language code")
+	apiutil.AddOutputFlag(multiCmd)
 	Cmd.AddCommand(multiCmd)
 }
