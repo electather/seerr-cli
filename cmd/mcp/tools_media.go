@@ -58,9 +58,9 @@ func MediaListHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		r := client.MediaAPI.MediaGet(callCtx)
-		take := req.GetFloat("take", 20)
+		take := req.GetInt("take", 20)
 		r = r.Take(float32(take))
-		if skip := req.GetFloat("skip", 0); skip > 0 {
+		if skip := req.GetInt("skip", 0); skip > 0 {
 			r = r.Skip(float32(skip))
 		}
 		if filter := req.GetString("filter", ""); filter != "" {

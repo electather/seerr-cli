@@ -15,7 +15,7 @@ var createCmd = &cobra.Command{
 	Short: "Create a new issue",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		issueType, err := strconv.ParseFloat(args[0], 32)
+		issueType, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid issue type: %s", args[0])
 		}
@@ -26,8 +26,8 @@ var createCmd = &cobra.Command{
 			body.SetMessage(v)
 		}
 		if cmd.Flags().Changed("media-id") {
-			v, _ := cmd.Flags().GetFloat32("media-id")
-			body.SetMediaId(v)
+			v, _ := cmd.Flags().GetInt("media-id")
+			body.SetMediaId(float32(v))
 		}
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 		res, r, apiErr := apiClient.IssueAPI.IssuePost(ctx).IssuePostRequest(*body).Execute()
@@ -37,6 +37,6 @@ var createCmd = &cobra.Command{
 
 func init() {
 	createCmd.Flags().String("message", "", "Issue message")
-	createCmd.Flags().Float32("media-id", 0, "Media ID associated with the issue")
+	createCmd.Flags().Int("media-id", 0, "Media ID associated with the issue")
 	Cmd.AddCommand(createCmd)
 }

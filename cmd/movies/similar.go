@@ -17,17 +17,17 @@ var similarCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		movieId, err := strconv.ParseFloat(args[0], 32)
+		movieId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return err
 		}
 
-		page, _ := cmd.Flags().GetFloat32("page")
+		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 
 		req := apiClient.MoviesAPI.MovieMovieIdSimilarGet(ctx, float32(movieId))
 		if cmd.Flags().Changed("page") {
-			req = req.Page(page)
+			req = req.Page(float32(page))
 		}
 		if cmd.Flags().Changed("language") {
 			req = req.Language(language)
@@ -39,7 +39,7 @@ var similarCmd = &cobra.Command{
 }
 
 func init() {
-	similarCmd.Flags().Float32("page", 1, "Page number")
+	similarCmd.Flags().Int("page", 1, "Page number")
 	similarCmd.Flags().String("language", "en", "Language code")
 	Cmd.AddCommand(similarCmd)
 }

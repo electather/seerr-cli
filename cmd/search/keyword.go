@@ -15,11 +15,11 @@ var keywordCmd = &cobra.Command{
 		apiClient, ctx, isVerbose := newAPIClient()
 
 		query, _ := cmd.Flags().GetString("query")
-		page, _ := cmd.Flags().GetFloat32("page")
+		page, _ := cmd.Flags().GetInt("page")
 
 		req := apiClient.SearchAPI.SearchKeywordGet(ctx).Query(query)
 		if cmd.Flags().Changed("page") {
-			req = req.Page(page)
+			req = req.Page(float32(page))
 		}
 
 		res, r, err := req.Execute()
@@ -30,6 +30,6 @@ var keywordCmd = &cobra.Command{
 func init() {
 	keywordCmd.Flags().StringP("query", "q", "", "Search query")
 	keywordCmd.MarkFlagRequired("query")
-	keywordCmd.Flags().Float32("page", 1, "Page number")
+	keywordCmd.Flags().Int("page", 1, "Page number")
 	Cmd.AddCommand(keywordCmd)
 }

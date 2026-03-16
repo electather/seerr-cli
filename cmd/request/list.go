@@ -14,12 +14,12 @@ var listCmd = &cobra.Command{
 		req := apiClient.RequestAPI.RequestGet(ctx)
 
 		if cmd.Flags().Changed("take") {
-			v, _ := cmd.Flags().GetFloat32("take")
-			req = req.Take(v)
+			v, _ := cmd.Flags().GetInt("take")
+			req = req.Take(float32(v))
 		}
 		if cmd.Flags().Changed("skip") {
-			v, _ := cmd.Flags().GetFloat32("skip")
-			req = req.Skip(v)
+			v, _ := cmd.Flags().GetInt("skip")
+			req = req.Skip(float32(v))
 		}
 		if cmd.Flags().Changed("filter") {
 			v, _ := cmd.Flags().GetString("filter")
@@ -34,8 +34,8 @@ var listCmd = &cobra.Command{
 			req = req.SortDirection(v)
 		}
 		if cmd.Flags().Changed("requested-by") {
-			v, _ := cmd.Flags().GetFloat32("requested-by")
-			req = req.RequestedBy(v)
+			v, _ := cmd.Flags().GetInt("requested-by")
+			req = req.RequestedBy(float32(v))
 		}
 		if cmd.Flags().Changed("media-type") {
 			v, _ := cmd.Flags().GetString("media-type")
@@ -48,12 +48,12 @@ var listCmd = &cobra.Command{
 }
 
 func init() {
-	listCmd.Flags().Float32("take", 0, "Number of results to return")
-	listCmd.Flags().Float32("skip", 0, "Number of results to skip")
+	listCmd.Flags().Int("take", 0, "Number of results to return")
+	listCmd.Flags().Int("skip", 0, "Number of results to skip")
 	listCmd.Flags().String("filter", "", "Filter by status (all, approved, available, pending, processing, unavailable, failed, deleted, completed)")
 	listCmd.Flags().String("sort", "added", "Sort field (added, modified)")
 	listCmd.Flags().String("sort-direction", "desc", "Sort direction (asc, desc)")
-	listCmd.Flags().Float32("requested-by", 0, "Filter by requesting user ID")
+	listCmd.Flags().Int("requested-by", 0, "Filter by requesting user ID")
 	listCmd.Flags().String("media-type", "all", "Filter by media type (movie, tv, all)")
 	Cmd.AddCommand(listCmd)
 }

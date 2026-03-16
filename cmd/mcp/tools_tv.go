@@ -70,7 +70,7 @@ func registerTVTools(s *server.MCPServer) {
 
 func TVGetHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		tvId, err := req.RequireFloat("tvId")
+		tvId, err := req.RequireInt("tvId")
 		if err != nil {
 			return nil, err
 		}
@@ -89,11 +89,11 @@ func TVGetHandler() server.ToolHandlerFunc {
 
 func TVSeasonHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		tvId, err := req.RequireFloat("tvId")
+		tvId, err := req.RequireInt("tvId")
 		if err != nil {
 			return nil, err
 		}
-		seasonNumber, err := req.RequireFloat("seasonNumber")
+		seasonNumber, err := req.RequireInt("seasonNumber")
 		if err != nil {
 			return nil, err
 		}
@@ -112,13 +112,13 @@ func TVSeasonHandler() server.ToolHandlerFunc {
 
 func TVRecommendationsHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		tvId, err := req.RequireFloat("tvId")
+		tvId, err := req.RequireInt("tvId")
 		if err != nil {
 			return nil, err
 		}
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		r := client.TvAPI.TvTvIdRecommendationsGet(callCtx, float32(tvId))
-		if page := req.GetFloat("page", 0); page > 0 {
+		if page := req.GetInt("page", 0); page > 0 {
 			r = r.Page(float32(page))
 		}
 		res, _, err := r.Execute()
@@ -135,13 +135,13 @@ func TVRecommendationsHandler() server.ToolHandlerFunc {
 
 func TVSimilarHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		tvId, err := req.RequireFloat("tvId")
+		tvId, err := req.RequireInt("tvId")
 		if err != nil {
 			return nil, err
 		}
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		r := client.TvAPI.TvTvIdSimilarGet(callCtx, float32(tvId))
-		if page := req.GetFloat("page", 0); page > 0 {
+		if page := req.GetInt("page", 0); page > 0 {
 			r = r.Page(float32(page))
 		}
 		res, _, err := r.Execute()
@@ -158,7 +158,7 @@ func TVSimilarHandler() server.ToolHandlerFunc {
 
 func TVRatingsHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		tvId, err := req.RequireFloat("tvId")
+		tvId, err := req.RequireInt("tvId")
 		if err != nil {
 			return nil, err
 		}

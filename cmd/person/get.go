@@ -20,7 +20,7 @@ var getCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		personId, err := strconv.ParseFloat(args[0], 32)
+		personId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return err
 		}

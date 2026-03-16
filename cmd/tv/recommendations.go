@@ -20,15 +20,15 @@ var recommendationsCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		tvId, err := strconv.ParseFloat(args[0], 32)
+		tvId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return err
 		}
 
 		req := apiClient.TvAPI.TvTvIdRecommendationsGet(ctx, float32(tvId))
 		if cmd.Flags().Changed("page") {
-			page, _ := cmd.Flags().GetFloat32("page")
-			req = req.Page(page)
+			page, _ := cmd.Flags().GetInt("page")
+			req = req.Page(float32(page))
 		}
 		if cmd.Flags().Changed("language") {
 			language, _ := cmd.Flags().GetString("language")
@@ -41,7 +41,7 @@ var recommendationsCmd = &cobra.Command{
 }
 
 func init() {
-	recommendationsCmd.Flags().Float32("page", 1, "Page number")
+	recommendationsCmd.Flags().Int("page", 1, "Page number")
 	recommendationsCmd.Flags().String("language", "en", "Language code")
 	Cmd.AddCommand(recommendationsCmd)
 }

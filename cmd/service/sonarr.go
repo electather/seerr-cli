@@ -25,7 +25,7 @@ var sonarrGetCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		id, err := strconv.ParseFloat(args[0], 32)
+		id, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return err
 		}
@@ -42,7 +42,7 @@ var sonarrLookupCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		id, err := strconv.ParseFloat(args[0], 32)
+		id, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return err
 		}

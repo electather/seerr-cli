@@ -16,8 +16,8 @@ var addCmd = &cobra.Command{
 
 		body := api.NewWatchlist()
 		if cmd.Flags().Changed("tmdb-id") {
-			v, _ := cmd.Flags().GetFloat32("tmdb-id")
-			body.SetTmdbId(v)
+			v, _ := cmd.Flags().GetInt("tmdb-id")
+			body.SetTmdbId(float32(v))
 		}
 		if cmd.Flags().Changed("media-type") {
 			v, _ := cmd.Flags().GetString("media-type")
@@ -38,7 +38,7 @@ var addCmd = &cobra.Command{
 }
 
 func init() {
-	addCmd.Flags().Float32("tmdb-id", 0, "TMDB ID of the media (required)")
+	addCmd.Flags().Int("tmdb-id", 0, "TMDB ID of the media (required)")
 	addCmd.MarkFlagRequired("tmdb-id")
 	addCmd.Flags().String("media-type", "", "Media type: movie or tv (required)")
 	addCmd.MarkFlagRequired("media-type")

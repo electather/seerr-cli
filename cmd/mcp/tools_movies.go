@@ -58,7 +58,7 @@ func registerMoviesTools(s *server.MCPServer) {
 
 func MoviesGetHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		movieId, err := req.RequireFloat("movieId")
+		movieId, err := req.RequireInt("movieId")
 		if err != nil {
 			return nil, err
 		}
@@ -77,13 +77,13 @@ func MoviesGetHandler() server.ToolHandlerFunc {
 
 func MoviesRecommendationsHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		movieId, err := req.RequireFloat("movieId")
+		movieId, err := req.RequireInt("movieId")
 		if err != nil {
 			return nil, err
 		}
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		r := client.MoviesAPI.MovieMovieIdRecommendationsGet(callCtx, float32(movieId))
-		if page := req.GetFloat("page", 0); page > 0 {
+		if page := req.GetInt("page", 0); page > 0 {
 			r = r.Page(float32(page))
 		}
 		res, _, err := r.Execute()
@@ -100,13 +100,13 @@ func MoviesRecommendationsHandler() server.ToolHandlerFunc {
 
 func MoviesSimilarHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		movieId, err := req.RequireFloat("movieId")
+		movieId, err := req.RequireInt("movieId")
 		if err != nil {
 			return nil, err
 		}
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		r := client.MoviesAPI.MovieMovieIdSimilarGet(callCtx, float32(movieId))
-		if page := req.GetFloat("page", 0); page > 0 {
+		if page := req.GetInt("page", 0); page > 0 {
 			r = r.Page(float32(page))
 		}
 		res, _, err := r.Execute()
@@ -123,7 +123,7 @@ func MoviesSimilarHandler() server.ToolHandlerFunc {
 
 func MoviesRatingsHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		movieId, err := req.RequireFloat("movieId")
+		movieId, err := req.RequireInt("movieId")
 		if err != nil {
 			return nil, err
 		}

@@ -16,8 +16,8 @@ var addCmd = &cobra.Command{
 
 		body := api.NewBlocklist()
 		if cmd.Flags().Changed("tmdb-id") {
-			v, _ := cmd.Flags().GetFloat32("tmdb-id")
-			body.SetTmdbId(v)
+			v, _ := cmd.Flags().GetInt("tmdb-id")
+			body.SetTmdbId(float32(v))
 		}
 
 		r, err := apiClient.BlocklistAPI.BlocklistPost(ctx).Blocklist(*body).Execute()
@@ -26,7 +26,7 @@ var addCmd = &cobra.Command{
 }
 
 func init() {
-	addCmd.Flags().Float32("tmdb-id", 0, "TMDB ID of the media to blocklist (required)")
+	addCmd.Flags().Int("tmdb-id", 0, "TMDB ID of the media to blocklist (required)")
 	addCmd.MarkFlagRequired("tmdb-id")
 	Cmd.AddCommand(addCmd)
 }

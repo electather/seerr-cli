@@ -23,7 +23,7 @@ func registerCollectionTools(s *server.MCPServer) {
 
 func CollectionGetHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		collectionId, err := req.RequireFloat("collectionId")
+		collectionId, err := req.RequireInt("collectionId")
 		if err != nil {
 			return nil, err
 		}

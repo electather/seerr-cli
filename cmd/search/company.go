@@ -15,11 +15,11 @@ var companyCmd = &cobra.Command{
 		apiClient, ctx, isVerbose := newAPIClient()
 
 		query, _ := cmd.Flags().GetString("query")
-		page, _ := cmd.Flags().GetFloat32("page")
+		page, _ := cmd.Flags().GetInt("page")
 
 		req := apiClient.SearchAPI.SearchCompanyGet(ctx).Query(query)
 		if cmd.Flags().Changed("page") {
-			req = req.Page(page)
+			req = req.Page(float32(page))
 		}
 
 		res, r, err := req.Execute()
@@ -30,6 +30,6 @@ var companyCmd = &cobra.Command{
 func init() {
 	companyCmd.Flags().StringP("query", "q", "", "Search query")
 	companyCmd.MarkFlagRequired("query")
-	companyCmd.Flags().Float32("page", 1, "Page number")
+	companyCmd.Flags().Int("page", 1, "Page number")
 	Cmd.AddCommand(companyCmd)
 }

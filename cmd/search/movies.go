@@ -20,10 +20,10 @@ var moviesCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 
-		page, _ := cmd.Flags().GetFloat32("page")
+		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 		genre, _ := cmd.Flags().GetString("genre")
-		studio, _ := cmd.Flags().GetFloat32("studio")
+		studio, _ := cmd.Flags().GetInt("studio")
 		keywords, _ := cmd.Flags().GetString("keywords")
 		excludeKeywords, _ := cmd.Flags().GetString("exclude-keywords")
 		sortBy, _ := cmd.Flags().GetString("sort-by")
@@ -32,7 +32,7 @@ var moviesCmd = &cobra.Command{
 
 		req := apiClient.SearchAPI.DiscoverMoviesGet(ctx)
 		if cmd.Flags().Changed("page") {
-			req = req.Page(page)
+			req = req.Page(float32(page))
 		}
 		if cmd.Flags().Changed("language") {
 			req = req.Language(language)
@@ -41,7 +41,7 @@ var moviesCmd = &cobra.Command{
 			req = req.Genre(genre)
 		}
 		if cmd.Flags().Changed("studio") {
-			req = req.Studio(studio)
+			req = req.Studio(float32(studio))
 		}
 		if cmd.Flags().Changed("keywords") {
 			req = req.Keywords(keywords)
@@ -65,10 +65,10 @@ var moviesCmd = &cobra.Command{
 }
 
 func init() {
-	moviesCmd.Flags().Float32("page", 1, "Page number")
+	moviesCmd.Flags().Int("page", 1, "Page number")
 	moviesCmd.Flags().String("language", "en", "Language code")
 	moviesCmd.Flags().String("genre", "", "Genre ID")
-	moviesCmd.Flags().Float32("studio", 0, "Studio ID")
+	moviesCmd.Flags().Int("studio", 0, "Studio ID")
 	moviesCmd.Flags().String("keywords", "", "Keyword IDs")
 	moviesCmd.Flags().String("exclude-keywords", "", "Keyword IDs to exclude")
 	moviesCmd.Flags().String("sort-by", "popularity.desc", "Sort by field")

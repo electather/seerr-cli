@@ -17,20 +17,20 @@ var requestsCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		userId, err := strconv.ParseFloat(args[0], 32)
+		userId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid userId: %w", err)
 		}
 
-		take, _ := cmd.Flags().GetFloat32("take")
-		skip, _ := cmd.Flags().GetFloat32("skip")
+		take, _ := cmd.Flags().GetInt("take")
+		skip, _ := cmd.Flags().GetInt("skip")
 
 		req := apiClient.UsersAPI.UserUserIdRequestsGet(ctx, float32(userId))
 		if cmd.Flags().Changed("take") {
-			req = req.Take(take)
+			req = req.Take(float32(take))
 		}
 		if cmd.Flags().Changed("skip") {
-			req = req.Skip(skip)
+			req = req.Skip(float32(skip))
 		}
 
 		res, r, err := req.Execute()
@@ -57,7 +57,7 @@ var requestsCmd = &cobra.Command{
 }
 
 func init() {
-	requestsCmd.Flags().Float32("take", 0, "Number of items to take")
-	requestsCmd.Flags().Float32("skip", 0, "Number of items to skip")
+	requestsCmd.Flags().Int("take", 0, "Number of items to take")
+	requestsCmd.Flags().Int("skip", 0, "Number of items to skip")
 	Cmd.AddCommand(requestsCmd)
 }

@@ -21,13 +21,13 @@ var multiCmd = &cobra.Command{
 		apiClient, ctx, isVerbose := newAPIClient()
 
 		query, _ := cmd.Flags().GetString("query")
-		page, _ := cmd.Flags().GetFloat32("page")
+		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 
 		params := url.Values{}
 		params.Set("query", query)
 		if cmd.Flags().Changed("page") {
-			params.Set("page", strconv.Itoa(int(page)))
+			params.Set("page", strconv.Itoa(page))
 		}
 		if cmd.Flags().Changed("language") {
 			params.Set("language", language)
@@ -52,7 +52,7 @@ var multiCmd = &cobra.Command{
 func init() {
 	multiCmd.Flags().StringP("query", "q", "", "Search query")
 	multiCmd.MarkFlagRequired("query")
-	multiCmd.Flags().Float32("page", 1, "Page number")
+	multiCmd.Flags().Int("page", 1, "Page number")
 	multiCmd.Flags().String("language", "en", "Language code")
 	Cmd.AddCommand(multiCmd)
 }

@@ -13,7 +13,7 @@ import (
 const tmdbImageBase = "https://image.tmdb.org/t/p/w500"
 
 // GenreMap maps a TMDB genre ID to its human-readable name.
-type GenreMap map[float32]string
+type GenreMap map[int]string
 
 // FetchMovieGenres fetches the TMDB movie genre list and returns a lookup map.
 // Returns nil on error; genre enrichment is best-effort.
@@ -25,7 +25,7 @@ func FetchMovieGenres(ctx context.Context, client *api.APIClient) GenreMap {
 	m := make(GenreMap, len(genres))
 	for _, g := range genres {
 		if g.Id != nil && g.Name != nil {
-			m[*g.Id] = *g.Name
+			m[int(*g.Id)] = *g.Name
 		}
 	}
 	return m
@@ -41,7 +41,7 @@ func FetchTVGenres(ctx context.Context, client *api.APIClient) GenreMap {
 	m := make(GenreMap, len(genres))
 	for _, g := range genres {
 		if g.Id != nil && g.Name != nil {
-			m[*g.Id] = *g.Name
+			m[int(*g.Id)] = *g.Name
 		}
 	}
 	return m
@@ -87,7 +87,7 @@ func EnrichMediaMap(m map[string]interface{}, genres GenreMap) {
 			names := make([]string, 0, len(ids))
 			for _, v := range ids {
 				if id, ok := v.(float64); ok {
-					if name := genres[float32(id)]; name != "" {
+					if name := genres[int(id)]; name != "" {
 						names = append(names, name)
 					}
 				}

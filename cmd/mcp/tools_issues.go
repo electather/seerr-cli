@@ -74,10 +74,10 @@ func IssueListHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		r := client.IssueAPI.IssueGet(callCtx)
-		if take := req.GetFloat("take", 0); take > 0 {
+		if take := req.GetInt("take", 0); take > 0 {
 			r = r.Take(float32(take))
 		}
-		if skip := req.GetFloat("skip", 0); skip > 0 {
+		if skip := req.GetInt("skip", 0); skip > 0 {
 			r = r.Skip(float32(skip))
 		}
 		res, _, err := r.Execute()
@@ -94,7 +94,7 @@ func IssueListHandler() server.ToolHandlerFunc {
 
 func IssueGetHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		issueId, err := req.RequireFloat("issueId")
+		issueId, err := req.RequireInt("issueId")
 		if err != nil {
 			return nil, err
 		}
@@ -113,7 +113,7 @@ func IssueGetHandler() server.ToolHandlerFunc {
 
 func IssueCreateHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		issueType, err := req.RequireFloat("issueType")
+		issueType, err := req.RequireInt("issueType")
 		if err != nil {
 			return nil, err
 		}
@@ -121,16 +121,16 @@ func IssueCreateHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
-		mediaId, err := req.RequireFloat("mediaId")
+		mediaId, err := req.RequireInt("mediaId")
 		if err != nil {
 			return nil, err
 		}
-		issueTypeFloat := float32(issueType)
-		mediaIdFloat := float32(mediaId)
+		issueTypeF := float32(issueType)
+		mediaIdF := float32(mediaId)
 		body := api.IssuePostRequest{
-			IssueType: &issueTypeFloat,
+			IssueType: &issueTypeF,
 			Message:   &message,
-			MediaId:   &mediaIdFloat,
+			MediaId:   &mediaIdF,
 		}
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		res, _, err := client.IssueAPI.IssuePost(callCtx).IssuePostRequest(body).Execute()

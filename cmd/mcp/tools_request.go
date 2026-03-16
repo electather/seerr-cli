@@ -105,10 +105,10 @@ func RequestListHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		r := client.RequestAPI.RequestGet(callCtx)
-		if take := req.GetFloat("take", 0); take > 0 {
+		if take := req.GetInt("take", 0); take > 0 {
 			r = r.Take(float32(take))
 		}
-		if skip := req.GetFloat("skip", 0); skip > 0 {
+		if skip := req.GetInt("skip", 0); skip > 0 {
 			r = r.Skip(float32(skip))
 		}
 		if filter := req.GetString("filter", ""); filter != "" {
@@ -154,7 +154,7 @@ func RequestCreateHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
-		mediaId, err := req.RequireFloat("mediaId")
+		mediaId, err := req.RequireInt("mediaId")
 		if err != nil {
 			return nil, err
 		}

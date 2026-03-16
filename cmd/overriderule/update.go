@@ -14,7 +14,7 @@ var updateCmd = &cobra.Command{
 	Short: "Update an override rule",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		id, err := strconv.ParseFloat(args[0], 32)
+		id, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return fmt.Errorf("invalid rule ID: %s", args[0])
 		}

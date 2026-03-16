@@ -51,10 +51,10 @@ func BlocklistListHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
 		r := client.BlocklistAPI.BlocklistGet(callCtx)
-		if take := req.GetFloat("take", 0); take > 0 {
+		if take := req.GetInt("take", 0); take > 0 {
 			r = r.Take(float32(take))
 		}
-		if skip := req.GetFloat("skip", 0); skip > 0 {
+		if skip := req.GetInt("skip", 0); skip > 0 {
 			r = r.Skip(float32(skip))
 		}
 		res, _, err := r.Execute()
@@ -71,13 +71,13 @@ func BlocklistListHandler() server.ToolHandlerFunc {
 
 func BlocklistAddHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		tmdbId, err := req.RequireFloat("tmdbId")
+		tmdbId, err := req.RequireInt("tmdbId")
 		if err != nil {
 			return nil, err
 		}
-		tmdbIdFloat := float32(tmdbId)
+		tmdbIdF := float32(tmdbId)
 		body := api.Blocklist{
-			TmdbId: &tmdbIdFloat,
+			TmdbId: &tmdbIdF,
 		}
 		if title := req.GetString("title", ""); title != "" {
 			body.Title = &title

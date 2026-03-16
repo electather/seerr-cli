@@ -32,7 +32,7 @@ func registerWatchlistTools(s *server.MCPServer) {
 
 func WatchlistAddHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		tmdbId, err := req.RequireFloat("tmdbId")
+		tmdbId, err := req.RequireInt("tmdbId")
 		if err != nil {
 			return nil, err
 		}
@@ -44,9 +44,9 @@ func WatchlistAddHandler() server.ToolHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
-		tmdbIdFloat := float32(tmdbId)
+		tmdbIdF := float32(tmdbId)
 		body := api.Watchlist{
-			TmdbId: &tmdbIdFloat,
+			TmdbId: &tmdbIdF,
 			Title:  &title,
 			Type:   &mediaType,
 		}

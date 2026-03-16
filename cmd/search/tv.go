@@ -17,10 +17,10 @@ var tvCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := newAPIClient()
 
-		page, _ := cmd.Flags().GetFloat32("page")
+		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 		genre, _ := cmd.Flags().GetString("genre")
-		network, _ := cmd.Flags().GetFloat32("network")
+		network, _ := cmd.Flags().GetInt("network")
 		keywords, _ := cmd.Flags().GetString("keywords")
 		excludeKeywords, _ := cmd.Flags().GetString("exclude-keywords")
 		sortBy, _ := cmd.Flags().GetString("sort-by")
@@ -29,7 +29,7 @@ var tvCmd = &cobra.Command{
 
 		req := apiClient.SearchAPI.DiscoverTvGet(ctx)
 		if cmd.Flags().Changed("page") {
-			req = req.Page(page)
+			req = req.Page(float32(page))
 		}
 		if cmd.Flags().Changed("language") {
 			req = req.Language(language)
@@ -38,7 +38,7 @@ var tvCmd = &cobra.Command{
 			req = req.Genre(genre)
 		}
 		if cmd.Flags().Changed("network") {
-			req = req.Network(network)
+			req = req.Network(float32(network))
 		}
 		if cmd.Flags().Changed("keywords") {
 			req = req.Keywords(keywords)
@@ -62,10 +62,10 @@ var tvCmd = &cobra.Command{
 }
 
 func init() {
-	tvCmd.Flags().Float32("page", 1, "Page number")
+	tvCmd.Flags().Int("page", 1, "Page number")
 	tvCmd.Flags().String("language", "en", "Language code")
 	tvCmd.Flags().String("genre", "", "Genre ID")
-	tvCmd.Flags().Float32("network", 0, "Network ID")
+	tvCmd.Flags().Int("network", 0, "Network ID")
 	tvCmd.Flags().String("keywords", "", "Keyword IDs")
 	tvCmd.Flags().String("exclude-keywords", "", "Keyword IDs to exclude")
 	tvCmd.Flags().String("sort-by", "popularity.desc", "Sort by field")

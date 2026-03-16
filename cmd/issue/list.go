@@ -13,12 +13,12 @@ var listCmd = &cobra.Command{
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 		req := apiClient.IssueAPI.IssueGet(ctx)
 		if cmd.Flags().Changed("take") {
-			v, _ := cmd.Flags().GetFloat32("take")
-			req = req.Take(v)
+			v, _ := cmd.Flags().GetInt("take")
+			req = req.Take(float32(v))
 		}
 		if cmd.Flags().Changed("skip") {
-			v, _ := cmd.Flags().GetFloat32("skip")
-			req = req.Skip(v)
+			v, _ := cmd.Flags().GetInt("skip")
+			req = req.Skip(float32(v))
 		}
 		if cmd.Flags().Changed("sort") {
 			v, _ := cmd.Flags().GetString("sort")
@@ -29,8 +29,8 @@ var listCmd = &cobra.Command{
 			req = req.Filter(v)
 		}
 		if cmd.Flags().Changed("requested-by") {
-			v, _ := cmd.Flags().GetFloat32("requested-by")
-			req = req.RequestedBy(v)
+			v, _ := cmd.Flags().GetInt("requested-by")
+			req = req.RequestedBy(float32(v))
 		}
 		res, r, err := req.Execute()
 		return apiutil.HandleResponse(cmd, r, err, res, isVerbose, "IssueGet")
@@ -38,10 +38,10 @@ var listCmd = &cobra.Command{
 }
 
 func init() {
-	listCmd.Flags().Float32("take", 20, "Number of issues to return")
-	listCmd.Flags().Float32("skip", 0, "Number of issues to skip")
+	listCmd.Flags().Int("take", 20, "Number of issues to return")
+	listCmd.Flags().Int("skip", 0, "Number of issues to skip")
 	listCmd.Flags().String("sort", "added", "Sort by: added, modified")
 	listCmd.Flags().String("filter", "open", "Filter by status: all, open, resolved")
-	listCmd.Flags().Float32("requested-by", 0, "Filter by user ID")
+	listCmd.Flags().Int("requested-by", 0, "Filter by user ID")
 	Cmd.AddCommand(listCmd)
 }

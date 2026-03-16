@@ -34,7 +34,7 @@ func registerPersonTools(s *server.MCPServer) {
 
 func PersonGetHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		personId, err := req.RequireFloat("personId")
+		personId, err := req.RequireInt("personId")
 		if err != nil {
 			return nil, err
 		}
@@ -53,7 +53,7 @@ func PersonGetHandler() server.ToolHandlerFunc {
 
 func PersonCreditsHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		personId, err := req.RequireFloat("personId")
+		personId, err := req.RequireInt("personId")
 		if err != nil {
 			return nil, err
 		}

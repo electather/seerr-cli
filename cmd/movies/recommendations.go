@@ -20,17 +20,17 @@ var recommendationsCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
 
-		movieId, err := strconv.ParseFloat(args[0], 32)
+		movieId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return err
 		}
 
-		page, _ := cmd.Flags().GetFloat32("page")
+		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 
 		req := apiClient.MoviesAPI.MovieMovieIdRecommendationsGet(ctx, float32(movieId))
 		if cmd.Flags().Changed("page") {
-			req = req.Page(page)
+			req = req.Page(float32(page))
 		}
 		if cmd.Flags().Changed("language") {
 			req = req.Language(language)
@@ -42,7 +42,7 @@ var recommendationsCmd = &cobra.Command{
 }
 
 func init() {
-	recommendationsCmd.Flags().Float32("page", 1, "Page number")
+	recommendationsCmd.Flags().Int("page", 1, "Page number")
 	recommendationsCmd.Flags().String("language", "en", "Language code")
 	Cmd.AddCommand(recommendationsCmd)
 }
