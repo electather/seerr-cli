@@ -73,7 +73,7 @@ var ServeFlags = []FlagDef{
 		ViperKey: "mcp.allow_api_key_query_param",
 		Default:  "false",
 		IsBool:   true,
-		Usage:    "Accept the Seerr API key via the api_key query parameter in addition to the X-Api-Key header (HTTP transport only)",
+		Usage:    "Accept the MCP auth token via the api_key query parameter in addition to headers (HTTP transport only)",
 	},
 	{
 		Name:     "log-file",

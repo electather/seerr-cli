@@ -159,11 +159,9 @@ func runServe(_ *cobra.Command, args []string) error {
 
 		httpHandler := server.NewStreamableHTTPServer(s)
 		handler := http.Handler(httpHandler)
-		// Per-request Seerr API key injection (header or optional query param).
-		handler = SeerrAPIKeyMiddleware(allowAPIKeyQueryParam, handler)
 		handler = httpLoggingMiddleware(handler)
 		if authToken != "" {
-			handler = bearerAuthMiddleware(authToken, handler)
+			handler = MCPAuthMiddleware(authToken, allowAPIKeyQueryParam, handler)
 		}
 		// The health endpoint must be reachable without auth, so register it in
 		// a top-level mux that sits above the bearer-auth middleware.
@@ -243,50 +241,31 @@ func corsMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-func bearerAuthMiddleware(token string, next http.Handler) http.Handler {
+// MCPAuthMiddleware authenticates incoming MCP HTTP requests against token.
+//
+// Accepted credential locations (in precedence order):
+//  1. Authorization: Bearer <token>
+//  2. X-Api-Key: <token>
+//  3. ?api_key=<token> query parameter — only when allowQueryParam is true.
+//
+// Requests that do not supply a matching credential are rejected with 401.
+// The Seerr API key used for outbound Seerr calls is always read from the
+// application config (seerr.api_key) and is never sourced from this middleware.
+func MCPAuthMiddleware(token string, allowQueryParam bool, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		authHeader := r.Header.Get("Authorization")
-		const prefix = "Bearer "
-		if !strings.HasPrefix(authHeader, prefix) {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
+		var provided string
+		if v := strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer "); v != r.Header.Get("Authorization") {
+			provided = v
+		} else if v := r.Header.Get("X-Api-Key"); v != "" {
+			provided = v
+		} else if allowQueryParam {
+			provided = r.URL.Query().Get("api_key")
 		}
-		provided := strings.TrimPrefix(authHeader, prefix)
+
 		if subtle.ConstantTimeCompare([]byte(provided), []byte(token)) != 1 {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
 		}
-		next.ServeHTTP(w, r)
-	})
-}
-
-// SeerrAPIKeyMiddleware extracts the Seerr API key from the incoming request
-// and injects it into the request context for use by MCP tool handlers.
-//
-// The key is read from the X-Api-Key request header first. When
-// allowQueryParam is true the middleware also accepts the key via the
-// api_key query parameter; the header takes precedence when both are present.
-//
-// If neither location provides a key the middleware responds with 401.
-func SeerrAPIKeyMiddleware(allowQueryParam bool, next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var apiKey string
-		if v := r.Header.Get("X-Api-Key"); v != "" {
-			apiKey = v
-		} else if allowQueryParam {
-			if v := r.URL.Query().Get("api_key"); v != "" {
-				apiKey = v
-			}
-		}
-
-		if apiKey != "" {
-			ctx := context.WithValue(r.Context(), apiKeyCtxKey, apiKey)
-			r = r.Clone(ctx)
-		} else {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
-		}
-
 		next.ServeHTTP(w, r)
 	})
 }
