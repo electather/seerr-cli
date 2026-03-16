@@ -91,9 +91,15 @@ func TestConfigCommands(t *testing.T) {
 		if !strings.Contains(out, "http://test-server:5055") {
 			t.Errorf("expected output to contain server URL, got: %s", out)
 		}
-		// Check for masked API key
-		if !strings.Contains(out, "test****2345") {
+		// Only the last 4 characters should be visible; the prefix is masked.
+		if !strings.Contains(out, "********2345") {
 			t.Errorf("expected output to contain masked API key, got: %s", out)
+		}
+		// The API Key line must not contain the plain-text prefix of the key.
+		for _, line := range strings.Split(out, "\n") {
+			if strings.HasPrefix(line, "API Key:") && strings.Contains(line, "test-api") {
+				t.Errorf("expected API key prefix to be masked in line: %s", line)
+			}
 		}
 	})
 

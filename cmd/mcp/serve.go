@@ -5,7 +5,11 @@ import (
 	"crypto/subtle"
 	"fmt"
 	"net/http"
+	"os"
+	"os/signal"
 	"strings"
+	"syscall"
+	"time"
 
 	"seerr-cli/cmd/apiutil"
 
@@ -13,6 +17,28 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
+
+// Default timeout values for the MCP HTTP server.
+const (
+	httpReadHeaderTimeout = 5 * time.Second
+	httpReadTimeout       = 15 * time.Second
+	httpWriteTimeout      = 30 * time.Second
+	httpIdleTimeout       = 60 * time.Second
+	httpShutdownTimeout   = 30 * time.Second
+)
+
+// NewHTTPServer creates an http.Server bound to addr with safe default timeouts.
+// It is exported so tests can assert that the server is properly configured.
+func NewHTTPServer(addr string, handler http.Handler) *http.Server {
+	return &http.Server{
+		Addr:              addr,
+		Handler:           handler,
+		ReadHeaderTimeout: httpReadHeaderTimeout,
+		ReadTimeout:       httpReadTimeout,
+		WriteTimeout:      httpWriteTimeout,
+		IdleTimeout:       httpIdleTimeout,
+	}
+}
 
 var buildVersion = "dev"
 
@@ -178,14 +204,36 @@ func runServe(_ *cobra.Command, args []string) error {
 		if cors {
 			handler = corsMiddleware(handler)
 		}
-		srv := &http.Server{
-			Addr:    addr,
-			Handler: handler,
-		}
+		srv := NewHTTPServer(addr, handler)
+
+		// Catch SIGINT and SIGTERM so the server shuts down gracefully.
+		sigCh := make(chan os.Signal, 1)
+		signal.Notify(sigCh, os.Interrupt, syscall.SIGTERM)
+
+		serveErrCh := make(chan error, 1)
 		if tlsCert != "" && tlsKey != "" {
-			return srv.ListenAndServeTLS(tlsCert, tlsKey)
+			go func() { serveErrCh <- srv.ListenAndServeTLS(tlsCert, tlsKey) }()
+		} else {
+			go func() { serveErrCh <- srv.ListenAndServe() }()
 		}
-		return srv.ListenAndServe()
+
+		select {
+		case err := <-serveErrCh:
+			// Server exited on its own (e.g. port already in use).
+			if err != nil && err != http.ErrServerClosed {
+				return err
+			}
+			return nil
+		case <-sigCh:
+			mcpLog.Info("shutting down MCP HTTP server")
+		}
+
+		shutdownCtx, cancel := context.WithTimeout(context.Background(), httpShutdownTimeout)
+		defer cancel()
+		if err := srv.Shutdown(shutdownCtx); err != nil {
+			return fmt.Errorf("graceful shutdown: %w", err)
+		}
+		return nil
 	default:
 		return fmt.Errorf("unknown transport %q: must be stdio or http", transport)
 	}

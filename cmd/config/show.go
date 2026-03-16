@@ -15,9 +15,11 @@ var configShowCmd = &cobra.Command{
 
 		apiKey := viper.GetString("seerr.api_key")
 		if apiKey != "" {
-			masked := apiKey
+			// Show only the last 4 characters so the key is identifiable without
+			// exposing the prefix, which is the more sensitive portion.
+			var masked string
 			if len(apiKey) > 4 {
-				masked = apiKey[:4] + "****" + apiKey[len(apiKey)-4:]
+				masked = "********" + apiKey[len(apiKey)-4:]
 			} else {
 				masked = "****"
 			}

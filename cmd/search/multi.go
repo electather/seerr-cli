@@ -1,6 +1,9 @@
 package search
 
 import (
+	"net/url"
+	"strconv"
+
 	"seerr-cli/cmd/apiutil"
 
 	"github.com/spf13/cobra"
@@ -21,16 +24,28 @@ var multiCmd = &cobra.Command{
 		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 
-		req := apiClient.SearchAPI.SearchGet(ctx).Query(query)
+		params := url.Values{}
+		params.Set("query", query)
 		if cmd.Flags().Changed("page") {
-			req = req.Page(float32(page))
+			params.Set("page", strconv.Itoa(page))
 		}
 		if cmd.Flags().Changed("language") {
-			req = req.Language(language)
+			params.Set("language", language)
 		}
 
-		res, r, err := req.Execute()
-		return apiutil.HandleResponse(cmd, r, err, res, isVerbose, "SearchGet")
+		// Use a raw HTTP request to avoid the broken union-type unmarshal in the
+		// generated client (TV results are incorrectly parsed as PersonResult) and
+		// to ensure spaces are encoded as %20 rather than + in the query string.
+		b, err := apiutil.RawGet(ctx, apiClient, "/search", params)
+		if err != nil {
+			return err
+		}
+
+		if isVerbose {
+			cmd.Printf("GET /api/v1/search\n")
+		}
+		cmd.Println(string(b))
+		return nil
 	},
 }
 

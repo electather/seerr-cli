@@ -7,11 +7,15 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	api "seerr-cli/pkg/api"
 
 	"github.com/spf13/viper"
 )
+
+// DefaultHTTPClientTimeout is the timeout applied to all outbound API requests.
+const DefaultHTTPClientTimeout = 30 * time.Second
 
 // OverrideServerURL is used by tests to redirect API calls to a mock server.
 var OverrideServerURL string
@@ -101,9 +105,12 @@ func NewAPIClientWithKeyAndTransport(apiKey string, transport http.RoundTripper)
 	if key != "" {
 		configuration.AddDefaultHeader("X-Api-Key", key)
 	}
+	// Always set an explicit timeout so outbound requests cannot hang indefinitely.
+	httpClient := &http.Client{Timeout: DefaultHTTPClientTimeout}
 	if transport != nil {
-		configuration.HTTPClient = &http.Client{Transport: transport}
+		httpClient.Transport = transport
 	}
+	configuration.HTTPClient = httpClient
 	if OverrideServerURL != "" {
 		configuration.Servers = api.ServerConfigurations{{URL: OverrideServerURL, Description: "Mock Server"}}
 	}
