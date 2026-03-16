@@ -4,8 +4,10 @@ import (
 	"strconv"
 
 	"seerr-cli/cmd/apiutil"
+	"seerr-cli/internal/seerrclient"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var ratingsCombinedCmd = &cobra.Command{
@@ -15,15 +17,13 @@ var ratingsCombinedCmd = &cobra.Command{
 	Example: `  # Get combined ratings for The Matrix (ID 603)
   seerr-cli movies ratings-combined 603`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		apiClient, ctx, isVerbose := apiutil.NewAPIClient()
-
 		movieId, err := strconv.ParseInt(args[0], 10, 64)
 		if err != nil {
 			return err
 		}
 
-		res, r, err := apiClient.MoviesAPI.MovieMovieIdRatingscombinedGet(ctx, float32(movieId)).Execute()
-		return apiutil.HandleResponse(cmd, r, err, res, isVerbose, "MovieMovieIdRatingscombinedGet")
+		res, r, err := seerrclient.New().MovieRatingsCombined(int(movieId))
+		return apiutil.HandleResponse(cmd, r, err, res, viper.GetBool("verbose"), "MovieMovieIdRatingscombinedGet")
 	},
 }
 

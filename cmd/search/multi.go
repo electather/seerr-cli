@@ -1,12 +1,10 @@
 package search
 
 import (
-	"net/url"
-	"strconv"
-
-	"seerr-cli/cmd/apiutil"
+	"seerr-cli/internal/seerrclient"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var multiCmd = &cobra.Command{
@@ -18,30 +16,24 @@ var multiCmd = &cobra.Command{
   # Search for "Christopher Nolan" on the second page
   seerr-cli search multi -q "Christopher Nolan" --page 2`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		apiClient, ctx, isVerbose := newAPIClient()
-
 		query, _ := cmd.Flags().GetString("query")
 		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 
-		params := url.Values{}
-		params.Set("query", query)
-		if cmd.Flags().Changed("page") {
-			params.Set("page", strconv.Itoa(page))
+		// Zero out defaults so SearchMulti only includes explicitly-set params.
+		if !cmd.Flags().Changed("page") {
+			page = 0
 		}
-		if cmd.Flags().Changed("language") {
-			params.Set("language", language)
+		if !cmd.Flags().Changed("language") {
+			language = ""
 		}
 
-		// Use a raw HTTP request to avoid the broken union-type unmarshal in the
-		// generated client (TV results are incorrectly parsed as PersonResult) and
-		// to ensure spaces are encoded as %20 rather than + in the query string.
-		b, err := apiutil.RawGet(ctx, apiClient, "/search", params)
+		b, err := seerrclient.New().SearchMulti(query, page, language)
 		if err != nil {
 			return err
 		}
 
-		if isVerbose {
+		if viper.GetBool("verbose") {
 			cmd.Printf("GET /api/v1/search\n")
 		}
 		cmd.Println(string(b))

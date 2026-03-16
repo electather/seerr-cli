@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"seerr-cli/cmd/apiutil"
+	"seerr-cli/internal/seerrclient"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
@@ -116,21 +116,14 @@ func SearchMultiHandler() server.ToolHandlerFunc {
 		if query == "" {
 			return nil, fmt.Errorf("query is required")
 		}
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
 
 		// Fetch all genres concurrently while the search request is in flight.
 		genresCh := make(chan GenreMap, 1)
-		go func() { genresCh <- FetchAllGenres(callCtx, client) }()
+		go func() { genresCh <- FetchAllGenres(callCtx, sc.Unwrap()) }()
 
-		// Use a raw HTTP request to avoid the broken union-type unmarshal in the
-		// generated client (TV results are incorrectly parsed as PersonResult) and
-		// to ensure spaces are encoded as %20 rather than + in the query string.
-		params := url.Values{}
-		params.Set("query", query)
-		if page := req.GetFloat("page", 0); page > 0 {
-			params.Set("page", strconv.Itoa(int(page)))
-		}
-		b, err := apiutil.RawGet(callCtx, client, "/search", params)
+		page := int(req.GetFloat("page", 0))
+		b, err := sc.SearchMultiCtx(callCtx, query, page, "")
 		if err != nil {
 			return apiToolError("SearchGet failed", err)
 		}
@@ -144,11 +137,11 @@ func SearchMultiHandler() server.ToolHandlerFunc {
 
 func SearchDiscoverMoviesHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
 
 		// Fetch movie genres concurrently while the discover request is in flight.
 		genresCh := make(chan GenreMap, 1)
-		go func() { genresCh <- FetchMovieGenres(callCtx, client) }()
+		go func() { genresCh <- FetchMovieGenres(callCtx, sc.Unwrap()) }()
 
 		params := url.Values{}
 		if page := req.GetFloat("page", 0); page > 0 {
@@ -164,7 +157,7 @@ func SearchDiscoverMoviesHandler() server.ToolHandlerFunc {
 				params.Set(key, strconv.FormatFloat(v, 'f', -1, 64))
 			}
 		}
-		b, err := apiutil.RawGet(callCtx, client, "/discover/movies", params)
+		b, err := sc.RawGetCtx(callCtx, "/discover/movies", params)
 		if err != nil {
 			return apiToolError("DiscoverMoviesGet failed", err)
 		}
@@ -178,11 +171,11 @@ func SearchDiscoverMoviesHandler() server.ToolHandlerFunc {
 
 func SearchDiscoverTVHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
 
 		// Fetch TV genres concurrently while the discover request is in flight.
 		genresCh := make(chan GenreMap, 1)
-		go func() { genresCh <- FetchTVGenres(callCtx, client) }()
+		go func() { genresCh <- FetchTVGenres(callCtx, sc.Unwrap()) }()
 
 		params := url.Values{}
 		if page := req.GetFloat("page", 0); page > 0 {
@@ -198,7 +191,7 @@ func SearchDiscoverTVHandler() server.ToolHandlerFunc {
 				params.Set(key, strconv.FormatFloat(v, 'f', -1, 64))
 			}
 		}
-		b, err := apiutil.RawGet(callCtx, client, "/discover/tv", params)
+		b, err := sc.RawGetCtx(callCtx, "/discover/tv", params)
 		if err != nil {
 			return apiToolError("DiscoverTvGet failed", err)
 		}
@@ -216,8 +209,8 @@ func SearchCompanyHandler() server.ToolHandlerFunc {
 		if query == "" {
 			return nil, fmt.Errorf("query is required")
 		}
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
-		r := client.SearchAPI.SearchCompanyGet(callCtx).Query(query)
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
+		r := sc.Unwrap().SearchAPI.SearchCompanyGet(callCtx).Query(query)
 		if page := req.GetFloat("page", 0); page > 0 {
 			r = r.Page(float32(page))
 		}
@@ -239,8 +232,8 @@ func SearchKeywordHandler() server.ToolHandlerFunc {
 		if query == "" {
 			return nil, fmt.Errorf("query is required")
 		}
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
-		r := client.SearchAPI.SearchKeywordGet(callCtx).Query(query)
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
+		r := sc.Unwrap().SearchAPI.SearchKeywordGet(callCtx).Query(query)
 		if page := req.GetFloat("page", 0); page > 0 {
 			r = r.Page(float32(page))
 		}
@@ -258,17 +251,17 @@ func SearchKeywordHandler() server.ToolHandlerFunc {
 
 func SearchTrendingHandler() server.ToolHandlerFunc {
 	return func(callCtx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		client := newAPIClientWithKey(apiKeyFromContext(callCtx))
+		sc := seerrclient.NewWithKey(apiKeyFromContext(callCtx))
 
 		// Fetch all genres concurrently while the trending request is in flight.
 		genresCh := make(chan GenreMap, 1)
-		go func() { genresCh <- FetchAllGenres(callCtx, client) }()
+		go func() { genresCh <- FetchAllGenres(callCtx, sc.Unwrap()) }()
 
 		params := url.Values{}
 		if page := req.GetFloat("page", 0); page > 0 {
 			params.Set("page", strconv.Itoa(int(page)))
 		}
-		b, err := apiutil.RawGet(callCtx, client, "/discover/trending", params)
+		b, err := sc.DiscoverTrendingCtx(callCtx, params)
 		if err != nil {
 			return apiToolError("DiscoverTrendingGet failed", err)
 		}

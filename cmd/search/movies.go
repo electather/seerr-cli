@@ -1,9 +1,15 @@
 package search
 
 import (
-	"seerr-cli/cmd/apiutil"
+	"encoding/json"
+	"fmt"
+	"net/url"
+	"strconv"
+
+	"seerr-cli/internal/seerrclient"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var moviesCmd = &cobra.Command{
@@ -18,8 +24,6 @@ var moviesCmd = &cobra.Command{
   # Discover movies sorted by release date
   seerr-cli search movies --sort-by primary_release_date.desc`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		apiClient, ctx, isVerbose := newAPIClient()
-
 		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 		genre, _ := cmd.Flags().GetString("genre")
@@ -30,37 +34,54 @@ var moviesCmd = &cobra.Command{
 		releaseGte, _ := cmd.Flags().GetString("release-date-gte")
 		releaseLte, _ := cmd.Flags().GetString("release-date-lte")
 
-		req := apiClient.SearchAPI.DiscoverMoviesGet(ctx)
+		params := url.Values{}
 		if cmd.Flags().Changed("page") {
-			req = req.Page(float32(page))
+			params.Set("page", strconv.Itoa(page))
 		}
 		if cmd.Flags().Changed("language") {
-			req = req.Language(language)
+			params.Set("language", language)
 		}
 		if cmd.Flags().Changed("genre") {
-			req = req.Genre(genre)
+			params.Set("genre", genre)
 		}
 		if cmd.Flags().Changed("studio") {
-			req = req.Studio(float32(studio))
+			params.Set("studio", strconv.Itoa(studio))
 		}
 		if cmd.Flags().Changed("keywords") {
-			req = req.Keywords(keywords)
+			params.Set("keywords", keywords)
 		}
 		if cmd.Flags().Changed("exclude-keywords") {
-			req = req.ExcludeKeywords(excludeKeywords)
+			params.Set("excludeKeywords", excludeKeywords)
 		}
 		if cmd.Flags().Changed("sort-by") {
-			req = req.SortBy(sortBy)
+			params.Set("sortBy", sortBy)
 		}
 		if cmd.Flags().Changed("release-date-gte") {
-			req = req.PrimaryReleaseDateGte(releaseGte)
+			params.Set("primaryReleaseDateGte", releaseGte)
 		}
 		if cmd.Flags().Changed("release-date-lte") {
-			req = req.PrimaryReleaseDateLte(releaseLte)
+			params.Set("primaryReleaseDateLte", releaseLte)
 		}
 
-		res, r, err := req.Execute()
-		return apiutil.HandleResponse(cmd, r, err, res, isVerbose, "DiscoverMoviesGet")
+		b, err := seerrclient.New().DiscoverMovies(params)
+		if err != nil {
+			return err
+		}
+
+		if viper.GetBool("verbose") {
+			cmd.Printf("GET /api/v1/discover/movies\n")
+		}
+
+		var out interface{}
+		if err := json.Unmarshal(b, &out); err != nil {
+			return fmt.Errorf("failed to parse response: %w", err)
+		}
+		formatted, err := json.MarshalIndent(out, "", "  ")
+		if err != nil {
+			return fmt.Errorf("failed to format response: %w", err)
+		}
+		cmd.Println(string(formatted))
+		return nil
 	},
 }
 

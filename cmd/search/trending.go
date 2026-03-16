@@ -1,9 +1,15 @@
 package search
 
 import (
-	"seerr-cli/cmd/apiutil"
+	"encoding/json"
+	"fmt"
+	"net/url"
+	"strconv"
+
+	"seerr-cli/internal/seerrclient"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var trendingCmd = &cobra.Command{
@@ -15,29 +21,44 @@ var trendingCmd = &cobra.Command{
   # Get trending items for the week
   seerr-cli search trending --time-window week`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		apiClient, ctx, isVerbose := newAPIClient()
-
 		page, _ := cmd.Flags().GetInt("page")
 		language, _ := cmd.Flags().GetString("language")
 		mediaType, _ := cmd.Flags().GetString("media-type")
 		timeWindow, _ := cmd.Flags().GetString("time-window")
 
-		req := apiClient.SearchAPI.DiscoverTrendingGet(ctx)
+		params := url.Values{}
 		if cmd.Flags().Changed("page") {
-			req = req.Page(float32(page))
+			params.Set("page", strconv.Itoa(page))
 		}
 		if cmd.Flags().Changed("language") {
-			req = req.Language(language)
+			params.Set("language", language)
 		}
 		if cmd.Flags().Changed("media-type") {
-			req = req.MediaType(mediaType)
+			params.Set("mediaType", mediaType)
 		}
 		if cmd.Flags().Changed("time-window") {
-			req = req.TimeWindow(timeWindow)
+			params.Set("timeWindow", timeWindow)
 		}
 
-		res, r, err := req.Execute()
-		return apiutil.HandleResponse(cmd, r, err, res, isVerbose, "DiscoverTrendingGet")
+		b, err := seerrclient.New().DiscoverTrending(params)
+		if err != nil {
+			return err
+		}
+
+		if viper.GetBool("verbose") {
+			cmd.Printf("GET /api/v1/discover/trending\n")
+		}
+
+		var out interface{}
+		if err := json.Unmarshal(b, &out); err != nil {
+			return fmt.Errorf("failed to parse response: %w", err)
+		}
+		formatted, err := json.MarshalIndent(out, "", "  ")
+		if err != nil {
+			return fmt.Errorf("failed to format response: %w", err)
+		}
+		cmd.Println(string(formatted))
+		return nil
 	},
 }
 

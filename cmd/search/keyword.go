@@ -2,8 +2,10 @@ package search
 
 import (
 	"seerr-cli/cmd/apiutil"
+	"seerr-cli/internal/seerrclient"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var keywordCmd = &cobra.Command{
@@ -12,18 +14,17 @@ var keywordCmd = &cobra.Command{
 	Example: `  # Search for the "sci-fi" keyword
   seerr-cli search keyword -q "sci-fi"`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		apiClient, ctx, isVerbose := newAPIClient()
-
 		query, _ := cmd.Flags().GetString("query")
 		page, _ := cmd.Flags().GetInt("page")
 
-		req := apiClient.SearchAPI.SearchKeywordGet(ctx).Query(query)
+		sc := seerrclient.New()
+		req := sc.Unwrap().SearchAPI.SearchKeywordGet(sc.Ctx()).Query(query)
 		if cmd.Flags().Changed("page") {
 			req = req.Page(float32(page))
 		}
 
 		res, r, err := req.Execute()
-		return apiutil.HandleResponse(cmd, r, err, res, isVerbose, "SearchKeywordGet")
+		return apiutil.HandleResponse(cmd, r, err, res, viper.GetBool("verbose"), "SearchKeywordGet")
 	},
 }
 
