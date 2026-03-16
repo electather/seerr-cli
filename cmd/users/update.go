@@ -28,14 +28,21 @@ var updateCmd = &cobra.Command{
 		permissions, _ := cmd.Flags().GetFloat32("permissions")
 
 		body := api.UserUpdatePayload{}
+		changed := false
 		if cmd.Flags().Changed("username") {
 			body.Username = &username
+			changed = true
 		}
 		if cmd.Flags().Changed("email") {
 			body.Email = &email
+			changed = true
 		}
 		if cmd.Flags().Changed("permissions") {
 			body.Permissions = &permissions
+			changed = true
+		}
+		if !changed {
+			return fmt.Errorf("at least one field must be provided")
 		}
 
 		res, r, err := apiClient.UsersAPI.UserUserIdPut(ctx, float32(userId)).UserUpdatePayload(body).Execute()
