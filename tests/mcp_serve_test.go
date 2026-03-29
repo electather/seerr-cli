@@ -3,6 +3,7 @@ package tests
 import (
 	"context"
 	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -410,6 +411,118 @@ func TestMCPBlocklistListHandler(t *testing.T) {
 	text := resultText(t, result)
 
 	assert.Contains(t, text, `"results"`)
+}
+
+func TestMCPRequestCreateMovieHandler(t *testing.T) {
+	var capturedBody []byte
+	ts, cleanup := newMCPTestServer(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPost && r.URL.Path == "/api/v1/request" {
+			capturedBody, _ = io.ReadAll(r.Body)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusCreated)
+			w.Write([]byte(`{"id":1,"status":1,"media":{"mediaType":"movie"}}`))
+			return
+		}
+		w.WriteHeader(http.StatusNotFound)
+	})
+	defer cleanup()
+	_ = ts
+
+	handler := cmdmcp.RequestCreateHandler()
+	result := callTool(t, handler, map[string]any{
+		"mediaType": "movie",
+		"mediaId":   float64(550),
+	})
+	text := resultText(t, result)
+
+	assert.Contains(t, text, `"id"`)
+
+	var body map[string]interface{}
+	require.NoError(t, json.Unmarshal(capturedBody, &body))
+	assert.Equal(t, "movie", body["mediaType"])
+	assert.NotContains(t, body, "seasons", "movie requests must not send a seasons field")
+}
+
+func TestMCPRequestCreateTVSeasonsAll(t *testing.T) {
+	var capturedBody []byte
+	ts, cleanup := newMCPTestServer(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPost && r.URL.Path == "/api/v1/request" {
+			capturedBody, _ = io.ReadAll(r.Body)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusCreated)
+			w.Write([]byte(`{"id":2,"status":1,"media":{"mediaType":"tv"}}`))
+			return
+		}
+		w.WriteHeader(http.StatusNotFound)
+	})
+	defer cleanup()
+	_ = ts
+
+	handler := cmdmcp.RequestCreateHandler()
+	result := callTool(t, handler, map[string]any{
+		"mediaType": "tv",
+		"mediaId":   float64(1399),
+		"seasons":   "all",
+	})
+	text := resultText(t, result)
+
+	assert.Contains(t, text, `"id"`)
+
+	var body map[string]interface{}
+	require.NoError(t, json.Unmarshal(capturedBody, &body))
+	assert.Equal(t, "all", body["seasons"], "seasons=all must be forwarded as the string \"all\"")
+}
+
+func TestMCPRequestCreateTVSpecificSeasons(t *testing.T) {
+	var capturedBody []byte
+	ts, cleanup := newMCPTestServer(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPost && r.URL.Path == "/api/v1/request" {
+			capturedBody, _ = io.ReadAll(r.Body)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusCreated)
+			w.Write([]byte(`{"id":3,"status":1,"media":{"mediaType":"tv"}}`))
+			return
+		}
+		w.WriteHeader(http.StatusNotFound)
+	})
+	defer cleanup()
+	_ = ts
+
+	handler := cmdmcp.RequestCreateHandler()
+	result := callTool(t, handler, map[string]any{
+		"mediaType": "tv",
+		"mediaId":   float64(1399),
+		"seasons":   "1,2",
+	})
+	text := resultText(t, result)
+
+	assert.Contains(t, text, `"id"`)
+
+	var body map[string]interface{}
+	require.NoError(t, json.Unmarshal(capturedBody, &body))
+	seasons, ok := body["seasons"].([]interface{})
+	require.True(t, ok, "seasons must be a JSON array")
+	assert.Equal(t, []interface{}{float64(1), float64(2)}, seasons)
+}
+
+func TestMCPRequestCreateInvalidSeason(t *testing.T) {
+	ts, cleanup := newMCPTestServer(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusNotFound)
+	})
+	defer cleanup()
+	_ = ts
+
+	handler := cmdmcp.RequestCreateHandler()
+	req := mcp.CallToolRequest{}
+	req.Params.Arguments = map[string]any{
+		"mediaType": "tv",
+		"mediaId":   float64(1399),
+		"seasons":   "1,abc",
+	}
+	result, err := handler(context.Background(), req)
+	require.NoError(t, err)
+	require.NotNil(t, result)
+	assert.True(t, result.IsError, "invalid season number must produce a tool error")
 }
 
 // --- API key context propagation test ---

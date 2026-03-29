@@ -3,6 +3,8 @@ package mcp
 import (
 	"context"
 	"encoding/json"
+	"strconv"
+	"strings"
 
 	api "seerr-cli/pkg/api"
 
@@ -44,6 +46,7 @@ func registerRequestTools(s *server.MCPServer) {
 			mcp.WithIdempotentHintAnnotation(false),
 			mcp.WithString("mediaType", mcp.Required(), mcp.Description("Media type: movie or tv")),
 			mcp.WithNumber("mediaId", mcp.Required(), mcp.Description("TMDB media ID")),
+			mcp.WithString("seasons", mcp.Description(`Seasons to request (required for tv): "all" or comma-separated numbers e.g. "1,2,3"`)),
 			mcp.WithBoolean("is4k", mcp.Description("Request 4K version")),
 		),
 		RequestCreateHandler(),
@@ -159,6 +162,23 @@ func RequestCreateHandler() server.ToolHandlerFunc {
 			return nil, err
 		}
 		body := api.NewRequestPostRequest(mediaType, float32(mediaId))
+		if seasons := req.GetString("seasons", ""); seasons != "" {
+			if seasons == "all" {
+				s := "all"
+				body.SetSeasons(api.StringAsRequestPostRequestSeasons(&s))
+			} else {
+				parts := strings.Split(seasons, ",")
+				nums := make([]float32, 0, len(parts))
+				for _, p := range parts {
+					n, err := strconv.ParseInt(strings.TrimSpace(p), 10, 64)
+					if err != nil {
+						return mcp.NewToolResultError("invalid season number: " + p), nil
+					}
+					nums = append(nums, float32(n))
+				}
+				body.SetSeasons(api.ArrayOfFloat32AsRequestPostRequestSeasons(&nums))
+			}
+		}
 		if is4k := req.GetBool("is4k", false); is4k {
 			body.Is4k = &is4k
 		}
